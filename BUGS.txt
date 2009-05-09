@@ -1,0 +1,3 @@
+--might be fixed--the game sometimes keeps running/does no increase level on all bot death.
+
+need to figure out how to position the frames in the middle of the screen
