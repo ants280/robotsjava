@@ -96,7 +96,7 @@ public class Game extends JPanel
 	/**
 	 * Creates a new Game. Cals resetBoard to add the board.
 	 */
-	Game()
+	public Game()
 	{
 		super();
 		generator = new Random();
@@ -120,8 +120,6 @@ public class Game extends JPanel
 	
 	/**
 	 * Paints the board.
-	 *
-	 * @deprecated This should only be called by void printBoard() (internally). 
 	 */
 	public void paint(Graphics g)
 	{
@@ -159,13 +157,13 @@ public class Game extends JPanel
 					image = locationImage;
 				}
 				g.drawImage(image, 20 * col, 20 * row, null);
-				g.setColor(Color.BLACK);
 			}	
     		}
-	g.drawLine(0, 0, 0, 20 * ROWS);
-	g.drawLine(0, 0, 20 * COLS, 0);
-	g.drawLine(0, 20 * ROWS, 20 * COLS, 20 * ROWS);
-	g.drawLine(20 * COLS, 0, 20 * COLS, 20 * ROWS);
+		g.setColor(Color.BLACK);
+		g.drawLine(0, 0, 0, 20 * ROWS);
+		g.drawLine(0, 0, 20 * COLS, 0);
+		g.drawLine(0, 20 * ROWS, 20 * COLS, 20 * ROWS);
+		g.drawLine(20 * COLS, 0, 20 * COLS, 20 * ROWS);
 	}
 
 	/**
@@ -282,6 +280,7 @@ public class Game extends JPanel
 		board = tempBoard;
 	}
 
+	// Creates a new array of Locations the size of the board.  Each Location refers to its spot int te array.
 	private Location[][] createBoard()
 	{
 		Location[][] temp = new Location[ROWS][COLS];
@@ -295,9 +294,7 @@ public class Game extends JPanel
 		return temp;
 	}
 
-	/**
-	 * Puts the robots on the board.  Should be called only for a clear board.
-	 */
+	// Puts the robots on the board.  Should be called only for a clear board.
 	private void fillBots()
 	{
 		int row, col;
@@ -326,8 +323,7 @@ public class Game extends JPanel
 		human = new Player(ROWS / 2, COLS / 2, generator, ROWS, COLS);
 		board = createBoard();
 		board[ROWS / 2][COLS / 2] = human;
-		this.fillBots();
-
+		fillBots();
 	}
 
 	/**
