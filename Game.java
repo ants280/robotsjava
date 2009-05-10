@@ -29,9 +29,15 @@ public class Game extends JPanel
 	protected Random generator;
 
 	/**
-	 * The length of the board.
+	 * The width of the board.
 	 */
-	protected final int SIDE;
+	protected final int ROWS;
+
+	/**
+	 * The width of the board.
+	 */
+	protected final int COLS;
+
 
 	/**
 	 * The container of all the Locations.
@@ -94,9 +100,10 @@ public class Game extends JPanel
 	{
 		super();
 		generator = new Random();
-		SIDE = 20;
+		ROWS = 30;
+		COLS = 40;
 		resetBoard();
-		dimension = new Dimension((SIDE * 20) + 10, (SIDE * 20) + 10);
+		dimension = new Dimension((COLS * 20) + 10, (ROWS * 20) + 10);
 		try
 		{
 			playerAliveImage = ImageIO.read(new File("PlayerAlive.jpg"));
@@ -120,12 +127,12 @@ public class Game extends JPanel
 	{
 		this.setSize(dimension);
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, (SIDE * 20) + 10, (SIDE * 20) + 10);
+		g.fillRect(0, 0, (ROWS * 20) + 10, (COLS * 20) + 10);
 		g.fillOval(50, 50, 20, 20);
 		Image image;
-  		for(int row = 0; row < SIDE; row++)
+  		for(int row = 0; row < ROWS; row++)
 		{
-			for(int col = 0; col < SIDE; col++)
+			for(int col = 0; col < COLS; col++)
 			{
 				if(board[row][col] instanceof Player)
 				{
@@ -155,10 +162,10 @@ public class Game extends JPanel
 				g.setColor(Color.BLACK);
 			}	
     		}
-	g.drawLine(0, 0, 0, 20 * SIDE);
-	g.drawLine(0, 0, 20 * SIDE, 0);
-	g.drawLine(0, 20 * SIDE, 20 * SIDE, 20 * SIDE);
-	g.drawLine(20 * SIDE, 0, 20 * SIDE, 20 * SIDE);
+	g.drawLine(0, 0, 0, 20 * ROWS);
+	g.drawLine(0, 0, 20 * COLS, 0);
+	g.drawLine(0, 20 * ROWS, 20 * COLS, 20 * ROWS);
+	g.drawLine(20 * COLS, 0, 20 * COLS, 20 * ROWS);
 	}
 
 	/**
@@ -173,27 +180,25 @@ public class Game extends JPanel
 		System.out.println("  1 = Robot");
 		System.out.println("  * = Wreck");
 		System.out.println("  # = Player (X = DEAD)");
-		for(int c = -1; c <= SIDE; c++)
+		for(int c = -1; c <= COLS; c++)
 		{
-			System.out.print('-');
+			System.out.print('-';
 		}
 		System.out.println();
-		for(int r = 0; r < SIDE; r++)
+		for(int r = 0; r < ROWS; r++)
 		{
-			System.out.print('|');
-			for(int c = 0; c < SIDE; c++)
+			System.out.print(('|');
+			for(int c = 0; c < COLS; c++)
 			{
 				System.out.print(board[r][c].value());
 			}
 			System.out.println('|');
 		}
-		for(int c
-	       	= -1; c <= SIDE; c++)
+		for(int c = -1; c < COLS, c++)
 		{
 			System.out.print('-');
 		}
 		System.out.println();
-		//System.out.println(level + "NumBots = " + numBots);
 		*/
 		paint(this.getGraphics());
 	}
@@ -206,9 +211,9 @@ public class Game extends JPanel
 		Location[][] tempBoard = createBoard();
 		tempBoard[human.getRow()][human.getCol()] = human; 
 		int tempCol, tempRow, colsTo, rowsTo,  tempScore = 0;
-		for(int boardRow = 0; boardRow < SIDE; boardRow++)
+		for(int boardRow = 0; boardRow < ROWS; boardRow++)
 		{
-			for(int boardCol = 0; boardCol < SIDE; boardCol++)
+			for(int boardCol = 0; boardCol < COLS; boardCol++)
 			{
 				if(board[boardRow][boardCol] instanceof Wreck)
 				{
@@ -279,10 +284,10 @@ public class Game extends JPanel
 
 	private Location[][] createBoard()
 	{
-		Location[][] temp = new Location[SIDE][SIDE];
-		for(int row = 0; row < SIDE; row++)
+		Location[][] temp = new Location[ROWS][COLS];
+		for(int row = 0; row < ROWS; row++)
 		{
-			for(int col = 0; col < SIDE; col++)
+			for(int col = 0; col < COLS; col++)
 			{
 				temp[row][col] = new Location(row, col);
 			}
@@ -299,8 +304,8 @@ public class Game extends JPanel
 		this.setNumBots(level + 1);
 		for(int n = 0; n < numBots; n++)
 		{
-			row = generator.nextInt(SIDE);
-			col = generator.nextInt(SIDE);
+			row = generator.nextInt(ROWS);
+			col = generator.nextInt(COLS);
 			if(!board[row][col].getClass().getName().equals( "Location"))
 			{
 				n--;
@@ -318,9 +323,9 @@ public class Game extends JPanel
 	public void increaseLevel()
 	{
 		level++;
-		human = new Player(SIDE / 2, SIDE / 2, generator, SIDE);
+		human = new Player(ROWS / 2, COLS / 2, generator, ROWS, COLS);
 		board = createBoard();
-		board[SIDE / 2][SIDE / 2] = human;
+		board[ROWS / 2][COLS / 2] = human;
 		this.fillBots();
 
 	}
@@ -392,6 +397,7 @@ public class Game extends JPanel
 		return false;
 	}
 
+	//Returns a list of valid locations around the specified location.
 	private Location[] locsAround(Location loc)
 	{
 		Location[] locationList = new Location[8];
@@ -412,9 +418,10 @@ public class Game extends JPanel
 		return locationList;
 	}
 
+	//Tells if a Location is on the board.
 	private boolean isValid(Location loc)
 	{
- 		if(loc.getRow() >= 0 && loc.getRow() < SIDE && loc.getCol() >= 0 && loc.getCol() < SIDE)
+ 		if(loc.getRow() >= 0 && loc.getRow() < ROWS && loc.getCol() >= 0 && loc.getCol() < COLS)
 		{
 			return true;
 		}

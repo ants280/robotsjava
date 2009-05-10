@@ -69,13 +69,13 @@ public abstract class RobotGUI extends JFrame implements KeyListener, ActionList
 		southToolBar.add(scoreLabel);
 	//	southToolBar.add(highScoresButton);
 	//	southToolBar.add(settingsButton);
-	//.	southToolBar.add(aboutButton);
+	//	southToolBar.add(aboutButton);
 		southToolBar.setFloatable(false);
 		
 		this.add(game, BorderLayout.CENTER);
 		this.add(southToolBar, BorderLayout.SOUTH);
 		this.addKeyListener(this); 
-		this.setSize(420, 470);
+		this.setSize(820, 670);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 

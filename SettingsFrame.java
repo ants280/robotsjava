@@ -98,12 +98,12 @@ public class SettingsFrame extends JFrame implements ActionListener
 //Add new button selecton modes HERE. Should be an "else if".  The Command should be the same as the button's text. DO NOT DELETE THIS.
 			if(command.equals("ok"))
 			{
-				this.closeSettingsFrame();
+				closeSettingsFrame();
 			}
 		}
 		else if(command.equals("close"))
 		{
-			this.closeSettingsFrame();
+			closeSettingsFrame();
 		}
 		else //command is a radioButton press
 		{

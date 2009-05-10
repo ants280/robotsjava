@@ -13,7 +13,7 @@ public class SafeTeleportsGame extends Game
 	public SafeTeleportsGame()
 	{
 		super();
-		this.safeTeleportsLabel = new JLabel("Safe Teleports: 0");
+		safeTeleportsLabel = new JLabel("Safe Teleports: 0");
 	}
 
 	/**
@@ -21,9 +21,9 @@ public class SafeTeleportsGame extends Game
 	 */
 	protected void setNumBots(int numBots)
 	{
-		if(numBots > SIDE * SIDE / 2)
+		if(numBots > ROWS * COLS / 2)
 		{
-			super.setNumBots(SIDE * SIDE / 2);
+			super.setNumBots(ROWS * COLS / 2);
 		}
 		else
 		{
@@ -44,10 +44,10 @@ public class SafeTeleportsGame extends Game
 			int row, col;
 			do
 			{
-				row = generator.nextInt(SIDE);
-				col = generator.nextInt(SIDE);
+				row = generator.nextInt(ROWS);
+				col = generator.nextInt(COLS);
 			}
-			while(!super.isValid(board[row][col], Direction.SAME));
+			while(!isValid(board[row][col], Direction.SAME));
 			human.changePositionTo(row, col);
 			board[row][col] = human;
 			updateBoard();
