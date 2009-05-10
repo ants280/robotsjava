@@ -1,5 +1,5 @@
 del .\*.class
-..\java\bin\javac.exe Program.java
-..\java\bin\java.exe Program
+javac.exe Program.java
+java.exe Program
 
 pause
