@@ -1,3 +1,5 @@
+//import java.awt.Canvas;
+import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -5,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 import java.awt.Dimension;
 
 /**
@@ -21,8 +22,6 @@ public class Game extends JPanel
 	private Image playerDeadImage;
 	private Image robotImage;
 	private Image wreckImage;
-	private Image locationImage;
-
 	/**
 	 * Used to randomly teleport the Player.
 	 */
@@ -98,7 +97,7 @@ public class Game extends JPanel
 	 */
 	public Game()
 	{
-		super();
+		super(false);
 		generator = new Random();
 		ROWS = 30;
 		COLS = 40;
@@ -110,7 +109,6 @@ public class Game extends JPanel
 			playerDeadImage = ImageIO.read(new File("PlayerDead.jpg"));
 			robotImage = ImageIO.read(new File("Robot.jpg"));
 			wreckImage = ImageIO.read(new File("Wreck.jpg"));
-			locationImage = ImageIO.read(new File("Location.jpg"));
 		}
 		catch(IOException ex)
 		{
@@ -125,13 +123,15 @@ public class Game extends JPanel
 	{
 		this.setSize(dimension);
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, (ROWS * 20) + 10, (COLS * 20) + 10);
-		g.fillOval(50, 50, 20, 20);
+		g.fillRect(0, 0, (COLS * 20) + 10, (ROWS * 20) + 10);
 		Image image;
+		g.setColor(Color.LIGHT_GRAY);
   		for(int row = 0; row < ROWS; row++)
 		{
 			for(int col = 0; col < COLS; col++)
 			{
+				g.drawLine(20 * col, 0, (20 * col) + 0, (20 * row) + 20);
+				g.drawLine(0, 20 * row, (20 * col) + 20, (20 * row) + 0);
 				if(board[row][col] instanceof Player)
 				{
 					if( ((Player)board[row][col]).isAlive())
@@ -150,16 +150,14 @@ public class Game extends JPanel
 				else if(board[row][col] instanceof Wreck)
 				{
 					image = wreckImage;
-					
 				}
 				else
 				{
-					image = locationImage;
+					image = null;
 				}
 				g.drawImage(image, 20 * col, 20 * row, null);
 			}	
     		}
-		g.setColor(Color.BLACK);
 		g.drawLine(0, 0, 0, 20 * ROWS);
 		g.drawLine(0, 0, 20 * COLS, 0);
 		g.drawLine(0, 20 * ROWS, 20 * COLS, 20 * ROWS);
@@ -208,7 +206,7 @@ public class Game extends JPanel
 	{
 		Location[][] tempBoard = createBoard();
 		tempBoard[human.getRow()][human.getCol()] = human; 
-		int tempCol, tempRow, colsTo, rowsTo,  tempScore = 0;
+		int colsTo, rowsTo, tempCol, tempRow, tempScore = 0;
 		for(int boardRow = 0; boardRow < ROWS; boardRow++)
 		{
 			for(int boardCol = 0; boardCol < COLS; boardCol++)
@@ -253,7 +251,6 @@ public class Game extends JPanel
 					if(tempBoard[tempRow][tempCol] instanceof Player)
 					{
 						human.die();
-
 					}
 					else if(tempBoard[tempRow][tempCol] instanceof Robot)
 					{
