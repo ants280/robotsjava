@@ -10,9 +10,9 @@ public class NameGetterFrame extends JFrame implements ActionListener
 	private final int score;
 	private HighScoresFrame highScoresFrame;
 	private JTextField inputField;
-	private RobotGUI currentGUI;
+	private Gui currentGUI;
 
-	public NameGetterFrame(HighScoresFrame highScoresFrame, final int score, RobotGUI currentGUI)
+	public NameGetterFrame(HighScoresFrame highScoresFrame, final int score, Gui currentGUI)
 	{
 		super("Congragulations!");
 		this.highScoresFrame = highScoresFrame;

@@ -1,7 +1,7 @@
 /**
  * The classic version of the game.  Only Robots and random teleporting.
  */
-public class ClassicGUI extends RobotGUI
+public class ClassicGUI extends Gui
 {
 	/**
 	 * Constructor for the GUI.  Everything set to default values.

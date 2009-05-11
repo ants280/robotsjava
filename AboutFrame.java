@@ -10,14 +10,14 @@ import javax.swing.JFrame;
  */
 public class AboutFrame extends JFrame implements ActionListener
 {
-	private RobotGUI currentGUI;
+	private Gui currentGUI;
 
 	/**
 	 * Constructs an AboutFrame.
 	 *
 	 * @param currentGUI The current type of GUI the player is using.  For hiding the GUI when the AboutFrame is clicked.
 	 */
-	public AboutFrame(RobotGUI currentGUI)
+	public AboutFrame(Gui currentGUI)
 	{
 		super("About Robots");
 		this.currentGUI = currentGUI;

@@ -13,7 +13,7 @@ import java.lang.Thread;
  * The home control point for the game.  Includes options and information about the game.
  * TODO: get buttons to work with keylistener.
  */
-public abstract class RobotGUI extends JFrame implements KeyListener, ActionListener
+public abstract class Gui extends JFrame implements KeyListener, ActionListener
 {
 	/**
 	 * Abstracte Method to tell type of game.  Used for options such as game type selection and high score viewing.
@@ -39,7 +39,7 @@ public abstract class RobotGUI extends JFrame implements KeyListener, ActionList
 	/**
 	 * Creates a default, classic game.  Sets up all componets and some frames
 	 */
-	public RobotGUI(Game game)
+	public Gui(Game game)
 	{
 		super();
 		super.setTitle("Robots - " + this.getGameType().toLowerCase() + " mode.");

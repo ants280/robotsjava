@@ -10,7 +10,7 @@ import javax.swing.JFrame;
  */ 
 public class GameRestarterFrame extends JFrame implements ActionListener
 {
-	private RobotGUI currentGUI;
+	private Gui currentGUI;
 	private Game game;
 	private JLabel levelLabel;
 	private JLabel scoreLabel;
@@ -23,7 +23,7 @@ public class GameRestarterFrame extends JFrame implements ActionListener
 	 * @param levelLabel Resets the level label if the game restarts.
 	 * @param scoreLabel Resets the score label if the game restarts.
 	 */
-	public GameRestarterFrame(RobotGUI currentGUI, Game game, JLabel levelLabel, JLabel scoreLabel)
+	public GameRestarterFrame(Gui currentGUI, Game game, JLabel levelLabel, JLabel scoreLabel)
 	{
 		super("Restart?");
 		this.currentGUI = currentGUI;

@@ -6,7 +6,7 @@ import javax.swing.JLabel;
 /**
  * A robots game with safe teleports.  On each level completion the player is granted a teleport that will not result in death.  The player can still teleport randomly by pressing '*' even when he/she has available safe teleports.
  */
-public class SafeTeleportsGUI extends RobotGUI
+public class SafeTeleportsGUI extends Gui
 {
 	/**
 	 * Creates a Robots game with safe teleports.

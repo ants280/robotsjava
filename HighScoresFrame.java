@@ -22,7 +22,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	private JFrame resetDialougeFrame;
 	private GameRestarterFrame gameRestarterFrame;
 	private HashMap<String, TreeMap<Integer, String>> scoresList;
-	private RobotGUI currentGUI;
+	private Gui currentGUI;
 	
 	//For restarting the game on frame close.
 	private boolean restartGame;
@@ -32,7 +32,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	 *
 	 * @param currentGUI The current type of GUI the player is using.  For hiding the GUI when the AboutFrame is clicked.
 	 */
-	public HighScoresFrame(RobotGUI currentGUI, GameRestarterFrame gameRestarterFrame)
+	public HighScoresFrame(Gui currentGUI, GameRestarterFrame gameRestarterFrame)
 	{
 		super("High Scores");
 		this.currentGUI = currentGUI;
@@ -261,12 +261,15 @@ public class HighScoresFrame extends JFrame implements ActionListener
 		if(!visible)
 		{
 			this.saveScores();
+			super.setVisible(false);
 			if(restartGame)
 			{
 				gameRestarterFrame.setVisible(true);
 			}
-			super.setVisible(false);
-			currentGUI.setVisible(true);
+			else
+			{
+				currentGUI.setVisible(true);
+			}
 		}
 		else
 		{
