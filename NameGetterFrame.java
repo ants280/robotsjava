@@ -5,6 +5,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+
+/**
+ * Gets the player's name for a new high score.
+ */
 public class NameGetterFrame extends JFrame implements ActionListener
 {
 	private final int score;
