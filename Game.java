@@ -438,7 +438,7 @@ public class Game extends JPanel
 	 * Gets a list of valid locations around the specified location.
 	 *
 	 * @param loc The location to get the list of locations around.
-	 * @Return The list of locations.
+	 * @return The list of locations.
 	 */
 	protected Location[] locsAround(Location loc)
 	{
