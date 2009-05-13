@@ -137,7 +137,7 @@ public class Game extends JPanel
 			{
 				g.drawLine(20 * col, 0, (20 * col) + 0, (20 * row) + 20);
 				g.drawLine(0, 20 * row, (20 * col) + 20, (20 * row) + 0);
-				g.drawImage(getImage(row, col), 20 * col, 20 * row, null);
+				g.drawImage( getImage(row, col), 20 * col, 20 * row, null);
 			}	
     		}
 		g.drawLine(0, 0, 0, 20 * ROWS);
@@ -252,6 +252,7 @@ public class Game extends JPanel
 			if(tempBoard[boardRow][boardCol] instanceof Robot)
 			{
 				numBots -= 1;
+				tempBoard[boardRow][boardCol] = board[boardRow][boardCol];
 				return 1;
 			}
 			tempBoard[boardRow][boardCol] = board[boardRow][boardCol];
@@ -267,12 +268,12 @@ public class Game extends JPanel
 			else if(rowsTo > 0)
 			{
 				tempRow = boardRow + 1;
-				}
+			}
 			else
 			{
 				tempRow = boardRow;
 			}
-				if(colsTo < 0)
+			if(colsTo < 0)
 			{
 				tempCol = boardCol - 1;
 			}
@@ -337,9 +338,21 @@ public class Game extends JPanel
 			}
 			else
 			{
-				board[row][col] = new Robot(row, col);
+				addEnemy(row, col, n);
 			}
 		}
+	}
+
+	/**
+	 * Decides what enemy to add.
+	 *
+	 * @param row The row to add the enemy to.
+	 * @param col The column to add the enemy to.
+	 * @param pos The nth enemy being added.
+	 */
+	protected void addEnemy(int row, int col, int pos)
+	{
+		board[row][col] = new Robot(row, col);
 	}
 
 	/**
