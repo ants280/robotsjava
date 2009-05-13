@@ -1,17 +1,10 @@
 Here are the places you need to need to update for the Gui to work well with your new game type:
 
-HighScores.txt: Add the following lines to the end of the file with sme newlines between the other game's highScores:
-"
-Your Game-mode type //RobotGUI.getGameType()
-player1 10
-player2 20
-player3 30
-player4 40
-player5 50
-"
-
 In the SettingsFrame.java:
 	Add button to the "radioButton addition section."  This should look exactly like the old added buttons, except that the names and constructors should be different. The button must be added to the group and have a good name, similar to the gui's getGameType().
 	Add another "else if" block to the actionPerformed(ActionEvent) method in the specified location.  This should be before the "if(command.equals("ok"))" line in the "apply || ok" if block.  The content of the "else if" statement should set "currentGUI" to a new gameMode of the Game-mode type you are adding.
+
+HighScores.txt:
+	To get High scores all you have to do is change to the game mode to the mode you just added, then reset the high scores. (Yes, the frame should be empty before you reset the high scores for your new game mode)
 	
-	
+

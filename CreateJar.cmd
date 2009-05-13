@@ -1,5 +1,6 @@
 del .\Robots.jar
-del .\*.class
-javac.exe Program.java
-jar.exe cfm Robots.jar manifest.txt *.class
+md build
+del build\*.class
+javac.exe -d build Program.java
+jar.exe cfm Robots.jar build\manifest.txt build\*.class
 pause

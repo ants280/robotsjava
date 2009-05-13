@@ -1,4 +1,3 @@
-//import java.awt.Canvas;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -47,12 +46,6 @@ public class Game extends JPanel
 	 * The only Player on the board
 	 */
 	protected Player human;
-	/**
-	 * Getter for the board.
-	 *
-	 * @return The board.
-	 */
-	public Location[][] getBoard() { return board; }
 
 	/**
 	 * Getter for the player. There should only be 1 player (human).
@@ -93,6 +86,11 @@ public class Game extends JPanel
 	}
 
 	/**
+	 * Used for updating the board with updateBoard(int, int). Is cleared on each player move.
+	 */
+	protected Location[][] tempBoard;
+
+	/**
 	 * Creates a new Game. Cals resetBoard to add the board.
 	 */
 	public Game()
@@ -103,6 +101,14 @@ public class Game extends JPanel
 		COLS = 40;
 		resetBoard();
 		dimension = new Dimension((COLS * 20) + 10, (ROWS * 20) + 10);
+		initializeImages();
+	}
+	
+	/**
+	 * Initializes the images of the painted Locations.
+	 */
+	protected void initializeImages()
+	{
 		try
 		{
 			playerAliveImage = ImageIO.read(new File("PlayerAlive.jpg"));
@@ -115,7 +121,7 @@ public class Game extends JPanel
 			ex.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Paints the board.
 	 */
@@ -124,7 +130,6 @@ public class Game extends JPanel
 		this.setSize(dimension);
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, (COLS * 20) + 10, (ROWS * 20) + 10);
-		Image image;
 		g.setColor(Color.LIGHT_GRAY);
   		for(int row = 0; row < ROWS; row++)
 		{
@@ -132,36 +137,47 @@ public class Game extends JPanel
 			{
 				g.drawLine(20 * col, 0, (20 * col) + 0, (20 * row) + 20);
 				g.drawLine(0, 20 * row, (20 * col) + 20, (20 * row) + 0);
-				if(board[row][col] instanceof Player)
-				{
-					if( ((Player)board[row][col]).isAlive())
-					{
-						image = playerAliveImage;
-					}
-					else
-					{
-						image = playerDeadImage;
-					}
-				}
-				else if(board[row][col] instanceof Robot)
-				{
-					image = robotImage;
-				}
-				else if(board[row][col] instanceof Wreck)
-				{
-					image = wreckImage;
-				}
-				else
-				{
-					image = null;
-				}
-				g.drawImage(image, 20 * col, 20 * row, null);
+				g.drawImage(getImage(row, col), 20 * col, 20 * row, null);
 			}	
     		}
 		g.drawLine(0, 0, 0, 20 * ROWS);
 		g.drawLine(0, 0, 20 * COLS, 0);
 		g.drawLine(0, 20 * ROWS, 20 * COLS, 20 * ROWS);
 		g.drawLine(20 * COLS, 0, 20 * COLS, 20 * ROWS);
+	}
+
+	/**
+	 * Gets the image for location in the grid.
+	 *
+	 * @param row The row of the location on the board to get the image for
+	 * @param col The column of the location on the board to get the image for.
+	 * @return The image of the board's row and column.
+	 */
+	protected Image getImage(int row, int col)
+	{
+		if(board[row][col] instanceof Player)
+		{
+			if( ((Player)board[row][col]).isAlive())
+			{
+				return playerAliveImage;
+			}
+			else
+			{
+				return playerDeadImage;
+			}
+		}
+		else if(board[row][col] instanceof Robot)
+		{
+			return robotImage;
+		}
+		else if(board[row][col] instanceof Wreck)
+		{
+			return wreckImage;
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	/**
@@ -204,70 +220,14 @@ public class Game extends JPanel
 	 */
 	protected void updateBoard()
 	{
-		Location[][] tempBoard = createBoard();
+		int tempScore = 0;
+		tempBoard = createBoard();
 		tempBoard[human.getRow()][human.getCol()] = human; 
-		int colsTo, rowsTo, tempCol, tempRow, tempScore = 0;
 		for(int boardRow = 0; boardRow < ROWS; boardRow++)
 		{
 			for(int boardCol = 0; boardCol < COLS; boardCol++)
 			{
-				if(board[boardRow][boardCol] instanceof Wreck)
-				{
-					if(tempBoard[boardRow][boardCol] instanceof Robot)
-					{
-						tempScore += 1;
-						numBots -= 1;
-					}
-					tempBoard[boardRow][boardCol] = board[boardRow][boardCol];
-				}
-				else if(board[boardRow][boardCol] instanceof Robot)
-				{
-					rowsTo = human.getRow() - boardRow;
-					colsTo = human.getCol() - boardCol;
-					if(rowsTo < 0)
-					{
-						tempRow = boardRow - 1;
-					}
-					else if(rowsTo > 0)
-					{
-						tempRow = boardRow + 1;
-					}
-					else
-					{
-						tempRow = boardRow;
-					}
-					if(colsTo < 0)
-					{
-						tempCol = boardCol - 1;
-					}
-					else if(colsTo > 0)
-					{
-						tempCol = boardCol + 1;
-					}		
-					else
-					{
-						tempCol = boardCol;
-					}
-					if(tempBoard[tempRow][tempCol] instanceof Player)
-					{
-						human.die();
-					}
-					else if(tempBoard[tempRow][tempCol] instanceof Robot)
-					{
-						tempScore += 2;
-						numBots -= 2;
-						tempBoard[tempRow][tempCol] = new Wreck(tempRow, tempCol);
-					}
-					else if(tempBoard[tempRow][tempCol] instanceof Wreck)
-					{
-						tempScore += 1;
-						numBots -= 1;
-					}
-					else //(tempBoard[tempRow][tempCol] instanceof Location)
-					{
-						tempBoard[tempRow][tempCol] = board[boardRow][boardCol];
-					}
-				}
+				tempScore += updateBoard(boardRow, boardCol);
 			}
 		}
 		if(human.isAlive())
@@ -276,6 +236,77 @@ public class Game extends JPanel
 		}
 		board = tempBoard;
 	}
+
+	/**
+	 * Used for updating the board. Called for each location. Saves the new piece to a location on the tempBoard.  If the selected piece lands on another piece on the tempBoard, A Wreck should created in the spot with the spot's location.
+	 *
+	 * @param boardRow The row of the piece being moved.
+	 * @param boardCol The column of the piece being moved.
+	 * @return Returns 1 if the piece to move dies.  Returns 2 if lands on another piece.  Otherwise, returns 0.
+	 */
+	protected int updateBoard(int boardRow, int boardCol)
+	{
+		int rowsTo, colsTo, tempRow, tempCol;
+		if(board[boardRow][boardCol] instanceof Wreck)
+		{
+			if(tempBoard[boardRow][boardCol] instanceof Robot)
+			{
+				numBots -= 1;
+				return 1;
+			}
+			tempBoard[boardRow][boardCol] = board[boardRow][boardCol];
+		}
+		else if(board[boardRow][boardCol] instanceof Robot)
+		{
+			rowsTo = human.getRow() - boardRow;
+			colsTo = human.getCol() - boardCol;
+			if(rowsTo < 0)
+			{
+				tempRow = boardRow - 1;
+			}
+			else if(rowsTo > 0)
+			{
+				tempRow = boardRow + 1;
+				}
+			else
+			{
+				tempRow = boardRow;
+			}
+				if(colsTo < 0)
+			{
+				tempCol = boardCol - 1;
+			}
+			else if(colsTo > 0)
+			{
+				tempCol = boardCol + 1;
+			}		
+			else
+			{
+				tempCol = boardCol;
+			}
+			if(tempBoard[tempRow][tempCol] instanceof Player)
+			{
+				human.die();
+			}
+			else if(tempBoard[tempRow][tempCol] instanceof Robot)
+			{
+				numBots -= 2;
+				tempBoard[tempRow][tempCol] = new Wreck(tempRow, tempCol);
+				return 2;
+			}
+			else if(tempBoard[tempRow][tempCol] instanceof Wreck)
+			{
+				numBots -= 1;
+				return 1;
+			}
+			else //(tempBoard[tempRow][tempCol] instanceof Location)
+			{
+				tempBoard[tempRow][tempCol] = board[boardRow][boardCol];
+			}
+		}
+		return 0;
+	}
+
 
 	// Creates a new array of Locations the size of the board.  Each Location refers to its spot int te array.
 	private Location[][] createBoard()
@@ -390,8 +421,13 @@ public class Game extends JPanel
 		return false;
 	}
 
-	//Returns a list of valid locations around the specified location.
-	private Location[] locsAround(Location loc)
+	/**
+	 * Gets a list of valid locations around the specified location.
+	 *
+	 * @param loc The location to get the list of locations around.
+	 * @Return The list of locations.
+	 */
+	protected Location[] locsAround(Location loc)
 	{
 		Location[] locationList = new Location[8];
 		Location testLocation;
@@ -411,8 +447,13 @@ public class Game extends JPanel
 		return locationList;
 	}
 
-	//Tells if a Location is on the board.
-	private boolean isValid(Location loc)
+	/**
+	 * Tells if a Location is on the board.
+	 *
+	 * @param loc The location to see if is valid.
+	 * @return True if the specified location is on the board. Otherwise, false.
+	 */
+	protected boolean isValid(Location loc)
 	{
  		if(loc.getRow() >= 0 && loc.getRow() < ROWS && loc.getCol() >= 0 && loc.getCol() < COLS)
 		{

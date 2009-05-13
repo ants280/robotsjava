@@ -4,10 +4,10 @@
 public class Program
 {
 	/**
-	 * Runs the RobotGUI
+	 * Runs the RobotGui
 	 */
 	public static void main(String[] args)
 	{
-		new ClassicGUI().setVisible(true);
+		new ClassicGui().setVisible(true);
 	}
 }

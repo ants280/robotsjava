@@ -18,23 +18,23 @@ import java.util.HashSet;
 public class SettingsFrame extends JFrame implements ActionListener
 {
 	private Game currentGame;
-	private Gui currentGUI;
+	private Gui currentGui;
 	private String changeModeTo;
 
 	/**
 	 * Constructs a new SettingsFrame.
 	 *
 	 * @param currentGame The current type of game the player is using.
-	 * @param currentGUI The current type of GUI the player is using.  Also for hiding the GUI when the AboutFrame is clicked.
+	 * @param currentGui The current type of Gui the player is using.  Also for hiding the Gui when the AboutFrame is clicked.
 	 */
-	public SettingsFrame(Game currentGame, Gui currentGUI)
+	public SettingsFrame(Game currentGame, Gui currentGui)
 	{
 		super("Settings");
 		this.currentGame = currentGame;
-		this.currentGUI = currentGUI;
+		this.currentGui = currentGui;
 		changeModeTo = "";
 
-		JLabel gameModeLabel = new JLabel("Current game mode is: " + this.currentGUI.getGameType() + " mode.");
+		JLabel gameModeLabel = new JLabel("Current game mode is: " + this.currentGui.getGameType() + " mode.");
 		JButton okButton = new JButton("Ok");
 			okButton.setActionCommand("ok");
 			okButton.addActionListener(this);
@@ -46,10 +46,10 @@ public class SettingsFrame extends JFrame implements ActionListener
 			applyButton.addActionListener(this);
 		HashSet<JRadioButtonMenuItem> buttonGroup = new HashSet<JRadioButtonMenuItem>();
 
-//Begin radioButton addition section. DO NOT DELETE THIS.
+//Begin	radioButton addition section. DO NOT DELETE THIS LINE.
 		buttonGroup.add(new JRadioButtonMenuItem("Classic"));
 		buttonGroup.add(new JRadioButtonMenuItem("Safe teleports"));
-//End radioButton addition section. DO NOT DELETE THIS.
+//End	radioButton addition section. DO NOT DELETE THIS LINE.
 
 		JPanel gameModePanel = new JPanel(new GridLayout(0, 1));
 		gameModePanel.add(gameModeLabel);
@@ -57,7 +57,7 @@ public class SettingsFrame extends JFrame implements ActionListener
 		ButtonGroup gameModeButtonGroup = new ButtonGroup();
 		for(JRadioButtonMenuItem radioButton : buttonGroup)
 		{
-			if(radioButton.getText().equals(currentGUI.getGameType()))
+			if(radioButton.getText().equals(currentGui.getGameType()))
 			{
 				radioButton.setSelected(true);
 			}
@@ -89,13 +89,13 @@ public class SettingsFrame extends JFrame implements ActionListener
 		{
 			if(changeModeTo.equals("Classic"))
 			{
-				currentGUI = new ClassicGUI();
+				currentGui = new ClassicGui();
 			}
 			else if(changeModeTo.equals("Safe teleports"))
 			{
-				currentGUI = new SafeTeleportsGUI();
+				currentGui = new SafeTeleportsGui();
 			}
-//Add new button selecton modes HERE. Should be an "else if".  The Command should be the same as the button's text. DO NOT DELETE THIS.
+//Add new button selecton modes HERE. Should be an "else if".  The Command should be the same as the button's text. DO NOT DELETE THIS LINE.
 			if(command.equals("ok"))
 			{
 				closeSettingsFrame();
@@ -118,7 +118,7 @@ public class SettingsFrame extends JFrame implements ActionListener
 	 */
 	public void setVisible(boolean visible)
 	{
-		currentGUI.setVisible(!visible);
+		currentGui.setVisible(!visible);
 		super.setVisible(visible);
 	}
 
