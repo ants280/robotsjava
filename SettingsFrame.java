@@ -49,7 +49,6 @@ public class SettingsFrame extends JFrame implements ActionListener
 //Begin	radioButton addition section. DO NOT DELETE THIS LINE.
 		buttonGroup.add(new JRadioButtonMenuItem("Classic"));
 		buttonGroup.add(new JRadioButtonMenuItem("Safe teleports"));
-		buttonGroup.add(new JRadioButtonMenuItem("Fast Robots"));
 //End	radioButton addition section. DO NOT DELETE THIS LINE.
 
 		JPanel gameModePanel = new JPanel(new GridLayout(0, 1));
@@ -95,10 +94,6 @@ public class SettingsFrame extends JFrame implements ActionListener
 			else if(changeModeTo.equals("Safe teleports"))
 			{
 				currentGui = new SafeTeleportsGui();
-			}
-			else if(changeModeTo.equals("Fast Robots"))
-			{
-				currentGui = new FastRobotsGui();
 			}
 //Add new button selecton modes HERE. Should be an "else if".  The Command should be the same as the button's text. DO NOT DELETE THIS LINE.
 			if(command.equals("ok"))
