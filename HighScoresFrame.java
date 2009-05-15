@@ -264,7 +264,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 			super.setVisible(false);
 			if(restartGame)
 			{
-				gameRestarterFrame.setVisible(true);
+				gameRestarterFrame.openWithQuit(true);
 			}
 			else
 			{

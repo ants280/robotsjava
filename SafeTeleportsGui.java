@@ -13,7 +13,7 @@ public class SafeTeleportsGui extends Gui
 	public SafeTeleportsGui()
 	{
 		super(new SafeTeleportsGame());
-		this.addLabel(((SafeTeleportsGame)game).getSafeTeleportsLabel());
+		this.addLabel(((SafeTeleportsGame)this.getGame()).getSafeTeleportsLabel());
 	}
 
 	/**

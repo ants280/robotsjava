@@ -17,8 +17,8 @@ import java.util.HashSet;
  */
 public class SettingsFrame extends JFrame implements ActionListener
 {
-	private Game currentGame;
 	private Gui currentGui;
+	private Game currentGame;
 	private String changeModeTo;
 
 	/**
@@ -27,11 +27,12 @@ public class SettingsFrame extends JFrame implements ActionListener
 	 * @param currentGame The current type of game the player is using.
 	 * @param currentGui The current type of Gui the player is using.  Also for hiding the Gui when the AboutFrame is clicked.
 	 */
-	public SettingsFrame(Game currentGame, Gui currentGui)
+	public SettingsFrame(Gui currentGui, Game currentGame)
 	{
 		super("Settings");
-		this.currentGame = currentGame;
+
 		this.currentGui = currentGui;
+		this.currentGame = currentGame;
 		changeModeTo = "";
 
 		JLabel gameModeLabel = new JLabel("Current game mode is: " + this.currentGui.getGameType() + " mode.");

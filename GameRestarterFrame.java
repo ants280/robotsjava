@@ -12,6 +12,7 @@ public class GameRestarterFrame extends JFrame implements ActionListener
 {
 	private Gui currentGUI;
 	private Game game;
+	private JButton alternativeButton;
 	private JLabel levelLabel;
 	private JLabel scoreLabel;
 
@@ -35,13 +36,12 @@ public class GameRestarterFrame extends JFrame implements ActionListener
 			yesButton.setActionCommand("new game");
 			yesButton.addActionListener(this);
 
-		JButton quitButton = new JButton("Quit");
-			quitButton.setActionCommand("quit");
-			quitButton.addActionListener(this);
+		alternativeButton = new JButton("aoeu");
+		alternativeButton.addActionListener(this);
 
 		this.add(promptLabel, BorderLayout.NORTH);
 		this.add(yesButton, BorderLayout.WEST);
-		this.add(quitButton, BorderLayout.EAST);
+		this.add(alternativeButton, BorderLayout.EAST);
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
@@ -66,16 +66,41 @@ public class GameRestarterFrame extends JFrame implements ActionListener
 		{
 			System.exit(0);
 		}
+		else if(event.getActionCommand().equals("no"))
+		{
+			this.setVisible(false);
+		}
 	}
 
 	/**
 	 * Shows or hides this component depending on the value of parameter visible.
 	 *
-	 * @param visible If true, shows this component; otherwise, hides this component
+	 * @param visible If true, shows this component; otherwise, hides this component.
+	 * @deprecated This should only be called internally to show/hide the frame.  Use {@link #openWithQuit(boolean) openWithQuit(boolean)} instead.
 	 */
 	public void setVisible(boolean visible)
 	{
 		currentGUI.setVisible(!visible);
 		super.setVisible(visible);
+	}
+
+	/**
+	 * Should be used to open the frame.
+	 *
+	 * @param quit Tells wether or not set the alternive button to quit the game or close the frame.
+	 */
+	public void openWithQuit(boolean quit)
+	{
+		if(quit)
+		{
+			alternativeButton.setText("Quit");
+			alternativeButton.setActionCommand("quit");
+		}
+		else
+		{
+			alternativeButton.setText("No");
+			alternativeButton.setActionCommand("no");
+		}
+		this.setVisible(true);
 	}
 }

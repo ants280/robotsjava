@@ -1,5 +1,3 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JButton;
@@ -13,7 +11,7 @@ import java.lang.Thread;
  * The home control point for the game.  Includes options and information about the game.
  * TODO: get buttons to work with keylistener.
  */
-public abstract class Gui extends JFrame implements KeyListener, ActionListener
+public abstract class Gui extends JFrame implements KeyListener
 {
 	/**
 	 * Abstracte Method to tell type of game.  Used for options such as game type selection and high score viewing.
@@ -22,19 +20,33 @@ public abstract class Gui extends JFrame implements KeyListener, ActionListener
 
 	private Thread thread;
 	private boolean continous;
-	private Game boardPanel;
+	private Game game;
+	private GuiMenu menu;
 	private JLabel levelLabel;
 	private JLabel scoreLabel;
-	private HighScoresFrame highScoresFrame;
-	private GameRestarterFrame gameRestarterFrame;
-	private AboutFrame aboutFrame;
-	private SettingsFrame settingsFrame;
 	private JToolBar southToolBar;
 
+
 	/**
-	 * The Game used by the GUI.
+	 * Gets the Game used by the GUI.
+	 *
+	 * @return The game.
 	 */
-	protected Game game;
+	public Game getGame() { return game; }
+
+	/**
+	 * Gets the level label.
+	 *
+	 * @return The level label.
+	 */
+	public JLabel getLevelLabel() { return levelLabel; }
+
+	/**
+	 * Gets the score label.
+	 *
+	 * @return The score label.
+	 */
+	public JLabel getScoreLabel() { return scoreLabel; }
 
 	/**
 	 * Creates a default, classic game.  Sets up all componets and some frames
@@ -46,59 +58,23 @@ public abstract class Gui extends JFrame implements KeyListener, ActionListener
 		this.game = game;
 		levelLabel = new JLabel("Level 1");
 		scoreLabel = new JLabel("Score: 0");;
-		gameRestarterFrame = new GameRestarterFrame(this, game, levelLabel, scoreLabel);
-		highScoresFrame = new HighScoresFrame(this, gameRestarterFrame);
-		aboutFrame = new AboutFrame(this);
-		settingsFrame = new SettingsFrame(game, this);
+
 		thread = new Thread();
+
 		southToolBar = new JToolBar();
-
-		JButton aboutButton = new JButton("About");
-		JButton highScoresButton = new JButton("High Scores");
-		JButton settingsButton = new JButton("Settings");
-
-		aboutButton.setActionCommand("about");
-		highScoresButton.setActionCommand("high scores");
-		settingsButton.setActionCommand("settings");
-		aboutButton.addActionListener(this);
-		highScoresButton.addActionListener(this);
-		settingsButton.addActionListener(this);
-
 		southToolBar.add(levelLabel);
 		southToolBar.add(new JLabel("  |  "));
 		southToolBar.add(scoreLabel);
-	//	southToolBar.add(highScoresButton);
-	//	southToolBar.add(settingsButton);
-	//	southToolBar.add(aboutButton);
 		southToolBar.setFloatable(false);
 		
+		menu = new GuiMenu(this);
+
+		this.add(menu, BorderLayout.NORTH);
 		this.add(game, BorderLayout.CENTER);
 		this.add(southToolBar, BorderLayout.SOUTH);
 		this.addKeyListener(this); 
-		this.setSize(820, 670);
+		this.setSize(820, 690);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-
-	/**
-	 * Is called when a button is pressed.  Opens up the corresponding menu.
-	 *
-	 * @param event The event triggered by a button.
-	 */
-	public void actionPerformed(ActionEvent event)
-	{
-		String command = event.getActionCommand();
-		if(command.equals("high scores"))
-		{
-			highScoresFrame.setVisible(true, false);
-		}
-		else if(command.equals("settings"))
-		{
-			settingsFrame.setVisible(true);
-		}
-		else if(command.equals("about"))
-		{
-			aboutFrame.setVisible(true);
-		}
 	}
 
 	/**
@@ -113,9 +89,6 @@ public abstract class Gui extends JFrame implements KeyListener, ActionListener
 
 	/**
 	 * Handles Keyboard Input. Handles Keys :<p>
-	 * S - Settings.<p>
-	 * H - High Scores.<p>
-	 * A - Information About the game.<p>
 	 * Keypad Keys:<p>
 	 * S - Settings.<p>
 	 * 1 - W.<p>
@@ -134,19 +107,7 @@ public abstract class Gui extends JFrame implements KeyListener, ActionListener
 	 */
 	public void keyPressed(KeyEvent key)
 	{
-		if(key.getKeyCode() == KeyEvent.VK_S)
-		{
-			settingsFrame.setVisible(true);
-		}
-		else if(key.getKeyCode() == KeyEvent.VK_H)
-		{
-			highScoresFrame.setVisible(true, false);
-		}
-		else if(key.getKeyCode() == KeyEvent.VK_A)
-		{
-			aboutFrame.setVisible(true);
-		}
-		else if(game.getHuman().isAlive())
+		if(game.getHuman().isAlive())
 		{
 			if(key.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD)
 			{
@@ -249,13 +210,13 @@ public abstract class Gui extends JFrame implements KeyListener, ActionListener
 		else
 		{
 			this.removeKeyListener(this);
-			if(highScoresFrame.isHighScore(game.getScore()))
+			if(menu.getHighScoresFrame().isHighScore(game.getScore()))
 			{
-				NameGetterFrame nameGetterFrame = new NameGetterFrame(highScoresFrame, game.getScore(), this);
+				NameGetterFrame nameGetterFrame = new NameGetterFrame(menu.getHighScoresFrame(), game.getScore(), this);
 			}
 			else
 			{
-				gameRestarterFrame.setVisible(true);
+				menu.getGameRestarterFrame().openWithQuit(true);
 			}
 			this.addKeyListener(this);
 		}
