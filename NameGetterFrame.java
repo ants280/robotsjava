@@ -14,14 +14,14 @@ public class NameGetterFrame extends JFrame implements ActionListener
 	private final int score;
 	private HighScoresFrame highScoresFrame;
 	private JTextField inputField;
-	private Gui currentGUI;
+	private Gui currentGui;
 
-	public NameGetterFrame(HighScoresFrame highScoresFrame, final int score, Gui currentGUI)
+	public NameGetterFrame(HighScoresFrame highScoresFrame, final int score, Gui currentGui)
 	{
 		super("Congragulations!");
 		this.highScoresFrame = highScoresFrame;
 		this.score = score;
-		this.currentGUI = currentGUI;
+		this.currentGui = currentGui;
 		JLabel highScoreLabel = new JLabel("You got a new high score of " + score + "!");
 		this.inputField = new JTextField("Anonymous");
 		JButton okButton = new JButton("Ok");
@@ -33,6 +33,7 @@ public class NameGetterFrame extends JFrame implements ActionListener
 		this.add(okButton, BorderLayout.SOUTH);
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setLocationRelativeTo(currentGui);
 		this.setVisible(true);
 	}
 
@@ -45,7 +46,7 @@ public class NameGetterFrame extends JFrame implements ActionListener
 	{
 		if(event.getActionCommand().equals("ok"))
 		{
-			this.highScoresFrame.addScore(this.currentGUI.getGameType(), this.inputField.getText() + ' ' + score);
+			this.highScoresFrame.addScore(this.currentGui.getGameType(), this.inputField.getText() + ' ' + score);
 			this.highScoresFrame.saveScores();
 			this.highScoresFrame.setVisible(true, true);
 		}
@@ -53,7 +54,7 @@ public class NameGetterFrame extends JFrame implements ActionListener
 	}
 	
 	/**
-	 * Shows or hides this component depending on the value of parameter visible. Hides the GUI on startup.
+	 * Shows or hides this component depending on the value of parameter visible. Hides the Gui on startup.
 	 *
 	 * @param visible If true, shows this component; otherwise, hides this component
 	 */
@@ -61,7 +62,7 @@ public class NameGetterFrame extends JFrame implements ActionListener
 	{
 		if(visible)
 		{
-			this.currentGUI.setVisible(!visible);
+			this.currentGui.setVisible(!visible);
 		}
 		super.setVisible(visible);
 	}

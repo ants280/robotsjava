@@ -75,6 +75,7 @@ public abstract class Gui extends JFrame implements KeyListener
 		this.addKeyListener(this); 
 		this.setSize(820, 690);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLocationRelativeTo(null);
 	}
 
 	/**

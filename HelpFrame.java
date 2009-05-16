@@ -39,6 +39,7 @@ public class HelpFrame extends JFrame implements ActionListener
 		this.add(closeButton, BorderLayout.SOUTH);
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setLocationRelativeTo(null);
 	}
 
 	/**

@@ -10,7 +10,7 @@ import javax.swing.JFrame;
  */ 
 public class GameRestarterFrame extends JFrame implements ActionListener
 {
-	private Gui currentGUI;
+	private Gui currentGui;
 	private Game game;
 	private JButton alternativeButton;
 	private JLabel levelLabel;
@@ -19,15 +19,15 @@ public class GameRestarterFrame extends JFrame implements ActionListener
 	/**
 	 * Creates a new GameRestarterFrame.
 	 *
-	 * @param currentGUI The current GUI for hiding when the GameRestarterFrame opens.
+	 * @param currentGui The current Gui for hiding when the GameRestarterFrame opens.
 	 * @param game The current Game. For restarting it.
 	 * @param levelLabel Resets the level label if the game restarts.
 	 * @param scoreLabel Resets the score label if the game restarts.
 	 */
-	public GameRestarterFrame(Gui currentGUI, Game game, JLabel levelLabel, JLabel scoreLabel)
+	public GameRestarterFrame(Gui currentGui, Game game, JLabel levelLabel, JLabel scoreLabel)
 	{
 		super("Restart?");
-		this.currentGUI = currentGUI;
+		this.currentGui = currentGui;
 		this.game = game;
 		this.levelLabel = levelLabel;
 		this.scoreLabel = scoreLabel;
@@ -44,6 +44,7 @@ public class GameRestarterFrame extends JFrame implements ActionListener
 		this.add(alternativeButton, BorderLayout.EAST);
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setLocationRelativeTo(currentGui);
 	}
 
 	/**
@@ -80,7 +81,7 @@ public class GameRestarterFrame extends JFrame implements ActionListener
 	 */
 	public void setVisible(boolean visible)
 	{
-		currentGUI.setVisible(!visible);
+		currentGui.setVisible(!visible);
 		super.setVisible(visible);
 	}
 

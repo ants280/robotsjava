@@ -76,6 +76,7 @@ public class SettingsFrame extends JFrame implements ActionListener
 		this.add(gameModePanel, BorderLayout.NORTH);
 		this.add(buttonToolBar, BorderLayout.SOUTH);
 		this.pack();
+		this.setLocationRelativeTo(currentGui);
 	}
 
 	/**

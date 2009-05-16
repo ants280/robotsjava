@@ -10,17 +10,17 @@ import javax.swing.JFrame;
  */
 public class AboutFrame extends JFrame implements ActionListener
 {
-	private Gui currentGUI;
+	private Gui currentGui;
 
 	/**
 	 * Constructs an AboutFrame.
 	 *
-	 * @param currentGUI The current type of GUI the player is using.  For hiding the GUI when the AboutFrame is clicked.
+	 * @param currentGui The current type of Gui the player is using.  For hiding the Gui when the AboutFrame is clicked.
 	 */
-	public AboutFrame(Gui currentGUI)
+	public AboutFrame(Gui currentGui)
 	{
 		super("About Robots");
-		this.currentGUI = currentGUI;
+		this.currentGui = currentGui;
 		JLabel informationLabel = new JLabel("<html><pre>Robots v0.40<br>Based of of the unix game of the same name.<br>code: Jacob Patterson<br>Special thanks to CKHS AP-CS:AB 2009</pre></html>");
 
 		JButton closeButton = new JButton("close");
@@ -30,6 +30,7 @@ public class AboutFrame extends JFrame implements ActionListener
 		this.add(closeButton, BorderLayout.SOUTH);
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setLocationRelativeTo(currentGui);
 	}
 
 	/**
@@ -52,7 +53,7 @@ public class AboutFrame extends JFrame implements ActionListener
 	 */
 	public void setVisible(boolean visible)
 	{
-		currentGUI.setVisible(!visible);
+		currentGui.setVisible(!visible);
 		super.setVisible(visible);
 	}
 }

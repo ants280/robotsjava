@@ -22,7 +22,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	private JFrame resetDialougeFrame;
 	private GameRestarterFrame gameRestarterFrame;
 	private HashMap<String, TreeMap<Integer, String>> scoresList;
-	private Gui currentGUI;
+	private Gui currentGui;
 	
 	//For restarting the game on frame close.
 	private boolean restartGame;
@@ -30,15 +30,15 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	/**
 	 * Constructs HighScoresFrame.
 	 *
-	 * @param currentGUI The current type of GUI the player is using.  For hiding the GUI when the AboutFrame is clicked.
+	 * @param currentGui The current type of Gui the player is using.  For hiding the Gui when the AboutFrame is clicked.
 	 */
-	public HighScoresFrame(Gui currentGUI, GameRestarterFrame gameRestarterFrame)
+	public HighScoresFrame(Gui currentGui, GameRestarterFrame gameRestarterFrame)
 	{
 		super("High Scores");
-		this.currentGUI = currentGUI;
+		this.currentGui = currentGui;
 		this.gameRestarterFrame = gameRestarterFrame;
 		resetDialougeFrame = resetDialougeFrame();
-		scoresLabel = new JLabel("High scores for " + currentGUI.getGameType() + " mode.");
+		scoresLabel = new JLabel("High scores for " + currentGui.getGameType() + " mode.");
 
 		JButton okButton = new JButton("Ok");
 			okButton.setActionCommand("ok");
@@ -53,6 +53,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 		this.add(resetButton, BorderLayout.EAST);
 		this.setSize(200, 200);
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setLocationRelativeTo(currentGui);
 	}
 
 	/**
@@ -61,7 +62,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	public JFrame resetDialougeFrame()
 	{
 		JFrame frame = new JFrame("Reset?");
-		JLabel promptLabel = new JLabel("<html><pre>Are you sure you want to<br> reset the high scores<br>  for " + currentGUI.getGameType().toLowerCase() + " mode?</pre></html>");
+		JLabel promptLabel = new JLabel("<html><pre>Are you sure you want to<br> reset the high scores<br>  for " + currentGui.getGameType().toLowerCase() + " mode?</pre></html>");
 		JButton yesButton = new JButton("Yes");
 		yesButton.setActionCommand("resetYes");
 		yesButton.addActionListener(this);
@@ -112,7 +113,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	//Updates the scoresLabelText.  Should only be called when the current high scores change.
 	private void updateScoresLabel()
 	{
-		TreeMap<Integer, String> currentList = this.scoresList.get(currentGUI.getGameType());
+		TreeMap<Integer, String> currentList = this.scoresList.get(currentGui.getGameType());
 		if(currentList != null)
 		{
 			String scoresListText = "<html>";
@@ -165,7 +166,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 		{
 			tempMap.put((Integer)(i * 5), "Jacob Patterson");
 		}
-		this.scoresList.put(currentGUI.getGameType(), tempMap);
+		this.scoresList.put(currentGui.getGameType(), tempMap);
 		this.saveScores();
 		this.updateScoresLabel();
 	}
@@ -243,7 +244,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	 */
 	public boolean isHighScore(int score)
 	{
-		if(score > this.scoresList.get(currentGUI.getGameType()).firstKey() || this.scoresList.get(currentGUI.getGameType()).size() < 5)
+		if(score > this.scoresList.get(currentGui.getGameType()).firstKey() || this.scoresList.get(currentGui.getGameType()).size() < 5)
 		{
 			return true;
 		}
@@ -268,7 +269,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 			}
 			else
 			{
-				currentGUI.setVisible(true);
+				currentGui.setVisible(true);
 			}
 		}
 		else
@@ -277,7 +278,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 			this.updateScoresLabel();
 			this.pack();
 
-			currentGUI.setVisible(false);
+			currentGui.setVisible(false);
 			super.setVisible(true);
 		}
 	}
