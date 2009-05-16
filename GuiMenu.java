@@ -11,6 +11,7 @@ public class GuiMenu extends JMenuBar implements ActionListener
 	private GameRestarterFrame gameRestarterFrame;
 	private AboutFrame aboutFrame;
 	private SettingsFrame settingsFrame;
+	private HelpFrame helpFrame;
 
 	/**
 	 * Gets the gameRestarterFrame.  Used by the gui to restart the game if the player loses.
@@ -79,6 +80,7 @@ public class GuiMenu extends JMenuBar implements ActionListener
 		highScoresFrame = new HighScoresFrame(gui, gameRestarterFrame);
 		aboutFrame = new AboutFrame(gui);
 		settingsFrame = new SettingsFrame(gui, gui.getGame());
+		helpFrame = new HelpFrame();
 	}
 
 	/**
@@ -103,7 +105,7 @@ public class GuiMenu extends JMenuBar implements ActionListener
 		}
 		else if(command.equals("help"))
 		{
-			System.out.println("TODO: Need to write a help file.");
+			helpFrame.setVisible(true);
 		}
 		else if(command.equals("close"))
 		{
