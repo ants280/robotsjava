@@ -7,27 +7,20 @@ public class SafeTeleportsGame extends Game
 {
 	private int safeTeleports;
 	private JLabel safeTeleportsLabel;
-	/**
-	 * Creates a new SafeTeleportsGame.
-	 */
-	public SafeTeleportsGame()
-	{
-		super();
-		safeTeleportsLabel = new JLabel("Safe Teleports: 0");
-	}
+	private boolean hasSafeTeleports;
 
 	/**
-	 * Puts the robots on the board.  Same as Game's  void setNumBots(int), but the number of bots is capped at SIDE * SIDE / 2.  This prevents the Player from having no possible safe teleports because of the amount of SafeTeleports.
+	 * Creates a new SafeTeleportsGame.
+	 *
+	 * @param hasSafeTeleports Whether or not the game has safe teleports.
 	 */
-	protected void setNumBots(int numBots)
+	public SafeTeleportsGame(boolean hasSafeTeleports)
 	{
-		if(numBots > ROWS * COLS / 2)
+		super();
+		this.hasSafeTeleports = hasSafeTeleports;
+		if(hasSafeTeleports)
 		{
-			super.setNumBots(ROWS * COLS / 2);
-		}
-		else
-		{
-			super.setNumBots(numBots);
+			safeTeleportsLabel = new JLabel("Safe Teleports: 0");
 		}
 	}
 
@@ -38,7 +31,7 @@ public class SafeTeleportsGame extends Game
 	 */
 	public void makeMove(Direction dir)
 	{
-		if(human.isAlive() && dir == Direction.SAFE && safeTeleports > 0)
+		if(this.hasSafeTeleports && human.isAlive() && dir == Direction.SAFE && safeTeleports > 0)
 		{
 			safeTeleports--;
 			int row, col;
@@ -53,7 +46,7 @@ public class SafeTeleportsGame extends Game
 			updateBoard();
 			safeTeleportsLabel.setText("Safe Teleports: " + safeTeleports);
 		}
-		else if(dir == Direction.SAFE) //&& safeTeleports <= 0
+		else if(this.hasSafeTeleports && dir == Direction.SAFE) //&& safeTeleports <= 0
 		{
 			super.makeMove(Direction.RANDOM);
 		}
@@ -68,10 +61,10 @@ public class SafeTeleportsGame extends Game
 	 */
 	public void increaseLevel()
 	{
-		safeTeleports++;
 		super.increaseLevel();
-		if(safeTeleportsLabel != null)
+		if(this.hasSafeTeleports)
 		{
+			safeTeleports++;
 			safeTeleportsLabel.setText("Safe Teleports: " + safeTeleports);
 		}
 	}

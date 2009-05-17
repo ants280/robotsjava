@@ -11,7 +11,7 @@ import java.awt.Dimension;
 /**
  * The default form of the robots game.
  */
-public class Game extends JPanel
+public abstract class Game extends JPanel
 {
 	private Dimension dimension;
 	private int level;
@@ -76,14 +76,22 @@ public class Game extends JPanel
 	public int numBots() { return numBots; }
 
 	/**
-	 * Setter for the number of robots on each new level
+	 * Puts the robots on the board.  Same as Game's  void setNumBots(int), but the number of bots is capped at SIDE * SIDE / 2.  This prevents the Player from having no possible safe teleports because of the amount of SafeTeleports.
 	 *
-	 * @param numBots The value to set the initial number of Robots to.
+	 * @param numBots Starts at 2, increases by 1 on each level increase.
 	 */
 	protected void setNumBots(int numBots)
 	{
-		this.numBots = numBots;
+		if(numBots > ROWS * COLS / 2)
+		{
+			this.numBots = ROWS * COLS / 2;
+		}
+		else
+		{
+			this.numBots = numBots;
+		}
 	}
+
 
 	/**
 	 * Used for updating the board with updateBoard(int, int). Is cleared on each player move.

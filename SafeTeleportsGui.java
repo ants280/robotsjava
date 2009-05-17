@@ -7,13 +7,22 @@ import javax.swing.JLabel;
  */
 public class SafeTeleportsGui extends Gui
 {
+	private boolean hasSafeTeleports;
+
 	/**
 	 * Creates a Robots game with safe teleports.
+	 *
+	 * @param hasSafeTeleports Whether or not the game has safe teleports.
 	 */
-	public SafeTeleportsGui()
+	public SafeTeleportsGui(boolean hasSafeTeleports)
 	{
-		super(new SafeTeleportsGame());
-		this.addLabel(((SafeTeleportsGame)this.getGame()).getSafeTeleportsLabel());
+		super(new SafeTeleportsGame(hasSafeTeleports));
+		if(hasSafeTeleports)
+		{
+			this.addLabel(((SafeTeleportsGame)this.getGame()).getSafeTeleportsLabel());
+		}
+		this.hasSafeTeleports = hasSafeTeleports;
+		this.addMenu();
 	}
 
 	/**
@@ -21,7 +30,7 @@ public class SafeTeleportsGui extends Gui
 	 */
 	public String getGameType()
 	{
-		return "Safe teleports";
+		return "Classic game" + (hasSafeTeleports ? " with safe teleports" : "");
 	}
 
 	/**
@@ -30,11 +39,11 @@ public class SafeTeleportsGui extends Gui
 	public void keyPressed(KeyEvent key)
 	{
 		char keyChar = key.getKeyChar();
-		if(key.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD && keyChar == '+') 
+		if(hasSafeTeleports && key.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD && keyChar == '+') 
 		{
 			this.performAction(Direction.SAFE);
 		}
-		else if(key.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD && keyChar == '*')
+		else if(hasSafeTeleports && key.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD && keyChar == '*')
 		{
 			this.performAction(Direction.RANDOM);
 		}

@@ -66,10 +66,8 @@ public abstract class Gui extends JFrame implements KeyListener
 		southToolBar.add(new JLabel("  |  "));
 		southToolBar.add(scoreLabel);
 		southToolBar.setFloatable(false);
-		
-		menu = new GuiMenu(this);
 
-		this.add(menu, BorderLayout.NORTH);
+		this.addMenu();
 		this.add(game, BorderLayout.CENTER);
 		this.add(southToolBar, BorderLayout.SOUTH);
 		this.addKeyListener(this); 
@@ -78,6 +76,15 @@ public abstract class Gui extends JFrame implements KeyListener
 		this.setLocationRelativeTo(null);
 	}
 
+	/**
+	 * Adds the menu for the game.  Should be re-added on each new game start.
+	 */
+	protected void addMenu()
+	{
+		menu = new GuiMenu(this);
+		this.add(menu, BorderLayout.NORTH);
+	}
+		
 	/**
 	 * Not implemented.
 	 *

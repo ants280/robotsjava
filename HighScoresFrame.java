@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -216,6 +217,8 @@ public class HighScoresFrame extends JFrame implements ActionListener
 		try
 		{
 			TreeMap<Integer, String> gameTypeScores;
+			File file = new File("HighScores.txt");
+			file.delete();
 			BufferedWriter writer = new BufferedWriter(new FileWriter("HighScores.txt"));
 			for(String gameMode : this.scoresList.keySet())
 			{

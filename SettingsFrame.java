@@ -91,11 +91,11 @@ public class SettingsFrame extends JFrame implements ActionListener
 		{
 			if(changeModeTo.equals("Classic"))
 			{
-				currentGui = new ClassicGui();
+				currentGui = new SafeTeleportsGui(false);
 			}
 			else if(changeModeTo.equals("Safe teleports"))
 			{
-				currentGui = new SafeTeleportsGui();
+				currentGui = new SafeTeleportsGui(true);
 			}
 //Add new button selecton modes HERE. Should be an "else if".  The Command should be the same as the button's text. DO NOT DELETE THIS LINE.
 			if(command.equals("ok"))

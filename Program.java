@@ -8,6 +8,6 @@ public class Program
 	 */
 	public static void main(String[] args)
 	{
-		new ClassicGui().setVisible(true);
+		new SafeTeleportsGui(false).setVisible(true);
 	}
 }
