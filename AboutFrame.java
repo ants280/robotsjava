@@ -21,7 +21,7 @@ public class AboutFrame extends JFrame implements ActionListener
 	{
 		super("About Robots");
 		this.currentGui = currentGui;
-		JLabel informationLabel = new JLabel("<html><pre>Robots v0.40<br>Based of of the unix game of the same name.<br>code: Jacob Patterson<br>Special thanks to CKHS AP-CS:AB 2009</pre></html>");
+		JLabel informationLabel = new JLabel("<html><pre>Robots v1.00<br>Based of of the unix game of the same name.<br>code: Jacob Patterson<br>Special thanks to CKHS AP-CS:AB 2009</pre></html>");
 
 		JButton closeButton = new JButton("close");
 			closeButton.setActionCommand("close");

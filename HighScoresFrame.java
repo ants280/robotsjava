@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -152,6 +153,11 @@ public class HighScoresFrame extends JFrame implements ActionListener
 				}
 			}
 			reader.close();
+		}
+		catch(FileNotFoundException ex)
+		{
+			new File("HighScores.txt");
+			resetScores();
 		}
 		catch(IOException ex)
 		{
