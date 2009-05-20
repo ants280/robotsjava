@@ -247,7 +247,12 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	 */
 	public boolean isHighScore(int score)
 	{
-		if(score > this.scoresList.get(currentGui.getGameType()).firstKey() || this.scoresList.get(currentGui.getGameType()).size() < 5)
+		TreeMap<Integer, String> map = this.scoresList.get(currentGui.getGameType());
+		if(map == null)
+		{
+			this.resetScores();
+		}
+		if(score > map.firstKey() || map.size() < 5)
 		{
 			return true;
 		}
