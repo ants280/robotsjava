@@ -5,6 +5,8 @@ public class Program
 {
 	/**
 	 * Runs the RobotGui
+	 *
+	 * @param args The arguments for the game.  Not used.
 	 */
 	public static void main(String[] args)
 	{
