@@ -12,12 +12,12 @@ public class SafeTeleportsGui extends Gui
 	/**
 	 * Creates a Robots game with safe teleports.
 	 *
-	 * @param hasSafeTeleports Whether or not the game has safe teleports.
+	 * @param game The type of game to play.  Must be a typeof SafeTeleportsGame.
 	 */
-	public SafeTeleportsGui(boolean hasSafeTeleports)
+	public SafeTeleportsGui(Game game)
 	{
-		super(new SafeTeleportsGame(hasSafeTeleports));
-		if(hasSafeTeleports)
+		super(game);
+		if(game.isSafeTeleportsGame())
 		{
 			this.addLabel(((SafeTeleportsGame)this.getGame()).getSafeTeleportsLabel());
 		}

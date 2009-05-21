@@ -21,6 +21,14 @@ public abstract class Game extends JPanel
 	private Image playerDeadImage;
 	private Image robotImage;
 	private Image wreckImage;
+
+	/**
+	 * Method to tell if the game has safe teleports.
+	 *
+	 * @return True if the game has safe teleports.  Otherwise, false.
+	 */
+	public boolean isSafeTeleportsGame() { return false; }
+
 	/**
 	 * Used to randomly teleport the Player.
 	 */

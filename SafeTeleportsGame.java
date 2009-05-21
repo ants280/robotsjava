@@ -10,6 +10,12 @@ public class SafeTeleportsGame extends Game
 	private boolean hasSafeTeleports;
 
 	/**
+	 * Method to tell if the game has safe teleports.
+	 *
+	 * @return True if the game has safe teleports.  Otherwise, false.
+	 */
+	public boolean isSafeTeleportsGame() { return hasSafeTeleports; }
+	/**
 	 * Creates a new SafeTeleportsGame.
 	 *
 	 * @param hasSafeTeleports Whether or not the game has safe teleports.

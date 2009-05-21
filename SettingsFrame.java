@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JToolBar;
 import java.util.Enumeration;
 import java.util.HashSet;
 
@@ -20,6 +19,11 @@ public class SettingsFrame extends JFrame implements ActionListener
 	private Gui currentGui;
 	private Game currentGame;
 	private String changeModeTo;
+	private String teleportType;
+	private JLabel gameModeLabel;
+	private JRadioButtonMenuItem normalButton;
+	private JRadioButtonMenuItem safeButton;
+	private ButtonGroup guiTypeButtonGroup;
 
 	/**
 	 * Constructs a new SettingsFrame.
@@ -33,9 +37,11 @@ public class SettingsFrame extends JFrame implements ActionListener
 
 		this.currentGui = currentGui;
 		this.currentGame = currentGame;
-		changeModeTo = "";
 
-		JLabel gameModeLabel = new JLabel("Current game mode is: " + this.currentGui.getGameType() + " mode.");
+		//Set up game mode label.
+		gameModeLabel = new JLabel();
+
+		//Set up non-radiobuttons.
 		JButton okButton = new JButton("Ok");
 			okButton.setActionCommand("ok");
 			okButton.addActionListener(this);
@@ -45,18 +51,30 @@ public class SettingsFrame extends JFrame implements ActionListener
 		JButton applyButton = new JButton("Apply");
 			applyButton.setActionCommand("apply");
 			applyButton.addActionListener(this);
-		HashSet<JRadioButtonMenuItem> buttonGroup = new HashSet<JRadioButtonMenuItem>();
 
+		HashSet<JRadioButtonMenuItem> buttonSet = new HashSet<JRadioButtonMenuItem>();
 //Begin	radioButton addition section. DO NOT DELETE THIS LINE.
-		buttonGroup.add(new JRadioButtonMenuItem("Classic"));
-		buttonGroup.add(new JRadioButtonMenuItem("Safe teleports"));
+		buttonSet.add(new JRadioButtonMenuItem("Classic"));
 //End	radioButton addition section. DO NOT DELETE THIS LINE.
 
-		JPanel gameModePanel = new JPanel(new GridLayout(0, 1));
-		gameModePanel.add(gameModeLabel);
+		//Set Game teleports type buttons.
+		JPanel teleportsTypePanel = new JPanel(new GridLayout(2, 1));
+		ButtonGroup teleportsButtonGroup = new ButtonGroup();
+		normalButton = new JRadioButtonMenuItem("Normal mode");
+			normalButton.addActionListener(this);
+			normalButton.setActionCommand("t_normal");
+			teleportsButtonGroup.add(normalButton);
+			teleportsTypePanel.add(normalButton);
+		safeButton = new JRadioButtonMenuItem("Safe teleports");
+			safeButton.addActionListener(this);
+			safeButton.setActionCommand("t_safe");
+			teleportsButtonGroup.add(safeButton);
+			teleportsTypePanel.add(safeButton);
 
-		ButtonGroup gameModeButtonGroup = new ButtonGroup();
-		for(JRadioButtonMenuItem radioButton : buttonGroup)
+		//Set Game type buttons.
+		JPanel guiTypePanel = new JPanel(new GridLayout(0, 1));
+		guiTypeButtonGroup = new ButtonGroup();
+		for(JRadioButtonMenuItem radioButton : buttonSet)
 		{
 			if(radioButton.getText().equals(currentGui.getGameType()))
 			{
@@ -64,18 +82,25 @@ public class SettingsFrame extends JFrame implements ActionListener
 			}
 			radioButton.setActionCommand(radioButton.getText());
 			radioButton.addActionListener(this);
-			gameModeButtonGroup.add(radioButton);
-			gameModePanel.add(radioButton);
+			guiTypeButtonGroup.add(radioButton);
+			guiTypePanel.add(radioButton);
 		}
-		JToolBar buttonToolBar = new JToolBar();
-		buttonToolBar.setFloatable(false);
-		buttonToolBar.add(okButton);
-		buttonToolBar.add(closeButton);
-		buttonToolBar.add(applyButton);
 
-		this.add(gameModePanel, BorderLayout.NORTH);
-		this.add(buttonToolBar, BorderLayout.SOUTH);
-		this.pack();
+		//Add the two selection panels together
+		JPanel gameModePanel = new JPanel(new GridLayout(1, 2));
+		gameModePanel.add(guiTypePanel);
+		gameModePanel.add(teleportsTypePanel);
+
+		//Put the buttons into a panel.
+		JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
+		buttonPanel.add(okButton);
+		buttonPanel.add(closeButton);
+		buttonPanel.add(applyButton);
+
+		//Add the components to the JFrame.
+		this.add(gameModeLabel, BorderLayout.NORTH);
+		this.add(gameModePanel, BorderLayout.CENTER);
+		this.add(buttonPanel, BorderLayout.SOUTH);
 		this.setLocationRelativeTo(currentGui);
 	}
 
@@ -89,25 +114,48 @@ public class SettingsFrame extends JFrame implements ActionListener
 		String command = event.getActionCommand();
 		if(command.equals("apply") || command.equals("ok"))
 		{
-			if(changeModeTo.equals("Classic"))
+			if( !changeModeTo.equals("")  && !teleportType.equals("") )
 			{
-				currentGui = new SafeTeleportsGui(false);
-			}
-			else if(changeModeTo.equals("Safe teleports"))
-			{
-				currentGui = new SafeTeleportsGui(true);
-			}
+ 
+				boolean safe;
+				Game game;
+				if(teleportType.equals("true"))
+				{
+					safe = true;
+				}
+				else //(teleports.equals("false"))
+				{
+					safe = false;
+				}
+				if(changeModeTo.equals("Classic"))
+				{
+					game = new SafeTeleportsGame(safe);
+					currentGui = new SafeTeleportsGui(game);
+				}
 //Add new button selecton modes HERE. Should be an "else if".  The Command should be the same as the button's text. DO NOT DELETE THIS LINE.
-			if(command.equals("ok"))
+				if(command.equals("ok"))
+				{
+					this.setVisible(false);
+				}
+			}
+			else
 			{
-				closeSettingsFrame();
+				gameModeLabel.setText("Choose both buttons!");
 			}
 		}
 		else if(command.equals("close"))
 		{
-			closeSettingsFrame();
+			this.setVisible(false);
 		}
-		else //command is a radioButton press
+		else if(command.equals("t_normal"))
+		{
+			teleportType = "false";
+		}
+		else if(command.equals("t_safe"))
+		{
+			teleportType = "true";
+		}
+		else //command is a gameType press
 		{
 			changeModeTo = command;
 		}
@@ -120,14 +168,26 @@ public class SettingsFrame extends JFrame implements ActionListener
 	 */
 	public void setVisible(boolean visible)
 	{
+		//Set the teleportTypeRadioButton settings
+		if(visible)
+		{
+			if(currentGui.getGame().isSafeTeleportsGame())
+			{
+				teleportType = "true";
+				safeButton.setSelected(true);
+			}
+			else
+			{
+				teleportType = "false";
+				normalButton.setSelected(true);
+			}
+
+			changeModeTo = "";
+		}
+	
+		gameModeLabel.setText("Current game mode is: " + currentGui.getGameType() + " mode.");
+		this.pack();
 		currentGui.setVisible(!visible);
 		super.setVisible(visible);
-	}
-
-	//Closes the settings frame and forgets what the user wants to change the gameModeTo.
-	private void closeSettingsFrame()
-	{
-		this.setVisible(false);
-		changeModeTo= "";
 	}
 }

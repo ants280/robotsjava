@@ -14,7 +14,9 @@ import java.lang.Thread;
 public abstract class Gui extends JFrame implements KeyListener
 {
 	/**
-	 * Abstracte Method to tell type of game.  Used for options such as game type selection and high score viewing.
+	 * Abstract Method to tell type of game.  Used for options such as game type selection and high score viewing.
+	 *
+	 * @return The game Type.
 	 */
 	public abstract String getGameType();
 
