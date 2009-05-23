@@ -84,6 +84,20 @@ public abstract class Game extends JPanel
 	public int numBots() { return numBots; }
 
 	/**
+	 * Creates a new Game. Cals resetBoard to add the board.
+	 */
+	public Game()
+	{
+		super(false);
+		generator = new Random();
+		ROWS = 30;
+		COLS = 40;
+		resetBoard();
+		dimension = new Dimension((COLS * 20) + 10, (ROWS * 20) + 10);
+		initializeImages();
+	}
+
+	/**
 	 * Puts the robots on the board.  Same as Game's  void setNumBots(int), but the number of bots is capped at SIDE * SIDE / 2.  This prevents the Player from having no possible safe teleports because of the amount of SafeTeleports.
 	 *
 	 * @param numBots Starts at 2, increases by 1 on each level increase.
@@ -106,20 +120,6 @@ public abstract class Game extends JPanel
 	 */
 	protected Location[][] tempBoard;
 
-	/**
-	 * Creates a new Game. Cals resetBoard to add the board.
-	 */
-	public Game()
-	{
-		super(false);
-		generator = new Random();
-		ROWS = 30;
-		COLS = 40;
-		resetBoard();
-		dimension = new Dimension((COLS * 20) + 10, (ROWS * 20) + 10);
-		initializeImages();
-	}
-	
 	/**
 	 * Initializes the images of the painted Locations.
 	 */
@@ -201,7 +201,13 @@ public abstract class Game extends JPanel
 	 */
 	public void printBoard()
 	{
-		/*
+		paint(this.getGraphics());
+		//paintToConsole();
+	}
+
+	//paints the board to the console
+	private void paintToConsole()
+	{
 		System.out.println("\n\n\n");
 		System.out.println("--Score = " + score + (score < 10 ? '-' : ""));
 		System.out.println("----Key-----");
@@ -210,25 +216,23 @@ public abstract class Game extends JPanel
 		System.out.println("  # = Player (X = DEAD)");
 		for(int c = -1; c <= COLS; c++)
 		{
-			System.out.print('-';
+			System.out.print('-');
 		}
 		System.out.println();
 		for(int r = 0; r < ROWS; r++)
 		{
-			System.out.print(('|');
+			System.out.print('|');
 			for(int c = 0; c < COLS; c++)
 			{
 				System.out.print(board[r][c].value());
 			}
 			System.out.println('|');
 		}
-		for(int c = -1; c < COLS, c++)
+		for(int c = -1; c < COLS; c++)
 		{
 			System.out.print('-');
 		}
 		System.out.println();
-		*/
-		paint(this.getGraphics());
 	}
 
 	/**
@@ -394,7 +398,7 @@ public abstract class Game extends JPanel
 	}
 
 	/**
-	 * Moves the player in the specified Direction.
+	 * Moves the player in the specified Direction.  Calls {@link #updateBoard() updateBoard}.
 	 *
 	 * @param dir The Direction to move.
 	 */
@@ -419,7 +423,7 @@ public abstract class Game extends JPanel
 	}
 
 	/**
-	 * Sees if it is safe for the specified Location to move in the specified Direction.  If the Direction is CONTINOUS or RANDOM, true will be returned.
+	 * Sees if it is safe for the specified Location to move in the specified Direction.  If the Direction is CONTINOUS or RANDOM, true will be returned.  Uses {@link #isValid(Location) isValid(Location)} and {@link #locAround(Location) locsAround(Location)}.
 	 *
 	 * @param testLocation The starting Location.
 	 * @param dir The Direction to see if is valid for the testLocation to move to.
