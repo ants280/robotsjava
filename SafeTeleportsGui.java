@@ -7,8 +7,6 @@ import javax.swing.JLabel;
  */
 public class SafeTeleportsGui extends Gui
 {
-	private boolean hasSafeTeleports;
-
 	/**
 	 * Creates a Robots game with safe teleports.
 	 *
@@ -19,9 +17,8 @@ public class SafeTeleportsGui extends Gui
 		super(game);
 		if(game.isSafeTeleportsGame())
 		{
-			this.addLabel(((SafeTeleportsGame)this.getGame()).getSafeTeleportsLabel());
+			this.addLabel(((SafeTeleportsGame)game).getSafeTeleportsLabel());
 		}
-		this.hasSafeTeleports = hasSafeTeleports;
 		this.addMenu();
 	}
 
@@ -30,7 +27,7 @@ public class SafeTeleportsGui extends Gui
 	 */
 	public String getGameType()
 	{
-		return "Classic game" + (hasSafeTeleports ? " with safe teleports" : "");
+		return "Classic game" + (getGame().isSafeTeleportsGame() ? " with safe teleports" : "");
 	}
 
 	/**
@@ -38,14 +35,20 @@ public class SafeTeleportsGui extends Gui
 	 */
 	public void keyPressed(KeyEvent key)
 	{
-		char keyChar = key.getKeyChar();
-		if(hasSafeTeleports && key.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD && keyChar == '+') 
+		if(getGame().isSafeTeleportsGame() && key.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD)
 		{
-			this.performAction(Direction.SAFE);
-		}
-		else if(hasSafeTeleports && key.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD && keyChar == '*')
-		{
-			this.performAction(Direction.RANDOM);
+			if(key.getKeyChar() == '+') 
+			{
+				performAction(Direction.SAFE);
+			}
+			else if(key.getKeyChar() == '*')
+			{
+				performAction(Direction.RANDOM);
+			}
+			else
+			{
+				super.keyPressed(key);
+			}
 		}
 		else
 		{

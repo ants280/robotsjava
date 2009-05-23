@@ -28,7 +28,6 @@ public abstract class Gui extends JFrame implements KeyListener
 	private JLabel scoreLabel;
 	private JToolBar southToolBar;
 
-
 	/**
 	 * Gets the Game used by the GUI.
 	 *
@@ -56,8 +55,8 @@ public abstract class Gui extends JFrame implements KeyListener
 	public Gui(Game game)
 	{
 		super();
-		super.setTitle("Robots - " + this.getGameType().toLowerCase() + " mode.");
 		this.game = game;
+		super.setTitle("Robots - " + this.getGameType().toLowerCase() + " mode.");
 		levelLabel = new JLabel("Level 1");
 		scoreLabel = new JLabel("Score: 0");;
 
