@@ -22,7 +22,7 @@ public class FastRobotsGui extends SafeTeleportsGui
 	 */
 	public String getGameType()
 	{
-		return "Fast robots";
+		return "Fast robots" + safeTeleportsTitle();
 	}
 }
 

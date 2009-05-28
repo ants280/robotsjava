@@ -34,8 +34,9 @@ public class SafeTeleportsGame extends Game
  	 * Same as Game's void makeMove(Direction), but includes definition for safe teleports.
 	 *
 	 * @param dir The Direction to move.
+	 * @return True if the move is sucessful, otherwise, false.
 	 */
-	public void makeMove(Direction dir)
+	public boolean makeMove(Direction dir)
 	{
 		if(this.hasSafeTeleports && human.isAlive() && dir == Direction.SAFE && safeTeleports > 0)
 		{
@@ -51,14 +52,15 @@ public class SafeTeleportsGame extends Game
 			board[row][col] = human;
 			updateBoard();
 			safeTeleportsLabel.setText("Safe Teleports: " + safeTeleports);
+			return true;
 		}
 		else if(this.hasSafeTeleports && dir == Direction.SAFE) //&& safeTeleports <= 0
 		{
-			super.makeMove(Direction.RANDOM);
+			return super.makeMove(Direction.RANDOM);
 		}
 		else
 		{
-			super.makeMove(dir);
+			return super.makeMove(dir);
 		}
 	}
 

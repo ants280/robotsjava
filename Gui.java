@@ -175,7 +175,7 @@ public abstract class Gui extends JFrame implements KeyListener
 	{
 		if(move != null)
 		{
-			boolean continous = (move == Direction.CONTINOUS ? true : false);
+			boolean continous = (move == Direction.CONTINOUS);
 			do
 			{
 				game.makeMove(move);

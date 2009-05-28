@@ -27,7 +27,21 @@ public class SafeTeleportsGui extends Gui
 	 */
 	public String getGameType()
 	{
-		return "Classic game" + (getGame().isSafeTeleportsGame() ? " with safe teleports" : "");
+		return "Classic game" + safeTeleportsTitle();
+	}
+
+	/**
+	 * For adding to the label of the game if it has safe teleports.
+	 * TODO:  this should be made better (shouldn't exist!)
+	 * @return A special string if the game has safe teleports.
+	 */
+	protected String safeTeleportsTitle()
+	{
+		if(getGame().isSafeTeleportsGame())
+		{
+			return " with safe teleports";
+		}
+		return "";
 	}
 
 	/**

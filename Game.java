@@ -240,14 +240,16 @@ public abstract class Game extends JPanel
 	 */
 	protected void updateBoard()
 	{
-		int tempScore = 0;
+		int tempScore = 0, numReturned;
 		tempBoard = createBoard();
 		tempBoard[human.getRow()][human.getCol()] = human; 
 		for(int boardRow = 0; boardRow < ROWS; boardRow++)
 		{
 			for(int boardCol = 0; boardCol < COLS; boardCol++)
 			{
-				tempScore += updateBoard(boardRow, boardCol);
+				numReturned = updateBoard(boardRow, boardCol);
+				numBots -= numReturned;
+				tempScore += numReturned;
 			}
 		}
 		if(human.isAlive())
@@ -271,7 +273,6 @@ public abstract class Game extends JPanel
 		{
 			if(tempBoard[boardRow][boardCol] instanceof Robot)
 			{
-				numBots -= 1;
 				tempBoard[boardRow][boardCol] = board[boardRow][boardCol];
 				return 1;
 			}
@@ -305,20 +306,18 @@ public abstract class Game extends JPanel
 			{
 				tempCol = boardCol;
 			}
-			if(tempBoard[tempRow][tempCol] instanceof Player)
+			if(tempBoard[tempRow][tempCol] instanceof Robot)
 			{
-				human.die();
-			}
-			else if(tempBoard[tempRow][tempCol] instanceof Robot)
-			{
-				numBots -= 2;
 				tempBoard[tempRow][tempCol] = new Wreck(tempRow, tempCol);
 				return 2;
 			}
 			else if(tempBoard[tempRow][tempCol] instanceof Wreck)
 			{
-				numBots -= 1;
 				return 1;
+			}
+			else if(tempBoard[tempRow][tempCol] instanceof Player)
+			{
+				human.die();
 			}
 			else //(tempBoard[tempRow][tempCol] instanceof Location)
 			{
@@ -358,7 +357,7 @@ public abstract class Game extends JPanel
 			}
 			else
 			{
-				addEnemy(row, col, n);
+				board[row][col] = addEnemy(row, col, n);
 			}
 		}
 	}
@@ -368,11 +367,12 @@ public abstract class Game extends JPanel
 	 *
 	 * @param row The row to add the enemy to.
 	 * @param col The column to add the enemy to.
-	 * @param pos The nth enemy being added.
+	 * @param n The nth enemy being added.
+	 * @return The enemy to add to the board.  The Location should return true for isEnemy().
 	 */
-	protected void addEnemy(int row, int col, int pos)
+	protected Location addEnemy(int row, int col, int n)
 	{
-		board[row][col] = new Robot(row, col);
+		return new Robot(row, col);
 	}
 
 	/**
@@ -401,8 +401,9 @@ public abstract class Game extends JPanel
 	 * Moves the player in the specified Direction.  Calls {@link #updateBoard() updateBoard}.
 	 *
 	 * @param dir The Direction to move.
+	 * @return True if the move is sucessful, otherwise, false.
 	 */
-	public void makeMove(Direction dir)
+	public boolean makeMove(Direction dir)
 	{
 		if(isValid(human, dir))
 		{
@@ -419,7 +420,9 @@ public abstract class Game extends JPanel
 				board[human.getRow()][human.getCol()] = human;
 			}
 			updateBoard();
+			return true;
 		}
+		return false;
 	}
 
 	/**

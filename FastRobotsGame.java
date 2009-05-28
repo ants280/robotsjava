@@ -57,62 +57,38 @@ public class FastRobotsGame extends SafeTeleportsGame
 	}
 
 	/**
-	 * Sees if it is safe for the specified Location to move in the specified Direction.  If the Direction is CONTINOUS or RANDOM, true will be returned. Very much mimics Game's boolean isValid(Location, dir).
-	 *
-	 * @param testLocation The starting Location.
-	 * @param dir The Direction to see if is valid for the testLocation to move to.
-	 */
-	protected boolean isValid(Location testLocation, Direction dir)
-	{
-		if(dir == Direction.RANDOM || dir == Direction.CONTINOUS)
-		{
-			return true;
-		}
-		Location desiredLocation = new Location(testLocation);
-		desiredLocation = desiredLocation.updatePos(dir);
-		if(isValid(desiredLocation))
-		{
-			if(board[desiredLocation.getRow()][desiredLocation.getCol()].isEnemy())
-			{
-				return false;
-			}
-			for(Location botSpot : locsAround(desiredLocation))
-			{
-				if(botSpot instanceof Robot)
-				{
-					return false;
-				}
-		// Only the next segment of code differs from  Game's isValid(Location, Direction)
-				for(Location fastSpot : locsAround(botSpot))
-				{
-					if(fastSpot instanceof FastRobot)
-					{
-						return false;
-					}
-				}
-		// End original code.
-			}
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Moves the player in the specified Direction.
+	 * Moves the player in the specified Direction. Moves the fast robots twice.
 	 *
 	 * @param dir The Direction to move.
+	 * @return True if the move is sucessful, otherwise, false.
 	 */
-	public void makeMove(Direction dir)
+	public boolean makeMove(Direction dir)
 	{
-		super.makeMove(dir);
+		Location[][] fastTempBoard = board;
+		Player tempHuman = new Player(human);
 
-		// Makes the fast robots move again.
-		if(isValid(human, dir))
-		{			// Makes the fast robots move again.
+		if(super.makeMove(dir))
+		{
+			// Makes only the fast robots move again.  Moves for SAME to return true or false.
 			fastOnly = true;
-			updateBoard();
+			boolean sucessful = super.makeMove(Direction.SAME);
 			fastOnly = false;
+
+			if(dir != Direction.CONTINOUS && !sucessful)
+			{
+				board = fastTempBoard;
+				board[human.getRow()][human.getCol()] = new Location(human.getRow(), human.getCol());
+				human = tempHuman;
+				board[human.getRow()][human.getCol()] = human;
+				return false;
+			}
+
+			// Both moves worked
+			return true;
 		}
+
+		// First move did not work.
+		return false;
 	}
 
 	/**
@@ -129,30 +105,35 @@ public class FastRobotsGame extends SafeTeleportsGame
 		{
 			return super.updateBoard(boardRow, boardCol);
 		}
+		if(boardSpot instanceof FastRobot)
+		{
+			return super.updateBoard(boardRow, boardCol);
+		}
+
+		// Normal move  of pice (direct translation).   Yes, this else block is unneeded, but it adds to clarity.
+		if(tempBoard[boardRow][boardCol] instanceof FastRobot)
+		{
+			if(boardSpot instanceof Robot)
+			{
+				tempBoard[boardRow][boardCol] = new Wreck(boardRow, boardCol);
+				return 2;
+			}
+			if(boardSpot instanceof Wreck)
+			{
+				tempBoard[boardRow][boardCol] = boardSpot;
+				return 1;
+			}
+			if(boardSpot instanceof Player)
+			{
+				((Player)boardSpot).die();
+				return 1;
+			}
+		}
 		else
 		{
-			int numToReturn = 0;
-			if(tempBoard[boardRow][boardCol] instanceof FastRobot)
-			{
-				if(boardSpot instanceof Robot)
-				{
-					tempBoard[boardRow][boardCol] = new Wreck(boardRow, boardCol);
-					numToReturn = 2;
-				}
-				else if(boardSpot instanceof Wreck)
-				{
-					tempBoard[boardRow][boardCol] = boardSpot;
-					numToReturn = 1;
-				}
-				else if(boardSpot instanceof Player)
-				{
-					((Player)boardSpot).die();
-					tempBoard[boardRow][boardCol] = boardSpot;
-					numToReturn = 1;
-				}
-			}
-			return numToReturn;
+			tempBoard[boardRow][boardCol] = boardSpot;
 		}
+		return 0;
 	}
 
 	/**
@@ -161,19 +142,17 @@ public class FastRobotsGame extends SafeTeleportsGame
 	 * @param row The row to add the robot to.
 	 * @param col The column to add the robot to.
 	 * @param pos The nth enemy being added.
+	 * @return The enemy to add to the board.  The Location should return true for isEnemy().
 	 */
-	protected void addEnemy(int row, int col, int pos)
+	protected Location addEnemy(int row, int col, int pos)
 	{
-		board[row][col] = new FastRobot(row, col);
-		/*
-		if(pos + 1 > 2 && pos % 2 == 1)
+		if(pos > 2 && pos % 2 == 1)
 		{
-			board[row][col] = new FastRobot(row, col);
+			return new FastRobot(row, col);
 		}
 		else //Adds a robot
 		{
-			super.addEnemy(row, col, pos);
+			return super.addEnemy(row, col, pos);
 		}
-		*/
 	}
 }
