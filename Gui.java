@@ -1,15 +1,16 @@
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.awt.GridLayout;
+import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JToolBar;
+import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.lang.Thread;
 
 /**
  * The home control point for the game.  Includes options and information about the game.
- * TODO: get buttons to work with keylistener.
  */
 public abstract class Gui extends JFrame implements KeyListener
 {
@@ -26,7 +27,7 @@ public abstract class Gui extends JFrame implements KeyListener
 	private GuiMenu menu;
 	private JLabel levelLabel;
 	private JLabel scoreLabel;
-	private JToolBar southToolBar;
+	private JPanel southToolBar;
 
 	/**
 	 * Gets the Game used by the GUI.
@@ -60,13 +61,13 @@ public abstract class Gui extends JFrame implements KeyListener
 		levelLabel = new JLabel("Level 1");
 		scoreLabel = new JLabel("Score: 0");;
 
+		// Thread used to slow down game to paint well.
 		thread = new Thread();
 
-		southToolBar = new JToolBar();
+		// Initial construction of panel to hold various labels.
+		southToolBar = new JPanel(new GridLayout(1, 0));
 		southToolBar.add(levelLabel);
-		southToolBar.add(new JLabel("  |  "));
 		southToolBar.add(scoreLabel);
-		southToolBar.setFloatable(false);
 
 		this.addMenu();
 		this.add(game, BorderLayout.CENTER);
@@ -75,6 +76,10 @@ public abstract class Gui extends JFrame implements KeyListener
 		this.setSize(820, 690);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
+
+		// For turning on numlock.
+		Toolkit toolkit = this.getToolkit();
+		toolkit.setLockingKeyState(KeyEvent.VK_NUM_LOCK, true);
 	}
 
 	/**
@@ -162,7 +167,6 @@ public abstract class Gui extends JFrame implements KeyListener
 	 */
 	protected void addLabel(JLabel label)
 	{
-		southToolBar.add(new JLabel("  |  "));
 		southToolBar.add(label);
 	}
 
