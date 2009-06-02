@@ -1,10 +1,18 @@
+package com.robots.game;
+
 import javax.swing.JLabel;
+import com.robots.Direction;
 
 /**
  * A game that allows safe teleports.
  */
 public class SafeTeleportsGame extends Game
 {
+	/**
+	 * Used for serializing.
+	 */
+	private static final long serialVersionUID = 0;
+	
 	private int safeTeleports;
 	private JLabel safeTeleportsLabel;
 	private boolean hasSafeTeleports;

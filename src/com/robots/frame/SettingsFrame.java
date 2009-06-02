@@ -1,3 +1,5 @@
+package com.robots.frame;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
@@ -8,16 +10,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JPanel;
-import java.util.Enumeration;
 import java.util.HashSet;
+import com.robots.game.*;
+import com.robots.gui.*;
 
 /**
  * The Settings Frame is used to change what "mode" the game is in.  
  */
 public class SettingsFrame extends JFrame implements ActionListener
 {
+	/**
+	 * Used for serializing.
+	 */
+	private static final long serialVersionUID = 0;
+	
 	private Gui currentGui;
-	private Game currentGame;
 	private String changeModeTo;
 	private String teleportType;
 	private JLabel gameModeLabel;
@@ -31,12 +38,11 @@ public class SettingsFrame extends JFrame implements ActionListener
 	 * @param currentGame The current type of game the player is using.
 	 * @param currentGui The current type of Gui the player is using.  Also for hiding the Gui when the AboutFrame is clicked.
 	 */
-	public SettingsFrame(Gui currentGui, Game currentGame)
+	public SettingsFrame(Gui currentGui)
 	{
 		super("Settings");
 
 		this.currentGui = currentGui;
-		this.currentGame = currentGame;
 
 		//Set up game mode label.
 		gameModeLabel = new JLabel();

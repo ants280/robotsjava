@@ -1,3 +1,5 @@
+package com.robots.game;
+
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -7,12 +9,19 @@ import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import java.awt.Dimension;
+import com.robots.Direction;
+import com.robots.items.*;
 
 /**
  * The default form of the robots game.
  */
 public abstract class Game extends JPanel
 {
+	/**
+	 * Used for serializing.
+	 */
+	private static final long serialVersionUID = 0;
+	
 	private Dimension dimension;
 	private int level;
 	private int score;
@@ -205,8 +214,12 @@ public abstract class Game extends JPanel
 		//paintToConsole();
 	}
 
-	//paints the board to the console
-	private void paintToConsole()
+	/**
+	 * Paints the board to the console. Kept for debugging state.
+	 * 
+	 * @deprecated   Printing is now graphical.
+	 */
+	protected void paintToConsole()
 	{
 		System.out.println("\n\n\n");
 		System.out.println("--Score = " + score + (score < 10 ? '-' : ""));

@@ -1,11 +1,20 @@
+package com.robots;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import com.robots.frame.*;
+import com.robots.gui.Gui;
 
 public class GuiMenu extends JMenuBar implements ActionListener
 {
+	/**
+	 * Used for serializing.
+	 */
+	private static final long serialVersionUID = 0;
+	
 	private Gui gui;
 	private HighScoresFrame highScoresFrame;
 	private GameRestarterFrame gameRestarterFrame;
@@ -79,7 +88,7 @@ public class GuiMenu extends JMenuBar implements ActionListener
 		gameRestarterFrame = new GameRestarterFrame(gui, gui.getGame(), gui.getLevelLabel(), gui.getScoreLabel());
 		highScoresFrame = new HighScoresFrame(gui, gameRestarterFrame);
 		aboutFrame = new AboutFrame(gui);
-		settingsFrame = new SettingsFrame(gui, gui.getGame());
+		settingsFrame = new SettingsFrame(gui);
 		helpFrame = new HelpFrame();
 	}
 

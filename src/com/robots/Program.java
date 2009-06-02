@@ -1,3 +1,8 @@
+package com.robots;
+
+import com.robots.game.SafeTeleportsGame;
+import com.robots.gui.SafeTeleportsGui;
+
 /**
  * A class whose sole purpose is to house the main.
  */

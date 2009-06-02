@@ -1,13 +1,18 @@
+package com.robots.gui;
+
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.lang.Thread;
+import com.robots.Direction;
+import com.robots.GuiMenu;
+import com.robots.game.Game;
+import com.robots.frame.NameGetterFrame;
 
 /**
  * The home control point for the game.  Includes options and information about the game.
@@ -15,14 +20,17 @@ import java.lang.Thread;
 public abstract class Gui extends JFrame implements KeyListener
 {
 	/**
+	 * Used for serializing.
+	 */
+	private static final long serialVersionUID = 0;
+	
+	/**
 	 * Abstract Method to tell type of game.  Used for options such as game type selection and high score viewing.
 	 *
 	 * @return The game Type.
 	 */
 	public abstract String getGameType();
 
-	private Thread thread;
-	private boolean continous;
 	private Game game;
 	private GuiMenu menu;
 	private JLabel levelLabel;
@@ -60,9 +68,6 @@ public abstract class Gui extends JFrame implements KeyListener
 		super.setTitle("Robots - " + this.getGameType().toLowerCase() + " mode.");
 		levelLabel = new JLabel("Level 1");
 		scoreLabel = new JLabel("Score: 0");;
-
-		// Thread used to slow down game to paint well.
-		thread = new Thread();
 
 		// Initial construction of panel to hold various labels.
 		southToolBar = new JPanel(new GridLayout(1, 0));
@@ -125,7 +130,6 @@ public abstract class Gui extends JFrame implements KeyListener
 		{
 			if(key.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD)
 			{
-				continous = false;
 				switch(key.getKeyChar())
 				{
 					case '1' : performAction(Direction.SW);  break;
@@ -188,7 +192,7 @@ public abstract class Gui extends JFrame implements KeyListener
 				{
 					try
 					{
-						thread.sleep(100);
+						Thread.sleep(100);
 					}
 						catch(InterruptedException ex)
 					{
@@ -209,7 +213,7 @@ public abstract class Gui extends JFrame implements KeyListener
 			{
 				try
 				{
-					thread.sleep(1000);
+					Thread.sleep(1000);
 				}
 				catch(InterruptedException ex)
 				{
@@ -225,7 +229,7 @@ public abstract class Gui extends JFrame implements KeyListener
 			this.removeKeyListener(this);
 			if(menu.getHighScoresFrame().isHighScore(game.getScore()))
 			{
-				NameGetterFrame nameGetterFrame = new NameGetterFrame(menu.getHighScoresFrame(), game.getScore(), this);
+				new NameGetterFrame(menu.getHighScoresFrame(), game.getScore(), this);
 			}
 			else
 			{

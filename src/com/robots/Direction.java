@@ -1,3 +1,5 @@
+package com.robots;
+
 /**
  * The Direction class is a format for moves. It is used to provide communication between the KeyListener and the Game.
  */
@@ -59,7 +61,7 @@ public enum Direction
 	SAFE,
 
 	/**
-	 * Move for continous Robot movement until the Player dies or all of the Robots are dead. The Player does not move during this time.
+	 * Move for continuous Robot movement until the Player dies or all of the Robots are dead. The Player does not move during this time.
 	 */
 	CONTINOUS;
 }

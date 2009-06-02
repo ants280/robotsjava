@@ -1,3 +1,5 @@
+package com.robots.frame;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
@@ -5,12 +7,18 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+import com.robots.gui.Gui;
 
 /**
  * Gets the player's name for a new high score.
  */
 public class NameGetterFrame extends JFrame implements ActionListener
 {
+	/**
+	 * Used for serializing.
+	 */
+	private static final long serialVersionUID = 0;
+	
 	private final int score;
 	private HighScoresFrame highScoresFrame;
 	private JTextField inputField;

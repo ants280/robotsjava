@@ -1,12 +1,20 @@
-import java.awt.BorderLayout;
+package com.robots.gui;
+
 import java.awt.event.KeyEvent;
-import javax.swing.JLabel;
+import com.robots.Direction;
+import com.robots.game.Game;
+import com.robots.game.SafeTeleportsGame;
 
 /**
  * A robots game with safe teleports.  On each level completion the player is granted a teleport that will not result in death.  The player can still teleport randomly by pressing '*' even when he/she has available safe teleports.
  */
 public class SafeTeleportsGui extends Gui
 {
+	/**
+	 * Used for serializing.
+	 */
+	private static final long serialVersionUID = 0;
+	
 	/**
 	 * Creates a Robots game with safe teleports.
 	 *

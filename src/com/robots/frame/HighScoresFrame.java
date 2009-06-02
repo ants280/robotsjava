@@ -1,3 +1,5 @@
+package com.robots.frame;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,12 +16,18 @@ import java.util.TreeMap;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import com.robots.gui.Gui;
 
 /**
  * A frame that shows the player the high scores that have been made.  The high scores can also be reset via this frame.  Reads the list of high scores out of a text file named HighScores.txt.  Only the top 5 scores for each game mode are stored. Scores are stored in an xml file.
  */
 public class HighScoresFrame extends JFrame implements ActionListener
 {
+	/**
+	 * Used for serializing.
+	 */
+	private static final long serialVersionUID = 0;
+	
 	private JLabel scoresLabel;
 	private JFrame resetDialougeFrame;
 	private GameRestarterFrame gameRestarterFrame;
@@ -168,7 +176,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	//called when the user confirms to reset the scores.
 	private void resetScores()
 	{
-		TreeMap tempMap = new TreeMap<Integer, String>();
+		TreeMap<Integer, String> tempMap = new TreeMap<Integer, String>();
 		for(int i = 5; i > 0; i--)
 		{
 			tempMap.put((Integer)(i * 5), "Jacob Patterson");
