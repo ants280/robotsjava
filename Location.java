@@ -1,7 +1,3 @@
-package com.robots.items;
-
-import com.robots.Direction;
-
 /**
  * A default spot in the grid.  All objects on the grid extend Location.
  */

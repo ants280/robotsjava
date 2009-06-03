@@ -1,5 +1,3 @@
-package com.robots.items;
-
 /**
  * A fast robot.  Fast robots move like a robot that moves two times each turn.
  */

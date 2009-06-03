@@ -1,27 +1,17 @@
-package com.robots.game;
-
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import com.robots.Direction;
-import com.robots.items.*;
+
 
 /**
  * A fast robots game with no safe teleports.
  */
 public class FastRobotsGame extends SafeTeleportsGame
 {
-	/**
-	 * Used for serializing.
-	 */
-	private static final long serialVersionUID = 0;
-	
 	private Image fastRobotImage;
 
-	/**
-	 * Tells void updateBoard(int, int) wether or not to only update fast robot's position.
-	 */
+	//Tells void updateBoard(int, int) wether or not to only update fast robot's position.
 	private boolean fastOnly;
 
 	/**

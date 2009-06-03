@@ -1,24 +1,15 @@
-package com.robots.frame;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JFrame;
-import com.robots.game.Game;
-import com.robots.gui.Gui;
 
 /**
  * The GameRestarterFrame is a JFrame that becomes visible after the player dies.  It asks the player if he\she wants to play another Game.  If the player earns a high score, it appears after the HighScoreFrame is closed.
  */ 
 public class GameRestarterFrame extends JFrame implements ActionListener
 {
-	/**
-	 * Used for serializing.
-	 */
-	private static final long serialVersionUID = 0;
-	
 	private Gui currentGui;
 	private Game game;
 	private JButton alternativeButton;

@@ -1,23 +1,15 @@
-package com.robots.frame;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JFrame;
-import com.robots.gui.Gui;
 
 /**
  * A frame that displays information about the game.
  */
 public class AboutFrame extends JFrame implements ActionListener
 {
-	/**
-	 * Used for serializing.
-	 */
-	private static final long serialVersionUID = 0;
-	
 	private Gui currentGui;
 
 	/**

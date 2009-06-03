@@ -1,5 +1,3 @@
-package com.robots.items;
-
 import java.util.Random;
 
 /**
