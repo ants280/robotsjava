@@ -15,6 +15,7 @@ import java.util.HashSet;
  */
 public class SettingsFrame extends JFrame implements ActionListener
 {
+	private static final long serialVersionUID = -2216384562239862222L;
 	private Gui currentGui;
 	private Game currentGame;
 	private String changeModeTo;

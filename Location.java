@@ -42,9 +42,9 @@ public class Location
 	public int getCol() { return m_col; }
 
 	/**
-	 * Prints ouf the Location and it's row and column.
+	 * Prints out the Location and it's row and column.
 	 * 
-	 * @deprecated Use for debugging porpuses only.
+	 * @deprecated Use for debugging purposes only.
 	 */
 	public String toString() { return this.getClass().getName() + " at " + m_row + ", " + m_col; }
 	

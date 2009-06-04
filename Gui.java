@@ -4,6 +4,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.lang.Thread;
@@ -13,6 +14,8 @@ import java.lang.Thread;
  */
 public abstract class Gui extends JFrame implements KeyListener
 {
+	private static final long serialVersionUID = -4028299973870072557L;
+
 	/**
 	 * Abstract Method to tell type of game.  Used for options such as game type selection and high score viewing.
 	 *
@@ -25,7 +28,7 @@ public abstract class Gui extends JFrame implements KeyListener
 	private GuiMenu menu;
 	private JLabel levelLabel;
 	private JLabel scoreLabel;
-	private JPanel southToolBar;
+	private JPanel southLabel;
 
 	/**
 	 * Gets the Game used by the GUI.
@@ -49,7 +52,7 @@ public abstract class Gui extends JFrame implements KeyListener
 	public JLabel getScoreLabel() { return scoreLabel; }
 
 	/**
-	 * Creates a default, classic game.  Sets up all componets and some frames
+	 * Creates a default, classic game.  Sets up all components and some frames
 	 */
 	public Gui(Game game)
 	{
@@ -60,19 +63,19 @@ public abstract class Gui extends JFrame implements KeyListener
 		scoreLabel = new JLabel("Score: 0");;
 
 		// Initial construction of panel to hold various labels.
-		southToolBar = new JPanel(new GridLayout(1, 0));
-		southToolBar.add(levelLabel);
-		southToolBar.add(scoreLabel);
+		southLabel = new JPanel(new GridLayout(1, 0));
+		southLabel.add(levelLabel);
+		southLabel.add(scoreLabel);
 
 		this.addMenu();
 		this.add(game, BorderLayout.CENTER);
-		this.add(southToolBar, BorderLayout.SOUTH);
+		this.add(southLabel, BorderLayout.SOUTH);
 		this.addKeyListener(this); 
 		this.setSize(820, 690);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-
-		// For turning on numlock.
+		
+		// For turning on numLock.
 		Toolkit toolkit = this.getToolkit();
 		toolkit.setLockingKeyState(KeyEvent.VK_NUM_LOCK, true);
 	}
@@ -91,13 +94,11 @@ public abstract class Gui extends JFrame implements KeyListener
 	 *
 	 * @param key The event triggered when a key is pressed
 	 */
-	public void keyTyped(KeyEvent key)
-	{
-		//Does nothing.
-	}
+	public void keyTyped(KeyEvent key) { /* Does nothing. */ }
 
 	/**
-	 * Handles Keyboard Input. Handles Keys :<p>
+	 * Handles Keyboard Input.
+	 * Handles Keys :<p>
 	 * Keypad Keys:<p>
 	 * S - Settings.<p>
 	 * 1 - W.<p>
@@ -110,7 +111,7 @@ public abstract class Gui extends JFrame implements KeyListener
 	 * 8 - N.<p>
 	 * 9 - NE.<p>
 	 * + - Teleports Randomly.<p>
-	 * ENTER - Moves the bots toward you (in the 'SAME' position) until either you or all of them die. 
+	 * ENTER - Moves the robots toward you (in the 'SAME' position) until either you or all of them die. 
 	 *
 	 * @param key The event triggered when a key is pressed
 	 */
@@ -133,8 +134,10 @@ public abstract class Gui extends JFrame implements KeyListener
 					case '8' : performAction(Direction.N);   break;
 					case '9' : performAction(Direction.NE);  break;
 					case '+' : performAction(Direction.RANDOM);break;
-					case KeyEvent.VK_ENTER : performAction(Direction.CONTINOUS); break;
-					case KeyEvent.VK_K :
+					case KeyEvent.VK_ENTER : 
+						continous = true;
+						performAction(Direction.CONTINOUS);
+						break;
 				}
 			}
 		}
@@ -150,23 +153,20 @@ public abstract class Gui extends JFrame implements KeyListener
 	 *
 	 * @param key The event triggered when a key is released.
 	 */
-	public void keyReleased(KeyEvent key)
-	{
-		//Does nothing.
-	}
+	public void keyReleased(KeyEvent key) { /*Does nothing. */ }
 
 	/**
-	 * For adding a label to the south toolbar.
+	 * For adding a label to the south toolBar.
 	 *
-	 * @param label The label to add to the south toolbar.
+	 * @param label The label to add to the south toolBar.
 	 */
 	protected void addLabel(JLabel label)
 	{
-		southToolBar.add(label);
+		southLabel.add(label);
 	}
 
 	/**
-	 * Moves the player in the specifed Direction.  Also moves the player the correct number of steps in the game.
+	 * Moves the player in the specified Direction.  Also moves the player the correct number of steps in the game.
 	 *
 	 * @param move The Direction to move the Player.
 	 */
@@ -178,7 +178,12 @@ public abstract class Gui extends JFrame implements KeyListener
 			{
 				game.makeMove(move);
 				game.printBoard();
-				if(move == Direction.CONTINOUS)
+				
+				if(!game.getHuman().isAlive() || game.numBots() == 0)
+				{
+					continous = false;
+				}
+				if(continous)
 				{
 					try
 					{
@@ -188,10 +193,6 @@ public abstract class Gui extends JFrame implements KeyListener
 					{
 						ex.printStackTrace();
 					}
-				}
-				if(!game.getHuman().isAlive() || game.numBots() == 0)
-				{
-					continous = false;
 				}
 			}
 			while(continous);
@@ -223,7 +224,16 @@ public abstract class Gui extends JFrame implements KeyListener
 			}
 			else
 			{
-				menu.getGameRestarterFrame().openWithQuit(true);
+				final int choice = JOptionPane.showConfirmDialog(this, "Do you want to start a new game?", "Restart?", JOptionPane.YES_NO_OPTION);
+				if(choice == JOptionPane.YES_OPTION)
+				{
+					game.resetBoard();
+					game.printBoard();
+				}
+				else if(choice == JOptionPane.NO_OPTION)
+				{
+					System.exit(0);
+				}
 			}
 			this.addKeyListener(this);
 		}

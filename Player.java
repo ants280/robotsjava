@@ -12,9 +12,9 @@ public class Player extends Location
 	public boolean isEnemy() { return false; }
 	
 	/**
-	 * Prints ouf the Player and it's row and column.
+	 * Prints out the Player and it's row and column.
 	 * 
-	 * @deprecated Use for debugging porpuses only.
+	 * @deprecated Use for debugging purposes only.
 	 */
 	public char value() { return m_dead ? 'X' : '#'; }
 	

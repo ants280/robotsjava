@@ -14,19 +14,22 @@ import java.util.TreeMap;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  * A frame that shows the player the high scores that have been made.  The high scores can also be reset via this frame.  Reads the list of high scores out of a text file named HighScores.txt.  Only the top 5 scores for each game mode are stored. Scores are stored in an xml file.
  */
 public class HighScoresFrame extends JFrame implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
 	private JLabel scoresLabel;
 	private JFrame resetDialougeFrame;
-	private GameRestarterFrame gameRestarterFrame;
 	private HashMap<String, TreeMap<Integer, String>> scoresList;
 	private Gui currentGui;
 	
-	//For restarting the game on frame close.
+	/**
+	 * For restarting the game on frame close.
+	 */
 	private boolean restartGame;
 
 	/**
@@ -34,12 +37,10 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	 *
 	 * @param currentGui The current type of Gui the player is using.  For hiding the Gui when the AboutFrame is clicked.
 	 */
-	public HighScoresFrame(Gui currentGui, GameRestarterFrame gameRestarterFrame)
+	public HighScoresFrame(Gui currentGui)
 	{
 		super("High Scores");
 		this.currentGui = currentGui;
-		this.gameRestarterFrame = gameRestarterFrame;
-		resetDialougeFrame = resetDialougeFrame();
 		scoresLabel = new JLabel("High scores for " + currentGui.getGameType() + " mode.");
 
 		JButton okButton = new JButton("Ok");
@@ -59,29 +60,6 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	}
 
 	/**
-	 * Creates a Frame to ask the player if he\she wants to reset the list of high scores.
-	 */
-	public JFrame resetDialougeFrame()
-	{
-		JFrame frame = new JFrame("Reset?");
-		JLabel promptLabel = new JLabel("<html><pre>Are you sure you want to<br> reset the high scores<br>  for " + currentGui.getGameType().toLowerCase() + " mode?</pre></html>");
-		JButton yesButton = new JButton("Yes");
-		yesButton.setActionCommand("resetYes");
-		yesButton.addActionListener(this);
-
-		JButton noButton = new JButton("NO!");
-			noButton.setActionCommand("resetNo");
-			noButton.addActionListener(this);
-
-		frame.add(promptLabel, BorderLayout.NORTH);
-		frame.add(yesButton, BorderLayout.WEST);
-		frame.add(noButton, BorderLayout.EAST);
-		frame.pack();
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		return frame;
-	}
-
-	/**
 	 * The action performed when a button is pressed.
 	 *
 	 * @param event The event triggered by the close button.
@@ -95,8 +73,8 @@ public class HighScoresFrame extends JFrame implements ActionListener
 		}
 		else if(command.equals("resetDialouge"))
 		{
-			this.setVisible(false);
-			resetDialougeFrame.setVisible(true);
+			String message = "<html><pre>Are you sure you want to<br> reset the high scores<br>  for " + currentGui.getGameType().toLowerCase() + " mode?</pre></html>";
+			JOptionPane.showConfirmDialog(this, message, "Reset?", JOptionPane.YES_NO_OPTION);
 		}
 		else if(command.equals("resetYes"))
 		{
@@ -112,7 +90,9 @@ public class HighScoresFrame extends JFrame implements ActionListener
 		}
 	}
 
-	//Updates the scoresLabelText.  Should only be called when the current high scores change.
+	/**
+	 * Updates the scoresLabelText.  Should only be called when the current high scores change.
+	 */
 	private void updateScoresLabel()
 	{
 		TreeMap<Integer, String> currentList = this.scoresList.get(currentGui.getGameType());
@@ -133,7 +113,9 @@ public class HighScoresFrame extends JFrame implements ActionListener
 		}
 	}
 
-	//Called when constructed.
+	/**
+	 * Called when constructed.
+	 */
 	private void readScores()
 	{
 		scoresList = new HashMap<String, TreeMap<Integer, String>>();
@@ -165,7 +147,9 @@ public class HighScoresFrame extends JFrame implements ActionListener
 		}
 	}
 
-	//called when the user confirms to reset the scores.
+	/**
+	 * called when the user confirms to reset the scores.
+	 */
 	private void resetScores()
 	{
 		TreeMap<Integer, String> tempMap = new TreeMap<Integer, String>();
@@ -203,7 +187,12 @@ public class HighScoresFrame extends JFrame implements ActionListener
 		this.scoresList.put(gameModeType, map);
 	}
 
-	// For formatting the name from the file as to inslude spaces and trailing numbers (ex: fat bob 123)
+	/**
+	 * For formatting the name from the file as to include spaces and trailing numbers (Example: fat bob 123)
+	 * 
+	 * @param separated
+	 * @return
+	 */
 	private String getName(String[] separated)
 	{
 		String name = "";
@@ -269,21 +258,28 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	 * Shows or hides this component depending on the value of parameter visible.
 	 *
 	 * @param visible If true, shows this component; otherwise, hides this component
-	 * @param restartGame Tells wether or not to restart the game when the HighScoresPrame is closed (if visible is True).
+	 * @param restartGame Tells whether or not to restart the game when the HighScoresPrame is closed (if visible is True).
 	 */
 	public void setVisible(boolean visible, boolean restartGame)
 	{
 		if(!visible)
 		{
-			this.saveScores();
-			super.setVisible(false);
 			if(restartGame)
 			{
-				gameRestarterFrame.openWithQuit(true);
+				final int choice = JOptionPane.showConfirmDialog(this, "Do you want to restart the game", "Restart?", JOptionPane.YES_NO_OPTION);
+				if(choice == JOptionPane.YES_OPTION)
+				{
+					currentGui.getGame().resetBoard();
+				}
+				else if(choice == JOptionPane.NO_OPTION)
+				{
+				System.exit(0);
+				}
 			}
 			else
 			{
 				currentGui.setVisible(true);
+				super.setVisible(false);
 			}
 		}
 		else

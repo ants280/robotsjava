@@ -10,6 +10,7 @@ import javax.swing.JFrame;
  */ 
 public class GameRestarterFrame extends JFrame implements ActionListener
 {
+	private static final long serialVersionUID = 575518676332495500L;
 	private Gui currentGui;
 	private Game game;
 	private JButton alternativeButton;
@@ -19,7 +20,7 @@ public class GameRestarterFrame extends JFrame implements ActionListener
 	/**
 	 * Creates a new GameRestarterFrame.
 	 *
-	 * @param currentGui The current Gui for hiding when the GameRestarterFrame opens.
+	 * @param currentGui The current gui for hiding when the GameRestarterFrame opens.
 	 * @param game The current Game. For restarting it.
 	 * @param levelLabel Resets the level label if the game restarts.
 	 * @param scoreLabel Resets the score label if the game restarts.
@@ -88,7 +89,7 @@ public class GameRestarterFrame extends JFrame implements ActionListener
 	/**
 	 * Should be used to open the frame.
 	 *
-	 * @param quit Tells wether or not set the alternive button to quit the game or close the frame.
+	 * @param quit Tells whether or not set the alternative button to quit the game or close the frame.
 	 */
 	public void openWithQuit(boolean quit)
 	{

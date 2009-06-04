@@ -11,9 +11,9 @@ public class Robot extends Location
 	public boolean isEnemy() { return true; }
 
 	/**
-	 * Prints ouf the Player and it's row and column.
+	 * Prints out the Player and it's row and column.
 	 * 
-	 * @deprecated Use for debugging porpuses only.
+	 * @deprecated Use for debugging purposes only.
 	 */
 	public char value() { return '1'; }
 

@@ -13,6 +13,7 @@ import java.awt.Dimension;
  */
 public abstract class Game extends JPanel
 {
+	private static final long serialVersionUID = -5019512195986383612L;
 	private Dimension dimension;
 	private int level;
 	private int score;
@@ -84,7 +85,7 @@ public abstract class Game extends JPanel
 	public int numBots() { return numBots; }
 
 	/**
-	 * Creates a new Game. Cals resetBoard to add the board.
+	 * Creates a new Game. Calls resetBoard to add the board.
 	 */
 	public Game()
 	{
@@ -98,7 +99,7 @@ public abstract class Game extends JPanel
 	}
 
 	/**
-	 * Puts the robots on the board.  Same as Game's  void setNumBots(int), but the number of bots is capped at SIDE * SIDE / 2.  This prevents the Player from having no possible safe teleports because of the amount of SafeTeleports.
+	 * Puts the robots on the board.  Same as Game's  void setNumBots(int), but the number of robots is capped at SIDE * SIDE / 2.  This prevents the Player from having no possible safe teleports because of the amount of SafeTeleports.
 	 *
 	 * @param numBots Starts at 2, increases by 1 on each level increase.
 	 */
@@ -328,7 +329,7 @@ public abstract class Game extends JPanel
 	}
 
 
-	// Creates a new array of Locations the size of the board.  Each Location refers to its spot int te array.
+	// Creates a new array of Locations the size of the board.  Each Location refers to its spot int the array.
 	private Location[][] createBoard()
 	{
 		Location[][] temp = new Location[ROWS][COLS];
@@ -401,7 +402,7 @@ public abstract class Game extends JPanel
 	 * Moves the player in the specified Direction.  Calls {@link #updateBoard() updateBoard}.
 	 *
 	 * @param dir The Direction to move.
-	 * @return True if the move is sucessful, otherwise, false.
+	 * @return True if the move is successful, otherwise, false.
 	 */
 	public boolean makeMove(Direction dir)
 	{

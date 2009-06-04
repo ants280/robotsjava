@@ -5,6 +5,7 @@ import javax.swing.JLabel;
  */
 public class SafeTeleportsGame extends Game
 {
+	private static final long serialVersionUID = -5380784161728359856L;
 	private int safeTeleports;
 	private JLabel safeTeleportsLabel;
 	private boolean hasSafeTeleports;
@@ -34,7 +35,7 @@ public class SafeTeleportsGame extends Game
  	 * Same as Game's void makeMove(Direction), but includes definition for safe teleports.
 	 *
 	 * @param dir The Direction to move.
-	 * @return True if the move is sucessful, otherwise, false.
+	 * @return True if the move is successful, otherwise, false.
 	 */
 	public boolean makeMove(Direction dir)
 	{

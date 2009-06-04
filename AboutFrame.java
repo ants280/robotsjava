@@ -10,6 +10,7 @@ import javax.swing.JFrame;
  */
 public class AboutFrame extends JFrame implements ActionListener
 {
+	private static final long serialVersionUID = -4955269999727124686L;
 	private Gui currentGui;
 
 	/**

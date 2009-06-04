@@ -3,22 +3,16 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 public class GuiMenu extends JMenuBar implements ActionListener
 {
+	private static final long serialVersionUID = 4860132710390756010L;
 	private Gui gui;
 	private HighScoresFrame highScoresFrame;
-	private GameRestarterFrame gameRestarterFrame;
 	private AboutFrame aboutFrame;
 	private SettingsFrame settingsFrame;
 	private HelpFrame helpFrame;
-
-	/**
-	 * Gets the gameRestarterFrame.  Used by the gui to restart the game if the player loses.
-	 *
-	 * @return The gameRestarterFrame.
-	 */
-	public GameRestarterFrame getGameRestarterFrame() { return gameRestarterFrame; }
 
 	/**
 	 * Gets the highScoresFrame.  Used by the gui to add a new high score to the high score list.
@@ -76,8 +70,7 @@ public class GuiMenu extends JMenuBar implements ActionListener
 	 */
 	private void createFrames()
 	{
-		gameRestarterFrame = new GameRestarterFrame(gui, gui.getGame(), gui.getLevelLabel(), gui.getScoreLabel());
-		highScoresFrame = new HighScoresFrame(gui, gameRestarterFrame);
+		highScoresFrame = new HighScoresFrame(gui);
 		aboutFrame = new AboutFrame(gui);
 		settingsFrame = new SettingsFrame(gui, gui.getGame());
 		helpFrame = new HelpFrame();
@@ -93,7 +86,11 @@ public class GuiMenu extends JMenuBar implements ActionListener
 		String command = event.getActionCommand();
 		if(command.equals("restart"))
 		{
-			gameRestarterFrame.openWithQuit(false);
+			final int choice = JOptionPane.showConfirmDialog(this, "Do you want to restart the game", "Restart?", JOptionPane.YES_NO_OPTION);
+			if(choice == JOptionPane.YES_OPTION)
+			{
+				gui.getGame().resetBoard();
+			}
 		}
 		else if(command.equals("high scores"))
 		{

@@ -5,10 +5,12 @@ import java.awt.event.KeyEvent;
  */
 public class SafeTeleportsGui extends Gui
 {
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Creates a Robots game with safe teleports.
 	 *
-	 * @param game The type of game to play.  Must be a typeof SafeTeleportsGame.
+	 * @param game The type of game to play.  Must be a type of SafeTeleportsGame.
 	 */
 	public SafeTeleportsGui(Game game)
 	{

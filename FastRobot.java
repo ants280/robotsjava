@@ -5,9 +5,9 @@ public class FastRobot extends Robot
 {
 
 	/**
-	 * Prints ouf the Player and it's row and column.
+	 * Prints out the Player and it's row and column.
 	 * 
-	 * @deprecated Use for debugging porpuses only.
+	 * @deprecated Use for debugging purposes only.
 	 */
 	public char value() { return '0'; }
 

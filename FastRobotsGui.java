@@ -3,10 +3,12 @@
  */
 public class FastRobotsGui extends SafeTeleportsGui
 {
+	private static final long serialVersionUID = 863928061894353221L;
+
 	/**
 	 * Creates a game with fast robots.
 	 *
-	 * @param game The type of game to play.  Must be a typeof SafeTeleportsGame.
+	 * @param game The type of game to play.  Must be a type of SafeTeleportsGame.
 	 */
 	public FastRobotsGui(Game game)
 	{

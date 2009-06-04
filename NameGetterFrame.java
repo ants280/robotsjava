@@ -11,6 +11,7 @@ import javax.swing.JTextField;
  */
 public class NameGetterFrame extends JFrame implements ActionListener
 {
+	private static final long serialVersionUID = 7881462332496478373L;
 	private final int score;
 	private HighScoresFrame highScoresFrame;
 	private JTextField inputField;

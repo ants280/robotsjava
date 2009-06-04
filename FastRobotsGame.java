@@ -9,9 +9,10 @@ import javax.imageio.ImageIO;
  */
 public class FastRobotsGame extends SafeTeleportsGame
 {
+	private static final long serialVersionUID = -4520458961825517835L;
 	private Image fastRobotImage;
 
-	//Tells void updateBoard(int, int) wether or not to only update fast robot's position.
+	//Tells void updateBoard(int, int) whether or not to only update fast robot's position.
 	private boolean fastOnly;
 
 	/**
@@ -60,7 +61,7 @@ public class FastRobotsGame extends SafeTeleportsGame
 	 * Moves the player in the specified Direction. Moves the fast robots twice.
 	 *
 	 * @param dir The Direction to move.
-	 * @return True if the move is sucessful, otherwise, false.
+	 * @return True if the move is successful, otherwise, false.
 	 */
 	public boolean makeMove(Direction dir)
 	{
@@ -110,7 +111,7 @@ public class FastRobotsGame extends SafeTeleportsGame
 			return super.updateBoard(boardRow, boardCol);
 		}
 
-		// Normal move  of pice (direct translation).   Yes, this else block is unneeded, but it adds to clarity.
+		// Normal move  of piece (direct translation).   Yes, this else block is unneeded, but it adds to clarity.
 		if(tempBoard[boardRow][boardCol] instanceof FastRobot)
 		{
 			if(boardSpot instanceof Robot)
@@ -137,7 +138,7 @@ public class FastRobotsGame extends SafeTeleportsGame
 	}
 
 	/**
-	 * Adds normal robots on every number or a fast bot on odd numbers. Only adds fast robots if the number of robots to add is greater than 2.
+	 * Adds normal robots on every number or a fast robot on odd numbers. Only adds fast robots if the number of robots to add is greater than 2.
 	 *
 	 * @param row The row to add the robot to.
 	 * @param col The column to add the robot to.
