@@ -90,6 +90,9 @@ public class GuiMenu extends JMenuBar implements ActionListener
 			if(choice == JOptionPane.YES_OPTION)
 			{
 				gui.getGame().resetBoard();
+				
+				//TODO: this should be called automatically.
+				gui.getGame().printBoard();
 			}
 		}
 		else if(command.equals("high scores"))

@@ -89,6 +89,7 @@ public class Player extends Location
 	public Player(int row, int col, Random gen, final int rows, final int cols)
 	{
 		super(row, col);
+		
 		generator = gen;
 		ROWS = rows;
 		COLS = cols;
@@ -103,9 +104,11 @@ public class Player extends Location
 	public Player(Player other)
 	{
 		super(other.getRow(), other.getCol());
+		
 		this.generator = other.getGenerator();
 		this.ROWS = other.getWidth();
 		this.COLS = other.getHeight();
+		
 		m_dead = false;
 	}
 }

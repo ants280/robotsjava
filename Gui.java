@@ -26,9 +26,7 @@ public abstract class Gui extends JFrame implements KeyListener
 	private boolean continous;
 	private Game game;
 	private GuiMenu menu;
-	private JLabel levelLabel;
-	private JLabel scoreLabel;
-	private JPanel southLabel;
+	private JPanel southPanel;
 
 	/**
 	 * Gets the Game used by the GUI.
@@ -38,20 +36,6 @@ public abstract class Gui extends JFrame implements KeyListener
 	public Game getGame() { return game; }
 
 	/**
-	 * Gets the level label.
-	 *
-	 * @return The level label.
-	 */
-	public JLabel getLevelLabel() { return levelLabel; }
-
-	/**
-	 * Gets the score label.
-	 *
-	 * @return The score label.
-	 */
-	public JLabel getScoreLabel() { return scoreLabel; }
-
-	/**
 	 * Creates a default, classic game.  Sets up all components and some frames
 	 */
 	public Gui(Game game)
@@ -59,17 +43,15 @@ public abstract class Gui extends JFrame implements KeyListener
 		super();
 		this.game = game;
 		super.setTitle("Robots - " + this.getGameType().toLowerCase() + " mode.");
-		levelLabel = new JLabel("Level 1");
-		scoreLabel = new JLabel("Score: 0");;
 
 		// Initial construction of panel to hold various labels.
-		southLabel = new JPanel(new GridLayout(1, 0));
-		southLabel.add(levelLabel);
-		southLabel.add(scoreLabel);
+		southPanel = new JPanel(new GridLayout(1, 0));
+		southPanel.add(game.getLevelLabel());
+		southPanel.add(game.getScoreLabel());
 
 		this.addMenu();
 		this.add(game, BorderLayout.CENTER);
-		this.add(southLabel, BorderLayout.SOUTH);
+		this.add(southPanel, BorderLayout.SOUTH);
 		this.addKeyListener(this); 
 		this.setSize(820, 690);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -136,7 +118,7 @@ public abstract class Gui extends JFrame implements KeyListener
 					case '+' : performAction(Direction.RANDOM);break;
 					case KeyEvent.VK_ENTER : 
 						continous = true;
-						performAction(Direction.CONTINOUS);
+						performAction(Direction.CONTINUOUS);
 						break;
 				}
 			}
@@ -162,7 +144,7 @@ public abstract class Gui extends JFrame implements KeyListener
 	 */
 	protected void addLabel(JLabel label)
 	{
-		southLabel.add(label);
+		southPanel.add(label);
 	}
 
 	/**
@@ -199,7 +181,6 @@ public abstract class Gui extends JFrame implements KeyListener
 		}
 		if(game.getHuman().isAlive())
 		{
-			scoreLabel.setText("Score: " + game.getScore());
 			if(game.numBots() == 0)
 			{
 				try
@@ -212,7 +193,6 @@ public abstract class Gui extends JFrame implements KeyListener
 				}
 				game.increaseLevel();
 				game.printBoard();
-				levelLabel.setText("Level: " + game.getLevel());
 			}
 		}
 		else

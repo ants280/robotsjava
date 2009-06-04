@@ -59,7 +59,7 @@ public enum Direction
 	SAFE,
 
 	/**
-	 * Move for continous Robot movement until the Player dies or all of the Robots are dead. The Player does not move during this time.
+	 * Move for continuous Robot movement until the Player dies or all of the Robots are dead. The Player does not move during this time.
 	 */
-	CONTINOUS;
+	CONTINUOUS;
 }

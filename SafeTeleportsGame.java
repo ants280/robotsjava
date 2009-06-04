@@ -24,7 +24,9 @@ public class SafeTeleportsGame extends Game
 	public SafeTeleportsGame(boolean hasSafeTeleports)
 	{
 		super();
+		
 		this.hasSafeTeleports = hasSafeTeleports;
+		
 		if(hasSafeTeleports)
 		{
 			safeTeleportsLabel = new JLabel("Safe Teleports: 0");
@@ -71,6 +73,7 @@ public class SafeTeleportsGame extends Game
 	public void increaseLevel()
 	{
 		super.increaseLevel();
+		
 		if(this.hasSafeTeleports)
 		{
 			safeTeleports++;

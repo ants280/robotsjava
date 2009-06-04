@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 import java.awt.Dimension;
 
 /**
@@ -22,6 +23,8 @@ public abstract class Game extends JPanel
 	private Image playerDeadImage;
 	private Image robotImage;
 	private Image wreckImage;
+	private JLabel levelLabel;
+	private JLabel scoreLabel;
 
 	/**
 	 * Method to tell if the game has safe teleports.
@@ -85,11 +88,27 @@ public abstract class Game extends JPanel
 	public int numBots() { return numBots; }
 
 	/**
+	 * The level label for the level of the game.
+	 * 
+	 * @return The level label.
+	 */
+	public JLabel getLevelLabel() { return levelLabel; }
+	
+	/**
+	 * The score label for the score of the current game.
+	 * 
+	 * @return The score label.
+	 */
+	public JLabel getScoreLabel() { return scoreLabel; } 
+	/**
 	 * Creates a new Game. Calls resetBoard to add the board.
 	 */
 	public Game()
 	{
 		super(false);
+		
+		levelLabel = new JLabel();
+		scoreLabel = new JLabel();
 		generator = new Random();
 		ROWS = 30;
 		COLS = 40;
@@ -161,6 +180,10 @@ public abstract class Game extends JPanel
 		g.drawLine(0, 0, 20 * COLS, 0);
 		g.drawLine(0, 20 * ROWS, 20 * COLS, 20 * ROWS);
 		g.drawLine(20 * COLS, 0, 20 * COLS, 20 * ROWS);
+		
+		// Sets the score label
+		// TODO: This should only be done if the score changes, causing the labels text to change in its own method.
+		scoreLabel.setText("Score: " + score);
 	}
 
 	/**
@@ -206,7 +229,10 @@ public abstract class Game extends JPanel
 		//paintToConsole();
 	}
 
-	//paints the board to the console
+	/**
+	 * paints the board to the console
+	 */
+	@SuppressWarnings({ "unused", "deprecation" })
 	private void paintToConsole()
 	{
 		System.out.println("\n\n\n");
@@ -329,7 +355,11 @@ public abstract class Game extends JPanel
 	}
 
 
-	// Creates a new array of Locations the size of the board.  Each Location refers to its spot int the array.
+	/**
+	 *  Creates a new array of Locations the size of the board.  Each Location refers to its spot int the array.
+	 * 
+	 * @return A board full of locations reflecting their spots on the board.
+	 */
 	private Location[][] createBoard()
 	{
 		Location[][] temp = new Location[ROWS][COLS];
@@ -343,7 +373,9 @@ public abstract class Game extends JPanel
 		return temp;
 	}
 
-	// Puts the robots on the board.  Should be called only for a clear board.
+	/**
+	 *  Puts the robots on the board.  Should be called only for a clear board.
+	 */
 	private void fillBots()
 	{
 		int row, col;
@@ -386,16 +418,19 @@ public abstract class Game extends JPanel
 		board = createBoard();
 		board[ROWS / 2][COLS / 2] = human;
 		fillBots();
+		levelLabel.setText("Level: " + level);
 	}
 
 	/**
-	 * Resets the game. Called if the player wants to play another game.
+	 * Resets the game. Called if the player wants to play another game.  Updates the score and level labels.
 	 */
 	public void resetBoard()
 	{
 		score = 0;
 		level = 0;
-		this.increaseLevel();
+		
+		increaseLevel();
+		scoreLabel.setText("Score: 0");
 	}
 
 	/**
@@ -414,7 +449,7 @@ public abstract class Game extends JPanel
 			{
 				human.die();
 			}
-			if(dir != Direction.SAME && dir != Direction.CONTINOUS)
+			if(dir != Direction.SAME && dir != Direction.CONTINUOUS)
 			{
 				board[human.getRow()][human.getCol()] = new Location(human);
 				human.updatePos(dir);
@@ -434,7 +469,7 @@ public abstract class Game extends JPanel
 	 */
 	protected boolean isValid(Location testLocation, Direction dir)
 	{
-		if(dir == Direction.RANDOM || dir == Direction.CONTINOUS)
+		if(dir == Direction.RANDOM || dir == Direction.CONTINUOUS)
 		{
 			return true;
 		}

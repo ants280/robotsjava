@@ -12,7 +12,9 @@ public class FastRobotsGame extends SafeTeleportsGame
 	private static final long serialVersionUID = -4520458961825517835L;
 	private Image fastRobotImage;
 
-	//Tells void updateBoard(int, int) whether or not to only update fast robot's position.
+	/**
+	 * Tells void updateBoard(int, int) whether or not to only update fast robot's position.
+	 */
 	private boolean fastOnly;
 
 	/**
@@ -75,7 +77,7 @@ public class FastRobotsGame extends SafeTeleportsGame
 			boolean sucessful = super.makeMove(Direction.SAME);
 			fastOnly = false;
 
-			if(dir != Direction.CONTINOUS && !sucessful)
+			if(dir != Direction.CONTINUOUS && !sucessful)
 			{
 				board = fastTempBoard;
 				board[human.getRow()][human.getCol()] = new Location(human.getRow(), human.getCol());

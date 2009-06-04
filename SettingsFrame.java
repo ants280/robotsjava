@@ -41,7 +41,7 @@ public class SettingsFrame extends JFrame implements ActionListener
 		//Set up game mode label.
 		gameModeLabel = new JLabel();
 
-		//Set up non-radiobuttons.
+		//Set up non-radioButtons.
 		JButton okButton = new JButton("Ok");
 			okButton.setActionCommand("ok");
 			okButton.addActionListener(this);
@@ -138,7 +138,7 @@ public class SettingsFrame extends JFrame implements ActionListener
 					game = new FastRobotsGame(safe);
 					currentGui = new FastRobotsGui(game);
 				}
-//Add new button selecton modes HERE. Should be an "else if".  The Command should be the same as the button's text. DO NOT DELETE THIS LINE.
+//Add new button selection modes HERE. Should be an "else if".  The Command should be the same as the button's text. DO NOT DELETE THIS LINE.
 				if(command.equals("ok"))
 				{
 					this.setVisible(false);
@@ -161,7 +161,7 @@ public class SettingsFrame extends JFrame implements ActionListener
 		{
 			teleportType = "true";
 		}
-		else //command is a gameType press
+		else // Command is a gameType press
 		{
 			changeModeTo = command;
 		}
@@ -174,7 +174,7 @@ public class SettingsFrame extends JFrame implements ActionListener
 	 */
 	public void setVisible(boolean visible)
 	{
-		//Set the teleportTypeRadioButton settings
+		// Set the teleportTypeRadioButton settings
 		if(visible)
 		{
 			if(currentGame.isSafeTeleportsGame())

@@ -287,9 +287,9 @@ public class HighScoresFrame extends JFrame implements ActionListener
 			this.restartGame = restartGame;
 			this.updateScoresLabel();
 			this.pack();
-
-			currentGui.setVisible(false);
-			super.setVisible(true);
 		}
+		
+		currentGui.setVisible(visible);
+		super.setVisible(visible);
 	}
 }	

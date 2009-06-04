@@ -17,9 +17,17 @@ public class NameGetterFrame extends JFrame implements ActionListener
 	private JTextField inputField;
 	private Gui currentGui;
 
+	/**
+	 * Creates a frame that gets the name of the player to add to the list of high scores.
+	 * 
+	 * @param highScoresFrame The high scores frame.  Used to open the high scores frame when a name is entered.
+	 * @param score The score that has just been made.
+	 * @param currentGui  The current gui of the game being played.  Gets hidden when the frame is made visible.
+	 */
 	public NameGetterFrame(HighScoresFrame highScoresFrame, final int score, Gui currentGui)
 	{
 		super("Congragulations!");
+		
 		this.highScoresFrame = highScoresFrame;
 		this.score = score;
 		this.currentGui = currentGui;
@@ -35,6 +43,8 @@ public class NameGetterFrame extends JFrame implements ActionListener
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.setLocationRelativeTo(currentGui);
+		
+		currentGui.setVisible(false);
 		this.setVisible(true);
 	}
 
@@ -52,19 +62,5 @@ public class NameGetterFrame extends JFrame implements ActionListener
 			this.highScoresFrame.setVisible(true, true);
 		}
 		this.dispose();
-	}
-	
-	/**
-	 * Shows or hides this component depending on the value of parameter visible. Hides the Gui on startup.
-	 *
-	 * @param visible If true, shows this component; otherwise, hides this component
-	 */
-	public void setVisible(boolean visible)
-	{
-		if(visible)
-		{
-			this.currentGui.setVisible(!visible);
-		}
-		super.setVisible(visible);
 	}
 }
