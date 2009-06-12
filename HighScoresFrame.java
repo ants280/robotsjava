@@ -246,6 +246,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 		if(map == null)
 		{
 			this.resetScores();
+			map = this.scoresList.get(currentGui.getGameType());
 		}
 		if(score > map.firstKey() || map.size() < 5)
 		{
