@@ -52,6 +52,7 @@ public class Location
 	 * Updates the row and column of the Location in the specified Direction.
 	 *
 	 * @param dir The Direction to update the Location's row and column.
+	 * @return The location with its row and column fields updated
 	 */
 	public Location updatePos(Direction dir)
 	{
