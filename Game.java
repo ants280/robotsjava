@@ -103,6 +103,7 @@ public abstract class Game extends JPanel
 	 * @return The score label.
 	 */
 	public JLabel getScoreLabel() { return scoreLabel; } 
+
 	/**
 	 * Creates a new Game. Calls resetBoard to add the board.
 	 */
@@ -401,7 +402,7 @@ public abstract class Game extends JPanel
 		{
 			row = generator.nextInt(ROWS);
 			col = generator.nextInt(COLS);
-			if(!board[row][col].getClass().getName().equals( "Location"))
+			if(board[row][col] instanceof Robot)
 			{
 				n--;
 			}

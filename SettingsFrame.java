@@ -193,7 +193,7 @@ public class SettingsFrame extends JFrame implements ActionListener
 	
 		gameModeLabel.setText("Current game mode is: " + currentGui.getGameType() + " mode.");
 		this.pack();
-		currentGui.setVisible(!visible);
+		currentGui.setEnabled(!visible);
 		super.setVisible(visible);
 	}
 }

@@ -60,13 +60,13 @@ public class Location
 		{
 		
 			case SW : m_row++; m_col--;	break;
-			case S : m_row++;		break;
+			case S : m_row++;			break;
 			case SE : m_row++; m_col++;	break;
-			case W : m_col--;		break;
+			case W : m_col--;			break;
 			case SAME: case CONTINUOUS:	break;
-			case E : m_col++;		break;
+			case E : m_col++;			break;
 			case NW : m_row--; m_col--;	break;
-			case N : m_row--;		break;
+			case N : m_row--;			break;
 			case NE : m_row--; m_col++;	break;
 			case RANDOM : 
 				if(this instanceof Player)
@@ -74,7 +74,7 @@ public class Location
 					((Player)this).teleport();
 				}
 				break;
-			default : break; // CONTINOUS || PLUS
+			default : break; // PLUS
 		}
 		return this;
 	}

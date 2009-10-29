@@ -274,7 +274,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 				}
 				else if(choice == JOptionPane.NO_OPTION)
 				{
-				System.exit(0);
+					System.exit(0);
 				}
 			}
 			else
@@ -289,8 +289,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 			this.updateScoresLabel();
 			this.pack();
 		}
-		
-		currentGui.setVisible(visible);
+		currentGui.setEnabled(!visible);
 		super.setVisible(visible);
 	}
 }	
