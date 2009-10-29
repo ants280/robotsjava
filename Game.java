@@ -519,16 +519,13 @@ public abstract class Game extends JPanel
 	protected ArrayList<Location> locsAround(Location loc)
 	{
 		ArrayList<Location> locationList = new ArrayList<Location>(8);
-		Location testLocation;
-		for(Direction dir : Direction.values())
+		for(int r = loc.getRow() - 1; r <= loc.getRow() + 1; r++)
 		{
-			if(dir.ordinal() < 9 && dir != Direction.SAME)
+			for(int c = loc.getCol() - 1; c <= loc.getCol() + 1; c++)
 			{
-				testLocation = new Location(loc);
-				testLocation.updatePos(dir);
-				if(isValid(testLocation))
+				if(isValid(r, c))
 				{
-					locationList.add(board[testLocation.getRow()][testLocation.getCol()]);
+					locationList.add(board[r][c]);
 				}
 			}
 		}
@@ -541,9 +538,21 @@ public abstract class Game extends JPanel
 	 * @param loc The location to see if is valid.
 	 * @return True if the specified location is on the board. Otherwise, false.
 	 */
-	protected boolean isValid(Location loc)
+	protected final boolean isValid(Location loc)
 	{
- 		if(loc.getRow() >= 0 && loc.getRow() < ROWS && loc.getCol() >= 0 && loc.getCol() < COLS)
+		return isValid(loc.getRow(), loc.getCol());
+	}
+
+	/**
+	 * Tells if the specified row and column is on the board.
+	 *
+	 * @param row The row to test if is on the board.
+	 * @param col The column to test if is on the board.
+	 * @return True if the specified location is on the board. Otherwise, false.
+	 */
+	protected final boolean isValid(int row, int col)
+	{
+ 		if(row >= 0 && row < ROWS && col >= 0 && col < COLS)
 		{
 			return true;
 		}
