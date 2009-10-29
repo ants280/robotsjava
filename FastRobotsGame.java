@@ -1,6 +1,7 @@
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 
@@ -27,6 +28,7 @@ public class FastRobotsGame extends SafeTeleportsGame
 	{
 		super(hasSafeTeleports);
 	}
+	
 	/**
 	 * Initializes the images of the painted Locations.
 	 */
@@ -67,17 +69,28 @@ public class FastRobotsGame extends SafeTeleportsGame
 	 */
 	public boolean makeMove(Direction dir)
 	{
-		Location[][] fastTempBoard = board;
+		//Location[][] fastTempBoard = board;
+		//Player tempHuman = human;
+		
+		boolean returnMe =  super.makeMove(dir);
+		if(returnMe)
+		{
+			fastOnly = true;
+			returnMe = super.makeMove(Direction.SAME);
+			fastOnly = false;
+		}
+		return returnMe;
+		/*Location[][] fastTempBoard = board;
 		Player tempHuman = new Player(human);
 
 		if(super.makeMove(dir))
 		{
 			// Makes only the fast robots move again.  Moves for SAME to return true or false.
 			fastOnly = true;
-			boolean sucessful = super.makeMove(Direction.SAME);
+			boolean successful = super.makeMove(Direction.SAME);
 			fastOnly = false;
 
-			if(dir != Direction.CONTINUOUS && !sucessful)
+			if(dir != Direction.CONTINUOUS && !Successful)
 			{
 				board = fastTempBoard;
 				board[human.getRow()][human.getCol()] = new Location(human.getRow(), human.getCol());
@@ -91,7 +104,7 @@ public class FastRobotsGame extends SafeTeleportsGame
 		}
 
 		// First move did not work.
-		return false;
+		return false;*/
 	}
 
 	/**
@@ -104,15 +117,11 @@ public class FastRobotsGame extends SafeTeleportsGame
 	protected int updateBoard(int boardRow, int boardCol)
 	{
 		Location boardSpot = board[boardRow][boardCol];
+		
 		if(!fastOnly || boardSpot instanceof FastRobot)
 		{
 			return super.updateBoard(boardRow, boardCol);
 		}
-		if(boardSpot instanceof FastRobot)
-		{
-			return super.updateBoard(boardRow, boardCol);
-		}
-
 		// Normal move  of piece (direct translation).   Yes, this else block is unneeded, but it adds to clarity.
 		if(tempBoard[boardRow][boardCol] instanceof FastRobot)
 		{
@@ -149,7 +158,7 @@ public class FastRobotsGame extends SafeTeleportsGame
 	 */
 	protected Location addEnemy(int row, int col, int pos)
 	{
-		if(pos > 2 && pos % 2 == 1)
+		if(pos > 1 && pos % 2 == 0)
 		{
 			return new FastRobot(row, col);
 		}
@@ -157,5 +166,27 @@ public class FastRobotsGame extends SafeTeleportsGame
 		{
 			return super.addEnemy(row, col, pos);
 		}
+	}
+	
+	/**
+	 * Overridden to include fastRobots 2 locations away from the player.
+	 * 
+	 * @param loc The location to get the list of locations around.
+	 * @return The list of locations.
+	 */
+	protected ArrayList<Location> locsAround(Location loc)
+	{
+		ArrayList<Location> locationList = new ArrayList<Location>(12);
+		locationList.addAll(super.locsAround(loc));
+		
+		for(Location spot : super.locsAround(loc))
+		{
+			if(spot instanceof FastRobot)
+			{
+				System.out.println("fastRobot in outer loop.  This should cause the player to not be able to move.");
+				locationList.add(spot);
+			}
+		}
+		return locationList;
 	}
 }

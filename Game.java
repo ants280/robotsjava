@@ -4,10 +4,13 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 
 /**
  * The default form of the robots game.
@@ -159,7 +162,22 @@ public abstract class Game extends JPanel
 	}
 
 	/**
-	 * Paints the board.
+	 * Draws the image using DoubleBuffered graphics.
+	 * @param g Should be the Paint panels Graphics
+	 */
+	public void update(Graphics g)
+	{
+		BufferedImage lastDrawnImage = (BufferedImage)this.createImage(this.getWidth(), this.getHeight());
+		
+		//Draws the shape onto the BufferedImage
+		this.paint(lastDrawnImage.getGraphics());
+		
+		//Draws the BufferedImage onto the PaintPanel
+		g.drawImage(lastDrawnImage, 0, 0, this);
+	}
+
+	/**
+	 * Paints the board to the specified graphics.
 	 */
 	public void paint(Graphics g)
 	{
@@ -175,7 +193,7 @@ public abstract class Game extends JPanel
 				g.drawLine(0, 20 * row, (20 * col) + 20, (20 * row) + 0);
 				g.drawImage( getImage(row, col), 20 * col, 20 * row, null);
 			}	
-    		}
+    	}
 		g.drawLine(0, 0, 0, 20 * ROWS);
 		g.drawLine(0, 0, 20 * COLS, 0);
 		g.drawLine(0, 20 * ROWS, 20 * COLS, 20 * ROWS);
@@ -225,7 +243,7 @@ public abstract class Game extends JPanel
 	 */
 	public void printBoard()
 	{
-		paint(this.getGraphics());
+		this.repaint();
 		//paintToConsole();
 	}
 
@@ -354,7 +372,6 @@ public abstract class Game extends JPanel
 		return 0;
 	}
 
-
 	/**
 	 *  Creates a new array of Locations the size of the board.  Each Location refers to its spot int the array.
 	 * 
@@ -462,7 +479,7 @@ public abstract class Game extends JPanel
 	}
 
 	/**
-	 * Sees if it is safe for the specified Location to move in the specified Direction.  If the Direction is CONTINOUS or RANDOM, true will be returned.  Uses {@link #isValid(Location) isValid(Location)} and {@link #locAround(Location) locsAround(Location)}.
+	 * Sees if it is safe for the specified Location to move in the specified Direction.  If the Direction is CONTINOUS or RANDOM, true will be returned.  Uses {@link #isValid(Location) isValid(Location)} and {@link #locsAround(Location) locsAround(Location)}.
 	 *
 	 * @param testLocation The starting Location.
 	 * @param dir The Direction to see if is valid for the testLocation to move to.
@@ -499,11 +516,10 @@ public abstract class Game extends JPanel
 	 * @param loc The location to get the list of locations around.
 	 * @return The list of locations.
 	 */
-	protected Location[] locsAround(Location loc)
+	protected ArrayList<Location> locsAround(Location loc)
 	{
-		Location[] locationList = new Location[8];
+		ArrayList<Location> locationList = new ArrayList<Location>(8);
 		Location testLocation;
-		int pos = 0;
 		for(Direction dir : Direction.values())
 		{
 			if(dir.ordinal() < 9 && dir != Direction.SAME)
@@ -512,7 +528,7 @@ public abstract class Game extends JPanel
 				testLocation.updatePos(dir);
 				if(isValid(testLocation))
 				{
-					locationList[pos++] = board[testLocation.getRow()][testLocation.getCol()];
+					locationList.add(board[testLocation.getRow()][testLocation.getCol()]);
 				}
 			}
 		}
