@@ -61,8 +61,8 @@ public class Player extends Location
 		int row, col;
 		row = generator.nextInt(ROWS);
 		col = generator.nextInt(COLS);
-		m_row = row;
-		m_col = col;
+
+		this.changePositionTo(row, col);
 	}
 
 	/**

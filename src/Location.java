@@ -11,7 +11,7 @@ public class Location
 	public boolean isEnemy() { return false; }
 
 	/**
-	 * returns the value returned of the Location for printing.
+	 * Returns the value returned of the Location for printing.
 	 *
 	 * @deprecated   Printing is now graphical.
 	 */
@@ -28,15 +28,11 @@ public class Location
 	protected int m_col;
 
 	/**
-	 * Gets the Location's row.
-	 *
 	 * @return The Location's row.
 	 */
 	public int getRow() { return m_row; }
 	
 	/**
-	 * Gets the Location's column.
-	 *
 	 * @return The Location's column.
 	 */
 	public int getCol() { return m_col; }
