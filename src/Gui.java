@@ -1,7 +1,6 @@
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -56,10 +55,7 @@ public abstract class Gui extends JFrame implements KeyListener
 		this.setSize(820, 690);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		
-		// For turning on numLock.
-		Toolkit toolkit = this.getToolkit();
-		toolkit.setLockingKeyState(KeyEvent.VK_NUM_LOCK, true);
+		this.setResizable(false);
 	}
 
 	/**

@@ -36,7 +36,7 @@ public class FastRobotsGame extends SafeTeleportsGame
 	{
 		try
 		{
-			fastRobotImage = ImageIO.read(new File("FastRobot.jpg"));
+			fastRobotImage = ImageIO.read(this.getClass().getResource("FastRobot.jpg"));
 		}
 		catch(IOException ex)
 		{

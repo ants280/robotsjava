@@ -9,7 +9,6 @@ import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import java.awt.Dimension;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 /**
@@ -151,10 +150,10 @@ public abstract class Game extends JPanel
 	{
 		try
 		{
-			playerAliveImage = ImageIO.read(new File("PlayerAlive.jpg"));
-			playerDeadImage = ImageIO.read(new File("PlayerDead.jpg"));
-			robotImage = ImageIO.read(new File("Robot.jpg"));
-			wreckImage = ImageIO.read(new File("Wreck.jpg"));
+			playerAliveImage = ImageIO.read(this.getClass().getResource("PlayerAlive.jpg"));
+			playerDeadImage = ImageIO.read(this.getClass().getResource("PlayerDead.jpg"));
+			robotImage = ImageIO.read(this.getClass().getResource("Robot.jpg"));
+			wreckImage = ImageIO.read(this.getClass().getResource("Wreck.jpg"));
 		}
 		catch(IOException ex)
 		{

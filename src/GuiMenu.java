@@ -5,6 +5,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+/**
+ * The JMenuBar for the Gui.
+ */
 public class GuiMenu extends JMenuBar implements ActionListener
 {
 	private static final long serialVersionUID = 4860132710390756010L;
@@ -86,7 +89,7 @@ public class GuiMenu extends JMenuBar implements ActionListener
 		String command = event.getActionCommand();
 		if(command.equals("restart"))
 		{
-			final int choice = JOptionPane.showConfirmDialog(this, "Do you want to restart the game", "Restart?", JOptionPane.YES_NO_OPTION);
+			final int choice = JOptionPane.showConfirmDialog(this, "Do you want to restart the game?", "Restart?", JOptionPane.YES_NO_OPTION);
 			if(choice == JOptionPane.YES_OPTION)
 			{
 				gui.getGame().resetBoard();

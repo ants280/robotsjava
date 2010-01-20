@@ -267,7 +267,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 		{
 			if(restartGame)
 			{
-				final int choice = JOptionPane.showConfirmDialog(this, "Do you want to restart the game", "Restart?", JOptionPane.YES_NO_OPTION);
+				final int choice = JOptionPane.showConfirmDialog(this, "Do you want to restart the game?", "Restart?", JOptionPane.YES_NO_OPTION);
 				if(choice == JOptionPane.YES_OPTION)
 				{
 					currentGui.getGame().resetBoard();
