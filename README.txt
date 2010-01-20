@@ -6,4 +6,5 @@ Robots is a game of strategy that requires a bit of luck.  You, "the player" are
 This game is not original.  It is based off of the game off the BSD operationg system and GNOME Robots (http://www.openbsd.org/cgi-bin/man.cgi?query=robots&format=ascii and http://live.gnome.org/Robots)  This game is free under the GNU GPL.  See GPL.txt.
 
 Contact info:
-Developing: Jacob Patterson jacob.patterson@gmail.com USA 360.308.0346
+    Jacob Patterson jacob.patterson@gmail.com USA 360.990.3076
+
