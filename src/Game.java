@@ -1,15 +1,15 @@
-import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
-import java.awt.Dimension;
-import java.awt.image.BufferedImage;
+import javax.swing.JPanel;
 
 /**
  * The default form of the robots game.
@@ -62,9 +62,7 @@ public abstract class Game extends JPanel
 	protected Player human;
 
 	/**
-	 * Getter for the player. There should only be 1 player (human).
-	 *
-	 * @return The player.
+	 * Returns the player. There should only be 1 player (human).
 	 */
 	public Player getHuman() { return human; }
 
@@ -90,16 +88,12 @@ public abstract class Game extends JPanel
 	public int numBots() { return numBots; }
 
 	/**
-	 * The level label for the level of the game.
-	 * 
-	 * @return The level label.
+	 * The level the level of the game.
 	 */
 	public JLabel getLevelLabel() { return levelLabel; }
 	
 	/**
-	 * The score label for the score of the current game.
-	 * 
-	 * @return The score label.
+	 * Returns the score of the current game.
 	 */
 	public JLabel getScoreLabel() { return scoreLabel; } 
 
@@ -115,9 +109,9 @@ public abstract class Game extends JPanel
 		generator = new Random();
 		ROWS = 30;
 		COLS = 40;
-		resetBoard();
+		this.resetBoard();
 		dimension = new Dimension((COLS * 20) + 10, (ROWS * 20) + 10);
-		initializeImages();
+		this.initializeImages();
 	}
 
 	/**
@@ -151,9 +145,9 @@ public abstract class Game extends JPanel
 		try
 		{
 			playerAliveImage = ImageIO.read(this.getClass().getResource("PlayerAlive.jpg"));
-			playerDeadImage = ImageIO.read(this.getClass().getResource("PlayerDead.jpg"));
-			robotImage = ImageIO.read(this.getClass().getResource("Robot.jpg"));
-			wreckImage = ImageIO.read(this.getClass().getResource("Wreck.jpg"));
+			playerDeadImage  = ImageIO.read(this.getClass().getResource("PlayerDead.jpg"));
+			robotImage       = ImageIO.read(this.getClass().getResource("Robot.jpg"));
+			wreckImage       = ImageIO.read(this.getClass().getResource("Wreck.jpg"));
 		}
 		catch(IOException ex)
 		{
@@ -171,7 +165,7 @@ public abstract class Game extends JPanel
 		
 		//Draws the shape onto the BufferedImage
 		this.paint(lastDrawnImage.getGraphics());
-		
+
 		//Draws the BufferedImage onto the PaintPanel
 		g.drawImage(lastDrawnImage, 0, 0, this);
 	}
@@ -185,6 +179,8 @@ public abstract class Game extends JPanel
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, (COLS * 20) + 10, (ROWS * 20) + 10);
 		g.setColor(Color.LIGHT_GRAY);
+
+		//Draws the board.
   		for(int row = 0; row < ROWS; row++)
 		{
 			for(int col = 0; col < COLS; col++)
@@ -194,12 +190,14 @@ public abstract class Game extends JPanel
 				g.drawImage( getImage(row, col), 20 * col, 20 * row, null);
 			}	
     	}
+
+		//Draws the edges of the board.
 		g.drawLine(0, 0, 0, 20 * ROWS);
 		g.drawLine(0, 0, 20 * COLS, 0);
 		g.drawLine(0, 20 * ROWS, 20 * COLS, 20 * ROWS);
 		g.drawLine(20 * COLS, 0, 20 * COLS, 20 * ROWS);
 		
-		// Sets the score label
+		// Sets the score label.
 		// TODO: This should only be done if the score changes, causing the labels text to change in its own method.
 		scoreLabel.setText("Score: " + score);
 	}

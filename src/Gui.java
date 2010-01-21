@@ -1,12 +1,12 @@
+import java.awt.BorderLayout;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.awt.GridLayout;
+import java.lang.Thread;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.lang.Thread;
 
 /**
  * The home control point for the game.  Includes options and information about the game.
@@ -156,7 +156,7 @@ public abstract class Gui extends JFrame implements KeyListener
 			{
 				game.makeMove(move);
 				game.printBoard();
-				
+		
 				if(!game.getHuman().isAlive() || game.numBots() == 0)
 				{
 					continous = false;
