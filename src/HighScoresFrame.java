@@ -277,11 +277,6 @@ public class HighScoresFrame extends JFrame implements ActionListener
 					System.exit(0);
 				}
 			}
-			else
-			{
-				currentGui.setVisible(true);
-				super.setVisible(false);
-			}
 		}
 		else
 		{
@@ -290,6 +285,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 			this.pack();
 		}
 		currentGui.setEnabled(!visible);
+		currentGui.setVisible(!visible);
 		super.setVisible(visible);
 	}
 }	
