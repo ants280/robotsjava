@@ -3,13 +3,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import Pieces.*;
 
 /**
  * The default form of the robots game.
@@ -111,7 +110,7 @@ public class Game extends JPanel
 		ROWS = 30;
 		COLS = 40;
 		this.resetBoard();
-		dimension = new Dimension((COLS * 20) + 10, (ROWS * 20) + 10);
+		dimension = new Dimension(COLS * 20 + 1, ROWS * 20 + 1);
 		this.initializeImages();
 	}
 
@@ -517,7 +516,7 @@ public class Game extends JPanel
 			{
 				return false;
 			}
-			for(Location spot : locsAround(desiredLocation))
+			for(Location spot : this.locsAround(desiredLocation))
 			{
 				if(spot instanceof Robot)
 				{
@@ -535,16 +534,17 @@ public class Game extends JPanel
 	 * @param loc The location to get the list of locations around.
 	 * @return The list of locations.
 	 */
-	protected ArrayList<Location> locsAround(Location loc)
+	protected Location[] locsAround(Location loc)
 	{
-		ArrayList<Location> locationList = new ArrayList<Location>(8);
+		Location[] locationList = new Location[8];
+		int pos = 0;
 		for(int r = loc.getRow() - 1; r <= loc.getRow() + 1; r++)
 		{
 			for(int c = loc.getCol() - 1; c <= loc.getCol() + 1; c++)
 			{
 				if(isValid(r, c))
 				{
-					locationList.add(board[r][c]);
+					locationList[++pos] = board[r][c];
 				}
 			}
 		}

@@ -2,64 +2,48 @@ import java.awt.BorderLayout;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import java.awt.GridLayout;
-import javax.swing.JFrame;
+import javax.swing.JApplet;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import Pieces.Direction;
 
 /**
  * The home control point for the game.  Includes options and information about the game.
  */
-public class Gui extends JFrame implements KeyListener
+public class Gui extends JApplet implements KeyListener
 {
 	private static final long serialVersionUID = -4028299973870072557L;
 
 	private boolean continous;
 	private Game game;
-	private GuiMenu menu;
 	private JPanel southPanel;
 
-	/**
-	 * Gets the Game used by the GUI.
-	 *
-	 * @return The game.
-	 */
-	public Game getGame() { return game; }
+	public void init()
+	{
+		showGui(new Game());
+	}
 
 	/**
 	 * Creates a default, classic game.  Sets up all components and some frames
 	 */
-	public Gui(Game game)
+	public void showGui(Game game)
 	{
-		super();
 		this.game = game;
-		super.setTitle("Robots");
 
 		// Initial construction of panel to hold various labels.
-		southPanel = new JPanel(new GridLayout(1, 0));
+		southPanel = new JPanel(new GridLayout(1, 3));
+		southPanel.setBackground(java.awt.Color.GRAY);
 		southPanel.add(game.getLevelLabel());
 		southPanel.add(game.getScoreLabel());
 		southPanel.add(game.getSafeTeleportsLabel());
 
-		this.addMenu();
-		this.add(game, BorderLayout.CENTER);
-		this.add(southPanel, BorderLayout.SOUTH);
+		this.setLayout(new GridLayout(2, 1));
+		this.add(game);
+		this.add(southPanel);
 		this.addKeyListener(this); 
-		this.setSize(820, 690);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLocationRelativeTo(null);
-		this.setResizable(false);
 	}
 
-	/**
-	 * Adds the menu for the game.  Should be re-added on each new game start.
-	 */
-	protected void addMenu()
-	{
-		menu = new GuiMenu(this);
-		this.add(menu, BorderLayout.NORTH);
-	}
-		
 	/**
 	 * Not implemented.
 	 *
@@ -116,7 +100,6 @@ public class Gui extends JFrame implements KeyListener
 		{
 			performAction(null);	
 		}
-		
 	}
 
 	/**
@@ -163,22 +146,15 @@ public class Gui extends JFrame implements KeyListener
 			else
 			{
 					this.removeKeyListener(this);
-					if(menu.getHighScoresFrame().isHighScore(game.getScore()))
+					final int choice = JOptionPane.showConfirmDialog(this, "Do you want to start a new game?", "Restart?", JOptionPane.YES_NO_OPTION);
+					if(choice == JOptionPane.YES_OPTION)
 					{
-							//new NameGetterFrame(menu.getHighScoresFrame(), game.getScore(), this);
+						game.resetBoard();
+						game.printBoard();
 					}
-					else
+					else if(choice == JOptionPane.NO_OPTION)
 					{
-							final int choice = JOptionPane.showConfirmDialog(this, "Do you want to start a new game?", "Restart?", JOptionPane.YES_NO_OPTION);
-							if(choice == JOptionPane.YES_OPTION)
-							{
-									game.resetBoard();
-									game.printBoard();
-							}
-							else if(choice == JOptionPane.NO_OPTION)
-							{
-									System.exit(0);
-							}
+							System.exit(0);
 					}
 					this.addKeyListener(this);
 			}
