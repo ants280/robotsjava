@@ -41,7 +41,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	{
 		super("High Scores");
 		this.currentGui = currentGui;
-		scoresLabel = new JLabel("High scores for " + currentGui.getGameType() + " mode.");
+		scoresLabel = new JLabel("High scores");
 
 		JButton okButton = new JButton("Ok");
 			okButton.setActionCommand("ok");
@@ -73,7 +73,7 @@ public class HighScoresFrame extends JFrame implements ActionListener
 		}
 		else if(command.equals("resetDialouge"))
 		{
-			String message = "<html><pre>Are you sure you want to<br> reset the high scores<br>  for " + currentGui.getGameType().toLowerCase() + " mode?</pre></html>";
+			String message = "<html><pre>Are you sure you want to<br> reset the high score?</pre></html>";
 			JOptionPane.showConfirmDialog(this, message, "Reset?", JOptionPane.YES_NO_OPTION);
 		}
 		else if(command.equals("resetYes"))
@@ -95,22 +95,6 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	 */
 	private void updateScoresLabel()
 	{
-		TreeMap<Integer, String> currentList = this.scoresList.get(currentGui.getGameType());
-		if(currentList != null)
-		{
-			String scoresListText = "<html>";
-			Stack<String> stack= new Stack<String>();
-			for(Integer key : currentList.keySet())
-			{
-				stack.push(currentList.get(key) + '\t' + key + "<br>");
-			}
-			while(!stack.empty())
-			{
-				scoresListText += stack.pop();
-			}
-			scoresListText += "</html>";
-			scoresLabel.setText(scoresListText);
-		}
 	}
 
 	/**
@@ -118,33 +102,6 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	 */
 	private void readScores()
 	{
-		scoresList = new HashMap<String, TreeMap<Integer, String>>();
-		String type;
-		try
-		{
-			BufferedReader reader = new BufferedReader(new FileReader("HighScores.txt"));
-			while(reader.ready())
-			{
-				do
-				{
-					type = reader.readLine();
-				} while(reader.ready() && type.length() < 1);
-				for(int i = 0; i < 5 && reader.ready(); i++)
-				{
-					this.addScore(type, reader.readLine());
-				}
-			}
-			reader.close();
-		}
-		catch(FileNotFoundException ex)
-		{
-			new File("HighScores.txt");
-			resetScores();
-		}
-		catch(IOException ex)
-		{
-			ex.printStackTrace();
-		}
 	}
 
 	/**
@@ -152,14 +109,6 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	 */
 	private void resetScores()
 	{
-		TreeMap<Integer, String> tempMap = new TreeMap<Integer, String>();
-		for(int i = 5; i > 0; i--)
-		{
-			tempMap.put((Integer)(i * 5), "Jacob Patterson");
-		}
-		this.scoresList.put(currentGui.getGameType(), tempMap);
-		this.saveScores();
-		this.updateScoresLabel();
 	}
 
 	/**
@@ -170,21 +119,6 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	 */
 	public void addScore(String gameModeType, String score)
 	{
-		TreeMap<Integer, String> map = this.scoresList.get(gameModeType);
-		if(map == null)
-		{
-			map = new TreeMap<Integer, String>();
-		}
-		String[] scoreArray = score.split(" ");
-		Integer points = new Integer(scoreArray[scoreArray.length - 1]);
-		String	name = this.getName(scoreArray).trim();
-			name = (name.equals("") ? "Anonymous" : name);
-		while(map.size() >= 5)
-		{
-			map.remove(map.firstKey());
-		}
-		map.put(points, name);
-		this.scoresList.put(gameModeType, map);
 	}
 
 	/**
@@ -209,29 +143,6 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	 */
 	public void saveScores()
 	{
-		try
-		{
-			TreeMap<Integer, String> gameTypeScores;
-			File file = new File("HighScores.txt");
-			file.delete();
-			BufferedWriter writer = new BufferedWriter(new FileWriter("HighScores.txt"));
-			for(String gameMode : this.scoresList.keySet())
-			{
-				writer.write(gameMode);
-				writer.newLine();
-				gameTypeScores = this.scoresList.get(gameMode);
-				for(Integer key : gameTypeScores.keySet())
-				{
-					writer.write(gameTypeScores.get(key) + " " + key);
-					writer.newLine();
-				}
-			}
-			writer.close();
-		}
-		catch(IOException ex)
-		{
-			ex.printStackTrace();
-		}
 	}
 
 	/**
@@ -242,16 +153,6 @@ public class HighScoresFrame extends JFrame implements ActionListener
 	 */
 	public boolean isHighScore(int score)
 	{
-		TreeMap<Integer, String> map = this.scoresList.get(currentGui.getGameType());
-		if(map == null)
-		{
-			this.resetScores();
-			map = this.scoresList.get(currentGui.getGameType());
-		}
-		if(score > map.firstKey() || map.size() < 5)
-		{
-			return true;
-		}
 		return false;
 	}
 

@@ -14,26 +14,21 @@ import javax.swing.JPanel;
 /**
  * The default form of the robots game.
  */
-public abstract class Game extends JPanel
+public class Game extends JPanel
 {
 	private static final long serialVersionUID = -5019512195986383612L;
 	private Dimension dimension;
 	private int level;
 	private int score;
 	private int numBots;
+	private int safeTeleports;
 	private Image playerAliveImage;
 	private Image playerDeadImage;
 	private Image robotImage;
 	private Image wreckImage;
 	private JLabel levelLabel;
 	private JLabel scoreLabel;
-
-	/**
-	 * Method to tell if the game has safe teleports.
-	 *
-	 * @return True if the game has safe teleports.  Otherwise, false.
-	 */
-	public boolean isSafeTeleportsGame() { return false; }
+	private JLabel safeTeleportsLabel;
 
 	/**
 	 * Used to randomly teleport the Player.
@@ -88,14 +83,19 @@ public abstract class Game extends JPanel
 	public int numBots() { return numBots; }
 
 	/**
-	 * The level the level of the game.
+	 * Returns a JLabel containing the level the level of the game.
 	 */
 	public JLabel getLevelLabel() { return levelLabel; }
 	
 	/**
-	 * Returns the score of the current game.
+	 * Returns a JLabel containing the score of the current game.
 	 */
 	public JLabel getScoreLabel() { return scoreLabel; } 
+
+	/**
+	 * Returns a JLabel containing the number of safeTeleports remaining.
+	 */
+	public JLabel getSafeTeleportsLabel() { return safeTeleportsLabel; }
 
 	/**
 	 * Creates a new Game. Calls resetBoard to add the board.
@@ -106,6 +106,7 @@ public abstract class Game extends JPanel
 		
 		levelLabel = new JLabel();
 		scoreLabel = new JLabel();
+		safeTeleportsLabel = new JLabel();
 		generator = new Random();
 		ROWS = 30;
 		COLS = 40;
@@ -296,6 +297,8 @@ public abstract class Game extends JPanel
 			}
 		}
 		if(human.isAlive())
+		safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
+		safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
 		{
 			score += tempScore;	
 		}
@@ -434,6 +437,7 @@ public abstract class Game extends JPanel
 		board[ROWS / 2][COLS / 2] = human;
 		fillBots();
 		levelLabel.setText("Level: " + level);
+		safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
 	}
 
 	/**
@@ -443,6 +447,7 @@ public abstract class Game extends JPanel
 	{
 		score = 0;
 		level = 0;
+		safeTeleports = 0;
 		
 		increaseLevel();
 		scoreLabel.setText("Score: 0");
@@ -456,6 +461,22 @@ public abstract class Game extends JPanel
 	 */
 	public boolean makeMove(Direction dir)
 	{
+		if(dir == Direction.SAFE && safeTeleports > 0)
+		{
+			safeTeleports--;
+			int row, col;
+			do
+				{
+				row = generator.nextInt(ROWS);
+				col = generator.nextInt(COLS);
+			}
+			while(!isValid(board[row][col], Direction.SAME));
+			human.changePositionTo(row, col);
+			board[row][col] = human;
+			updateBoard();
+			safeTeleportsLabel.setText("Safe Teleports: " + safeTeleports);
+			return true;
+		}
 		if(isValid(human, dir))
 		{
 			Player loc = new Player(human);
@@ -484,7 +505,7 @@ public abstract class Game extends JPanel
 	 */
 	protected boolean isValid(Location testLocation, Direction dir)
 	{
-		if(dir == Direction.RANDOM || dir == Direction.CONTINUOUS)
+		if(dir == Direction.RANDOM || dir == Direction.CONTINUOUS|| dir == Direction.SAFE)
 		{
 			return true;
 		}

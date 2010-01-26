@@ -14,7 +14,6 @@ public class GuiMenu extends JMenuBar implements ActionListener
 	private Gui gui;
 	private HighScoresFrame highScoresFrame;
 	private AboutFrame aboutFrame;
-	private SettingsFrame settingsFrame;
 	private HelpFrame helpFrame;
 
 	/**
@@ -38,9 +37,6 @@ public class GuiMenu extends JMenuBar implements ActionListener
 		JMenu fileMenu = new JMenu("File");
 		JMenu helpMenu = new JMenu("Help");
 
-		JMenuItem settingsMenuItem = new JMenuItem("Settings");
-				settingsMenuItem.setActionCommand("settings");
-				settingsMenuItem.addActionListener(this);
 		JMenuItem highScoresItem = new JMenuItem("High Scores");
 				highScoresItem.setActionCommand("high scores");
 				highScoresItem.addActionListener(this);
@@ -57,7 +53,6 @@ public class GuiMenu extends JMenuBar implements ActionListener
 				aboutItem.setActionCommand("about");
 				aboutItem.addActionListener(this);
 
-		fileMenu.add(settingsMenuItem);
 		fileMenu.add(highScoresItem);
 		fileMenu.add(restartItem);
 		fileMenu.add(closeItem);
@@ -75,7 +70,6 @@ public class GuiMenu extends JMenuBar implements ActionListener
 	{
 		highScoresFrame = new HighScoresFrame(gui);
 		aboutFrame = new AboutFrame(gui);
-		settingsFrame = new SettingsFrame(gui, gui.getGame());
 		helpFrame = new HelpFrame();
 	}
 
@@ -101,10 +95,6 @@ public class GuiMenu extends JMenuBar implements ActionListener
 		else if(command.equals("high scores"))
 		{
 			highScoresFrame.setVisible(true, false);
-		}
-		else if(command.equals("settings"))
-		{
-			settingsFrame.setVisible(true);
 		}
 		else if(command.equals("help"))
 		{
