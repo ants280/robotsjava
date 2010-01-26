@@ -6,7 +6,6 @@
 	<property name="images.dir"  value="${src.dir}/images"/>
     <property name="jar.dir"     value="${build.dir}/jar"/>
 	<property name="doc.dir"     value="doc"/>
-
     <property name="main-class"  value="Program"/>
 
 

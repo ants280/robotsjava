@@ -80,7 +80,7 @@ public abstract class Game extends JPanel
 	public int getScore() { return score; }
 
 	/**
-	 * Getter for the number of robots on the board.  A variable is returned to increase game speed. This makes the game not have an "int numBots()" to count the number of robots on the board every time it is called.
+	 * Getter for the number of robots on the board.  A variable is returned to increase game speed. This makes the game not have an "int countBots()" to count the number of robots on the board every time it is called.
 	 *
 	 * @return The number of robots on the board.
 	 */
@@ -101,7 +101,7 @@ public abstract class Game extends JPanel
 	 */
 	public Game()
 	{
-		super(false);
+		super(true);
 		
 		levelLabel = new JLabel();
 		scoreLabel = new JLabel();
@@ -158,7 +158,7 @@ public abstract class Game extends JPanel
 	 * Draws the image using DoubleBuffered graphics.
 	 * @param g Should be the Paint panels Graphics
 	 */
-	public void update(Graphics g)
+	public void updrate(Graphics g)
 	{
 		BufferedImage lastDrawnImage = (BufferedImage)this.createImage(this.getWidth(), this.getHeight());
 		
