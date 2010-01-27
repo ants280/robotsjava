@@ -3,17 +3,17 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.Label;
+import java.awt.Panel;
 import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import Pieces.*;
 
 /**
  * The default form of the robots game.
  */
-public class Game extends JPanel
+public class Game extends Panel
 {
 	private static final long serialVersionUID = -5019512195986383612L;
 	private Dimension dimension;
@@ -21,13 +21,14 @@ public class Game extends JPanel
 	private int score;
 	private int numBots;
 	private int safeTeleports;
+	private final int jpegSize = 20;
 	private Image playerAliveImage;
 	private Image playerDeadImage;
 	private Image robotImage;
 	private Image wreckImage;
-	private JLabel levelLabel;
-	private JLabel scoreLabel;
-	private JLabel safeTeleportsLabel;
+	private Label levelLabel;
+	private Label scoreLabel;
+	private Label safeTeleportsLabel;
 
 	/**
 	 * Used to randomly teleport the Player.
@@ -82,35 +83,20 @@ public class Game extends JPanel
 	public int numBots() { return numBots; }
 
 	/**
-	 * Returns a JLabel containing the level the level of the game.
-	 */
-	public JLabel getLevelLabel() { return levelLabel; }
-	
-	/**
-	 * Returns a JLabel containing the score of the current game.
-	 */
-	public JLabel getScoreLabel() { return scoreLabel; } 
-
-	/**
-	 * Returns a JLabel containing the number of safeTeleports remaining.
-	 */
-	public JLabel getSafeTeleportsLabel() { return safeTeleportsLabel; }
-
-	/**
 	 * Creates a new Game. Calls resetBoard to add the board.
 	 */
 	public Game()
 	{
-		super(false);
+		super();
 		
-		levelLabel = new JLabel();
-		scoreLabel = new JLabel();
-		safeTeleportsLabel = new JLabel();
+		levelLabel         = new Label("level");
+		scoreLabel         = new Label("score");
+		safeTeleportsLabel = new Label("safe");
 		generator = new Random();
 		ROWS = 30;
 		COLS = 40;
 		this.resetBoard();
-		dimension = new Dimension(COLS * 20 + 1, ROWS * 20 + 1);
+		dimension = new Dimension(COLS * 21 + 1, ROWS * 21 + 1);
 		this.initializeImages();
 	}
 
@@ -177,7 +163,7 @@ public class Game extends JPanel
 	{
 		this.setSize(dimension);
 		g.setColor(Color.WHITE);
-		g.fillRect(0, 0, (COLS * 20) + 10, (ROWS * 20) + 10);
+		g.fillRect(0, 0, (COLS * jpegSize) + 10, (ROWS * jpegSize) + 10);
 		g.setColor(Color.LIGHT_GRAY);
 
 		//Draws the board.
@@ -185,21 +171,28 @@ public class Game extends JPanel
 		{
 			for(int col = 0; col < COLS; col++)
 			{
-				g.drawLine(20 * col, 0, (20 * col) + 0, (20 * row) + 20);
-				g.drawLine(0, 20 * row, (20 * col) + 20, (20 * row) + 0);
-				g.drawImage( getImage(row, col), 20 * col, 20 * row, null);
+				g.drawLine(jpegSize * col, 0, (jpegSize * col) + 0, (jpegSize * row) + jpegSize);
+				g.drawLine(0, jpegSize * row, (jpegSize * col) + jpegSize, (jpegSize * row) + 0);
+				g.drawImage( getImage(row, col), jpegSize * col, jpegSize * row, null);
 			}	
     	}
 
 		//Draws the edges of the board.
-		g.drawLine(0, 0, 0, 20 * ROWS);
-		g.drawLine(0, 0, 20 * COLS, 0);
-		g.drawLine(0, 20 * ROWS, 20 * COLS, 20 * ROWS);
-		g.drawLine(20 * COLS, 0, 20 * COLS, 20 * ROWS);
+		g.drawLine(0, 0, 0, jpegSize * ROWS);
+		g.drawLine(0, 0, jpegSize * COLS, 0);
+		g.drawLine(0, jpegSize * ROWS, jpegSize * COLS, jpegSize * ROWS);
+		g.drawLine(jpegSize * COLS, 0, jpegSize * COLS, jpegSize * ROWS);
 		
-		// Sets the score label.
+		//Sets the score label.
 		// TODO: This should only be done if the score changes, causing the labels text to change in its own method.
 		scoreLabel.setText("Score: " + score);
+
+
+		//Paints the labels.
+		g.setColor(Color.BLACK);
+		g.drawString(scoreLabel.getText(),         1,                           jpegSize * ROWS + ROWS / 2);
+		g.drawString(safeTeleportsLabel.getText(), jpegSize * ((COLS / 2) - 2), jpegSize * ROWS + ROWS / 2);
+		g.drawString(levelLabel.getText(),         jpegSize *  (COLS - 3),      jpegSize * ROWS + ROWS / 2);
 	}
 
 	/**

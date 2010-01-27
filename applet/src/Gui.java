@@ -1,27 +1,28 @@
-import java.awt.BorderLayout;
+import java.applet.Applet;
+import javax.swing.JOptionPane;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
-import java.awt.GridLayout;
-import javax.swing.JApplet;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import Pieces.Direction;
 
 /**
  * The home control point for the game.  Includes options and information about the game.
  */
-public class Gui extends JApplet implements KeyListener
+public class Gui extends javax.swing.JApplet implements KeyListener
 {
-	private static final long serialVersionUID = -4028299973870072557L;
+	private String s = "";
+	public void paint(java.awt.Graphics g)
+	{
+		game.repaint();
+		g.setColor(java.awt.Color.BLACK);
+		g.drawString(s, 50, 50);
+	}
 
 	private boolean continous;
 	private Game game;
-	private JPanel southPanel;
 
 	public void init()
 	{
-		showGui(new Game());
+		this.showGui(new Game());
 	}
 
 	/**
@@ -30,26 +31,10 @@ public class Gui extends JApplet implements KeyListener
 	public void showGui(Game game)
 	{
 		this.game = game;
+		this.game.addKeyListener(this);
 
-		// Initial construction of panel to hold various labels.
-		southPanel = new JPanel(new GridLayout(1, 3));
-		southPanel.setBackground(java.awt.Color.GRAY);
-		southPanel.add(game.getLevelLabel());
-		southPanel.add(game.getScoreLabel());
-		southPanel.add(game.getSafeTeleportsLabel());
-
-		this.setLayout(new GridLayout(2, 1));
 		this.add(game);
-		this.add(southPanel);
-		this.addKeyListener(this); 
 	}
-
-	/**
-	 * Not implemented.
-	 *
-	 * @param key The event triggered when a key is pressed
-	 */
-	public void keyTyped(KeyEvent key) { /* Does nothing. */ }
 
 	/**
 	 * Handles Keyboard Input.
@@ -70,12 +55,13 @@ public class Gui extends JApplet implements KeyListener
 	 *
 	 * @param key The event triggered when a key is pressed
 	 */
-	public void keyPressed(KeyEvent key)
+	public void keyTyped(KeyEvent key)
 	{
+		s+=key.getKeyChar();
 		if(game.getHuman().isAlive())
 		{
-			if(key.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD)
-			{
+			//if(key.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD)
+			//{
 				continous = false;
 				switch(key.getKeyChar())
 				{
@@ -94,7 +80,7 @@ public class Gui extends JApplet implements KeyListener
 						performAction(Direction.CONTINUOUS);
 						break;
 				}
-			}
+			//}
 		}
 		else // game.gutHuman.IsAlive == false
 		{
@@ -104,8 +90,11 @@ public class Gui extends JApplet implements KeyListener
 
 	/**
 	 * Not implemented.
-	 *
-	 * @param key The event triggered when a key is released.
+	 */
+	public void keyPressed(KeyEvent key) { }
+
+	/**
+	 * Not implemented.
 	 */
 	public void keyReleased(KeyEvent key) { /*Does nothing. */ }
 
@@ -120,6 +109,7 @@ public class Gui extends JApplet implements KeyListener
 			{
 					do
 					{
+		this.repaint();
 							game.makeMove(move);
 							game.printBoard();
 
