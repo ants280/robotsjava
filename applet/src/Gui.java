@@ -1,21 +1,23 @@
-import java.applet.Applet;
 import javax.swing.JOptionPane;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import javax.swing.JApplet;
 import Pieces.Direction;
 
 /**
  * The home control point for the game.  Includes options and information about the game.
  */
-public class Gui extends Applet implements KeyListener
+public class Gui extends JApplet implements KeyListener
 {
+	/*
+	//TODO:  no see the text, make an java.applet.Applet .   Prints half right as applet, though.
 	private String s = "";
 	public void paint(java.awt.Graphics g)
 	{
 		game.repaint();
 		g.setColor(java.awt.Color.BLACK);
 		g.drawString(s, 50, 50);
-	}
+	}*/
 
 	private boolean continous;
 	private Game game;
@@ -57,7 +59,7 @@ public class Gui extends Applet implements KeyListener
 	 */
 	public void keyTyped(KeyEvent key)
 	{
-		s+=key.getKeyChar();
+		//s+=key.getKeyChar();
 		if(game.getHuman().isAlive())
 		{
 			//if(key.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD)
@@ -109,7 +111,8 @@ public class Gui extends Applet implements KeyListener
 			{
 					do
 					{
-		this.repaint();
+		//this.repaint();
+		game.repaint();
 							game.makeMove(move);
 							game.printBoard();
 

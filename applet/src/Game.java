@@ -95,9 +95,10 @@ public class Game extends Panel
 		generator = new Random();
 		ROWS = 30;
 		COLS = 40;
-		this.resetBoard();
 		dimension = new Dimension(COLS * 21 + 1, ROWS * 21 + 1);
+		this.resetBoard();
 		this.initializeImages();
+		this.setBackground(Color.WHITE);
 	}
 
 	/**
