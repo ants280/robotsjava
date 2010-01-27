@@ -7,7 +7,7 @@ import Pieces.Direction;
 /**
  * The home control point for the game.  Includes options and information about the game.
  */
-public class Gui extends javax.swing.JApplet implements KeyListener
+public class Gui extends Applet implements KeyListener
 {
 	private String s = "";
 	public void paint(java.awt.Graphics g)
