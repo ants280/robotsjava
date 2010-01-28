@@ -15,7 +15,6 @@ import Pieces.*;
  */
 public class Game extends Panel
 {
-	private static final long serialVersionUID = -5019512195986383612L;
 	private Dimension dimension;
 	private int level;
 	private int score;
@@ -162,6 +161,10 @@ public class Game extends Panel
 	 */
 	public void paint(Graphics g)
 	{
+		g.setColor(java.awt.Color.BLACK);
+		g.drawString("HERE", 200, 650);
+		g.setColor(Color.BLUE);
+		g.drawString("BBBBB", 50, 670);
 		this.setSize(dimension);
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, (COLS * jpegSize) + 10, (ROWS * jpegSize) + 10);
@@ -290,7 +293,6 @@ public class Game extends Panel
 			}
 		}
 		if(human.isAlive())
-		safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
 		safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
 		{
 			score += tempScore;	
@@ -498,7 +500,7 @@ public class Game extends Panel
 	 */
 	protected boolean isValid(Location testLocation, Direction dir)
 	{
-		if(dir == Direction.RANDOM || dir == Direction.CONTINUOUS|| dir == Direction.SAFE)
+		if(dir == Direction.RANDOM || dir == Direction.CONTINUOUS || dir == Direction.SAFE)
 		{
 			return true;
 		}
