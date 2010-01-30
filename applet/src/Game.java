@@ -290,7 +290,7 @@ public class Game extends Panel
 				tempScore += numReturned;
 			}
 		}
-		//safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
+		safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
 		if(human.isAlive())
 		{
 			score += tempScore;	
