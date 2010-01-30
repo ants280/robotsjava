@@ -161,10 +161,6 @@ public class Game extends Panel
 	 */
 	public void paint(Graphics g)
 	{
-		g.setColor(java.awt.Color.BLACK);
-		g.drawString("HERE", 200, 650);
-		g.setColor(Color.BLUE);
-		g.drawString("BBBBB", 50, 670);
 		this.setSize(dimension);
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, (COLS * jpegSize) + 10, (ROWS * jpegSize) + 10);
@@ -233,15 +229,17 @@ public class Game extends Panel
 		}
 	}
 
-	/**
+/**
 	 * Prints the board. Calls void paint(Graphics).
 	 */
 	public void printBoard()
+
 	{
+
 		this.repaint();
+
 		//paintToConsole();
 	}
-
 	/**
 	 * paints the board to the console
 	 */
@@ -292,8 +290,8 @@ public class Game extends Panel
 				tempScore += numReturned;
 			}
 		}
+		//safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
 		if(human.isAlive())
-		safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
 		{
 			score += tempScore;	
 		}
@@ -433,6 +431,8 @@ public class Game extends Panel
 		fillBots();
 		levelLabel.setText("Level: " + level);
 		safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
+
+		this.repaint();
 	}
 
 	/**
@@ -444,56 +444,51 @@ public class Game extends Panel
 		level = 0;
 		safeTeleports = 0;
 		
-		increaseLevel();
 		scoreLabel.setText("Score: 0");
+		this.increaseLevel();
 	}
 
 	/**
 	 * Moves the player in the specified Direction.  Calls {@link #updateBoard() updateBoard}.
 	 *
 	 * @param dir The Direction to move.
-	 * @return True if the move is successful, otherwise, false.
 	 */
-	public boolean makeMove(Direction dir)
+	public void makeMove(Direction dir)
 	{
 		if(dir == Direction.SAFE && safeTeleports > 0)
 		{
-			safeTeleports--;
-			int row, col;
-			do
+				int row, col;
+				do
 				{
-				row = generator.nextInt(ROWS);
-				col = generator.nextInt(COLS);
-			}
-			while(!isValid(board[row][col], Direction.SAME));
-			human.changePositionTo(row, col);
-			board[row][col] = human;
-			updateBoard();
-			safeTeleportsLabel.setText("Safe Teleports: " + safeTeleports);
-			return true;
+					row = generator.nextInt(ROWS);
+					col = generator.nextInt(COLS);
+				}
+				while(!isValid(board[row][col], Direction.SAME));
+				safeTeleports--;
 		}
-		if(isValid(human, dir))
+		else
 		{
 			Player loc = new Player(human);
 			loc.updatePos(dir);
+		
 			if(board[loc.getRow()][loc.getCol()].isEnemy())
 			{
 				human.die();
 			}
-			if(dir != Direction.SAME && dir != Direction.CONTINUOUS)
-			{
-				board[human.getRow()][human.getCol()] = new Location(human);
-				human.updatePos(dir);
-				board[human.getRow()][human.getCol()] = human;
-			}
-			updateBoard();
-			return true;
 		}
-		return false;
+		//This step is not needed if the human is not <u>PHYSICALLY</u> moving.
+		if(dir != Direction.SAME && dir != Direction.CONTINUOUS)
+		{
+			//Move the human.
+			board[human.getRow()][human.getCol()] = new Location(human);
+			human.updatePos(dir);
+			board[human.getRow()][human.getCol()] = human;
+		}
+		this.updateBoard();
 	}
 
 	/**
-	 * Sees if it is safe for the specified Location to move in the specified Direction.  If the Direction is CONTINOUS or RANDOM, true will be returned.  Uses {@link #isValid(Location) isValid(Location)} and {@link #locsAround(Location) locsAround(Location)}.
+	 * Sees if it is safe for the specified Location to move in the specified Direction.  If the Direction is CONTINOUS or RANDOM or SAFE, true will be returned.  Uses {@link #isValid(Location) isValid(Location)} and {@link #locsAround(Location) locsAround(Location)}.
 	 *
 	 * @param testLocation The starting Location.
 	 * @param dir The Direction to see if is valid for the testLocation to move to.
@@ -512,7 +507,7 @@ public class Game extends Panel
 			{
 				return false;
 			}
-			for(Location spot : this.locsAround(desiredLocation))
+			for(Location spot : locsAround(desiredLocation))
 			{
 				if(spot instanceof Robot)
 				{

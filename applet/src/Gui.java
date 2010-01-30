@@ -9,19 +9,6 @@ import Pieces.Direction;
  */
 public class Gui extends JApplet implements KeyListener
 {
-	
-	//TODO:  no see the text, make an java.applet.Applet .   Prints half right as applet, though.
-	private String a = "";
-	private String b = "";
-	public void paint(java.awt.Graphics g)
-	{
-		g.setColor(java.awt.Color.WHITE);
-		g.drawString(a, 400, 650);
-		g.setColor(java.awt.Color.BLACK);
-		g.drawString(b, 400, 650);
-		a = b;
-	}
-
 	private boolean continous;
 	private Game game;
 
@@ -87,7 +74,7 @@ public class Gui extends JApplet implements KeyListener
 				}
 			//}
 		}
-		else // game.gutHuman.IsAlive == false
+		else
 		{
 			this.performAction(null);	
 		}
@@ -112,23 +99,21 @@ public class Gui extends JApplet implements KeyListener
 	{
 			if(move != null)
 			{
-					do
-					{
-		b = move + "";
-		this.repaint();
-							game.makeMove(move);
-							game.repaint();
+				do
+				{
+					game.makeMove(move);
+					game.repaint();
 
-							if(!game.getHuman().isAlive() || game.numBots() == 0)
-							{
-									continous = false;
-							}
-							if(continous)
-							{
-									//Wait here.
-							}
+					if(!game.getHuman().isAlive() || game.numBots() == 0)
+					{
+						continous = false;
 					}
-					while(continous);
+					if(continous)
+					{
+						//Wait here.
+					}
+				}
+				while(continous);
 			}
 			if(game.getHuman().isAlive())
 			{
