@@ -69,16 +69,17 @@ public class Gui extends JApplet implements KeyListener
 				continous = false;
 				switch(key.getKeyChar())
 				{
-					case '1' : this.performAction(Direction.SW);  break;
-					case '2' : this.performAction(Direction.S);   break;
-					case '3' : this.performAction(Direction.SE);  break;
-					case '4' : this.performAction(Direction.W);   break;
-					case '5' : this.performAction(Direction.SAME);break;
-					case '6' : this.performAction(Direction.E);   break;
-					case '7' : this.performAction(Direction.NW);  break;
-					case '8' : this.performAction(Direction.N);   break;
-					case '9' : this.performAction(Direction.NE);  break;
-					case '+' : this.performAction(Direction.RANDOM);break;
+					case '1' : this.performAction(Direction.SW);    break;
+					case '2' : this.performAction(Direction.S);     break;
+					case '3' : this.performAction(Direction.SE);    break;
+					case '4' : this.performAction(Direction.W);     break;
+					case '5' : this.performAction(Direction.SAME);  break;
+					case '6' : this.performAction(Direction.E);     break;
+					case '7' : this.performAction(Direction.NW);    break;
+					case '8' : this.performAction(Direction.N);     break;
+					case '9' : this.performAction(Direction.NE);    break;
+					case '+' : this.performAction(Direction.SAFE);  break;
+					case '*' : this.performAction(Direction.RANDOM);break;
 					case KeyEvent.VK_ENTER : 
 						continous = true;
 						this.performAction(Direction.CONTINUOUS);
