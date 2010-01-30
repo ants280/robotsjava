@@ -69,26 +69,26 @@ public class Gui extends JApplet implements KeyListener
 				continous = false;
 				switch(key.getKeyChar())
 				{
-					case '1' : performAction(Direction.SW);  break;
-					case '2' : performAction(Direction.S);   break;
-					case '3' : performAction(Direction.SE);  break;
-					case '4' : performAction(Direction.W);   break;
-					case '5' : performAction(Direction.SAME);break;
-					case '6' : performAction(Direction.E);   break;
-					case '7' : performAction(Direction.NW);  break;
-					case '8' : performAction(Direction.N);   break;
-					case '9' : performAction(Direction.NE);  break;
-					case '+' : performAction(Direction.RANDOM);break;
+					case '1' : this.performAction(Direction.SW);  break;
+					case '2' : this.performAction(Direction.S);   break;
+					case '3' : this.performAction(Direction.SE);  break;
+					case '4' : this.performAction(Direction.W);   break;
+					case '5' : this.performAction(Direction.SAME);break;
+					case '6' : this.performAction(Direction.E);   break;
+					case '7' : this.performAction(Direction.NW);  break;
+					case '8' : this.performAction(Direction.N);   break;
+					case '9' : this.performAction(Direction.NE);  break;
+					case '+' : this.performAction(Direction.RANDOM);break;
 					case KeyEvent.VK_ENTER : 
 						continous = true;
-						performAction(Direction.CONTINUOUS);
+						this.performAction(Direction.CONTINUOUS);
 						break;
 				}
 			//}
 		}
 		else // game.gutHuman.IsAlive == false
 		{
-			performAction(null);	
+			this.performAction(null);	
 		}
 	}
 
@@ -116,7 +116,7 @@ public class Gui extends JApplet implements KeyListener
 		b = move + "";
 		this.repaint();
 							game.makeMove(move);
-							game.printBoard();
+							game.repaint();
 
 							if(!game.getHuman().isAlive() || game.numBots() == 0)
 							{
@@ -135,7 +135,6 @@ public class Gui extends JApplet implements KeyListener
 					{
 							//wait here
 							game.increaseLevel();
-							game.printBoard();
 					}
 			}
 			else
@@ -145,7 +144,7 @@ public class Gui extends JApplet implements KeyListener
 					if(choice == JOptionPane.YES_OPTION)
 					{
 						game.resetBoard();
-						game.printBoard();
+						game.repaint();
 					}
 					else if(choice == JOptionPane.NO_OPTION)
 					{
