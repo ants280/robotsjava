@@ -1,6 +1,6 @@
-import javax.swing.JOptionPane;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import javax.swing.JApplet;
 import javax.swing.JApplet;
 import Pieces.Direction;
 
@@ -108,35 +108,29 @@ public class Gui extends JApplet implements KeyListener
 					{
 						continous = false;
 					}
-					if(continous)
-					{
-						//Wait here.
-					}
 				}
 				while(continous);
 			}
 			if(game.getHuman().isAlive())
 			{
-					if(game.numBots() == 0)
-					{
-							//wait here
-							game.increaseLevel();
-					}
+				if(game.numBots() == 0)
+				{
+					game.increaseLevel();
+				}
 			}
 			else
 			{
-					this.removeKeyListener(this);
-					final int choice = JOptionPane.showConfirmDialog(this, "Do you want to start a new game?", "Restart?", JOptionPane.YES_NO_OPTION);
-					if(choice == JOptionPane.YES_OPTION)
-					{
-						game.resetBoard();
-						game.repaint();
-					}
-					else if(choice == JOptionPane.NO_OPTION)
-					{
-							System.exit(0);
-					}
-					this.addKeyListener(this);
+				try
+				{
+					Thread.sleep(1000);
+				}
+				catch(InterruptedException ex)
+				{
+					ex.printStackTrace();
+				}
+				//Do something to indicate new game.
+				game.resetBoard();
+				game.repaint();
 			}
 	}
 }

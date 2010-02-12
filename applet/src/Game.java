@@ -425,6 +425,7 @@ public class Game extends Panel
 	public void increaseLevel()
 	{
 		level++;
+		safeTeleports++;
 		human = new Player(ROWS / 2, COLS / 2, generator, ROWS, COLS);
 		board = createBoard();
 		board[ROWS / 2][COLS / 2] = human;
@@ -455,36 +456,41 @@ public class Game extends Panel
 	 */
 	public void makeMove(Direction dir)
 	{
-		if(dir == Direction.SAFE && safeTeleports > 0)
+		try{Thread.sleep(100);}catch(InterruptedException ex){ex.printStackTrace();}
+		//if(this.isValid(human, dir))
 		{
-				int row, col;
-				do
-				{
-					row = generator.nextInt(ROWS);
-					col = generator.nextInt(COLS);
-				}
-				while(!isValid(board[row][col], Direction.SAME));
-				safeTeleports--;
-		}
-		else
-		{
-			Player loc = new Player(human);
-			loc.updatePos(dir);
-		
-			if(board[loc.getRow()][loc.getCol()].isEnemy())
+			if(dir == Direction.SAFE && safeTeleports > 0)
 			{
-				human.die();
+					safeTeleports--;
+					int row, col;
+					do
+					{
+						row = generator.nextInt(ROWS);
+						col = generator.nextInt(COLS);
+					}
+				while(!isValid(board[row][col], Direction.SAME));
+					safeTeleports--;
 			}
+			else
+			{
+				Player loc = new Player(human);
+				loc.updatePos(dir);
+		
+				if(board[loc.getRow()][loc.getCol()].isEnemy())
+				{
+					human.die();
+				}
+			}
+			//This step is not needed if the human is not <u>PHYSICALLY</u> moving.
+			if(dir != Direction.SAME && dir != Direction.CONTINUOUS)
+			{
+				//Move the human.
+				board[human.getRow()][human.getCol()] = new Location(human);
+				human.updatePos(dir);
+				board[human.getRow()][human.getCol()] = human;
+			}
+			this.updateBoard();
 		}
-		//This step is not needed if the human is not <u>PHYSICALLY</u> moving.
-		if(dir != Direction.SAME && dir != Direction.CONTINUOUS)
-		{
-			//Move the human.
-			board[human.getRow()][human.getCol()] = new Location(human);
-			human.updatePos(dir);
-			board[human.getRow()][human.getCol()] = human;
-		}
-		this.updateBoard();
 	}
 
 	/**
@@ -499,14 +505,10 @@ public class Game extends Panel
 		{
 			return true;
 		}
-		Location desiredLocation = new Location(testLocation);
-		desiredLocation = desiredLocation.updatePos(dir);
-		if(isValid(desiredLocation))
+
+		Location desiredLocation = new Location(testLocation).updatePos(dir);
+		if(this.isValid(desiredLocation) && !desiredLocation.isEnemy())
 		{
-			if(board[desiredLocation.getRow()][desiredLocation.getCol()].isEnemy())
-			{
-				return false;
-			}
 			for(Location spot : locsAround(desiredLocation))
 			{
 				if(spot instanceof Robot)
@@ -528,12 +530,11 @@ public class Game extends Panel
 	protected Location[] locsAround(Location loc)
 	{
 		Location[] locationList = new Location[8];
-		int pos = 0;
-		for(int r = loc.getRow() - 1; r <= loc.getRow() + 1; r++)
+		for(int pos = 0, r = loc.getRow() - 1; r <= loc.getRow() + 1; r++)
 		{
 			for(int c = loc.getCol() - 1; c <= loc.getCol() + 1; c++)
 			{
-				if(isValid(r, c))
+				if(this.isValid(r, c))
 				{
 					locationList[++pos] = board[r][c];
 				}
@@ -562,10 +563,6 @@ public class Game extends Panel
 	 */
 	protected final boolean isValid(int row, int col)
 	{
- 		if(row >= 0 && row < ROWS && col >= 0 && col < COLS)
-		{
-			return true;
-		}
-		return false;
+ 		return row >= 0 && row < ROWS && col >= 0 && col < COLS;
 	}
 }
