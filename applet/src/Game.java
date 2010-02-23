@@ -32,7 +32,7 @@ public class Game extends Panel
 	/**
 	 * Used to randomly teleport the Player.
 	 */
-	protected Random generator;
+	private Random generator;
 
 	/**
 	 * The width of the board.
@@ -92,10 +92,8 @@ public class Game extends Panel
 		scoreLabel         = new Label("score");
 		safeTeleportsLabel = new Label("safe");
 		generator = new Random();
-		//ROWS = 30;
-		//COLS = 40;
-		ROWS = 19;
-		COLS = 20;
+		ROWS = 30;
+		COLS = 40;
 		dimension = new Dimension(COLS * 21 + 1, ROWS * 21 + 1);
 		this.resetBoard();
 		this.initializeImages();
@@ -117,7 +115,6 @@ public class Game extends Panel
 		{
 			this.numBots = numBots;
 		}
-		this.numBots = 50;
 	}
 
 
@@ -394,14 +391,14 @@ public class Game extends Panel
 	public void increaseLevel()
 	{
 		level++;
-		safeTeleports = 20;
+		safeTeleports++;
 		do
 		{
 			board = createBoard();
 			this.fillBots();
 		}
-		while(!(board[ROWS / 2][COLS / 2] instanceof Robot));
-		human = new Player(ROWS / 2, COLS / 2, generator, ROWS, COLS);
+		while(board[ROWS / 2][COLS / 2] instanceof Robot);
+		human = new Player(ROWS / 2, COLS / 2, ROWS, COLS);
 		board[ROWS / 2][COLS / 2] = human;
 		levelLabel.setText("Level: " + level);
 		safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
@@ -416,7 +413,7 @@ public class Game extends Panel
 	{
 		score = 0;
 		level = 0;
-		safeTeleports = 0;
+		safeTeleports = -1;
 		
 		scoreLabel.setText("Score: 0");
 		this.increaseLevel();
@@ -431,9 +428,8 @@ public class Game extends Panel
 	{
 		try{Thread.sleep(100);}catch(InterruptedException ex){ex.printStackTrace();}
 		int row = 0, col = 0;
-		if(dir == Direction.SAFE && safeTeleports > 0)
+		if(dir == Direction.RANDOM || dir == Direction.SAFE)
 		{
-			safeTeleports--;
 			boolean safe;
 			do
 			{
@@ -442,23 +438,31 @@ public class Game extends Panel
 				col = generator.nextInt(COLS);
 
 				//makes sure the selected location is valid
-				if(board[row][col].isEnemy())
+				if(dir == Direction.SAFE && safeTeleports > 0)
 				{
-					safe = false;
-					continue;
-				}
-				for(int r = row - 1; r <= row + 1 && safe; r++)
-				{
-					for(int c = col - 1; c <= col + 1 && safe; c++)
+					if(board[row][col].isEnemy())
 					{
-						if(this.isValid(r, c) && board[r][c] instanceof Robot)
+						safe = false;
+						continue;
+					}
+					for(int r = row - 1; r <= row + 1 && safe; r++)
+					{
+						for(int c = col - 1; c <= col + 1 && safe; c++)
 						{
-							safe = false;
+							if(this.isValid(r, c) && board[r][c] instanceof Robot)
+							{
+								safe = false;
+							}
 						}
 					}
 				}
 			}
-			while(!safe);
+			while(!safe && dir == Direction.SAFE && safeTeleports > 0);
+			if(dir == Direction.SAFE && safeTeleports > 0)
+			{
+				safeTeleports--;
+				safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
+			}
 		}
 		else
 		{
@@ -475,7 +479,7 @@ public class Game extends Panel
 		{
 			//Move the human.
 			board[human.getRow()][human.getCol()] = new Location(human);
-			if(dir == Direction.SAFE)
+			if(dir == Direction.SAFE || dir == Direction.RANDOM)
 			{
 				human.updatePos(row, col);
 			}

@@ -66,14 +66,7 @@ public class Location
 			case NW : m_row--; m_col--;	break;
 			case N : m_row--;			break;
 			case NE : m_row--; m_col++;	break;
-			case RANDOM :
-			case SAFE : //This is only called when the Player tries to move safely when he has no safe teleports.
-				if(this instanceof Player)
-				{
-					((Player)this).teleport();
-				}
-				break;
-			default : break; // PLUS
+			default : break; // SAFE or RANDOM
 		}
 		return this;
 	}
