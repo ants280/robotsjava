@@ -428,10 +428,14 @@ public abstract class Game extends JPanel
 	public void increaseLevel()
 	{
 		level++;
+		do
+		{
+			board = createBoard();
+			this.fillBots();
+		}
+		while(board[ROWS / 2][COLS / 2] instanceof Robot);
 		human = new Player(ROWS / 2, COLS / 2, generator, ROWS, COLS);
-		board = createBoard();
 		board[ROWS / 2][COLS / 2] = human;
-		fillBots();
 		levelLabel.setText("Level: " + level);
 	}
 
