@@ -77,6 +77,16 @@ public class Location
 		}
 		return this;
 	}
+	
+	/**
+	 *
+	 */
+	public Location updatePos(int row, int col)
+	{
+		m_row = row;
+		m_col = col;
+		return this;
+	}
 
 	/**
 	 * Constructor for a Location.

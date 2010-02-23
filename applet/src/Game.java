@@ -92,8 +92,10 @@ public class Game extends Panel
 		scoreLabel         = new Label("score");
 		safeTeleportsLabel = new Label("safe");
 		generator = new Random();
-		ROWS = 30;
-		COLS = 40;
+		//ROWS = 30;
+		//COLS = 40;
+		ROWS = 19;
+		COLS = 20;
 		dimension = new Dimension(COLS * 21 + 1, ROWS * 21 + 1);
 		this.resetBoard();
 		this.initializeImages();
@@ -115,6 +117,7 @@ public class Game extends Panel
 		{
 			this.numBots = numBots;
 		}
+		this.numBots = 50;
 	}
 
 
@@ -130,10 +133,20 @@ public class Game extends Panel
 	{
 		try
 		{
-			playerAliveImage = ImageIO.read(this.getClass().getResource("PlayerAlive.jpg"));
-			playerDeadImage  = ImageIO.read(this.getClass().getResource("PlayerDead.jpg"));
-			robotImage       = ImageIO.read(this.getClass().getResource("Robot.jpg"));
-			wreckImage       = ImageIO.read(this.getClass().getResource("Wreck.jpg"));
+			try
+			{
+				playerAliveImage = ImageIO.read(this.getClass().getResource("PlayerAlive.jpg"));
+				playerDeadImage  = ImageIO.read(this.getClass().getResource("PlayerDead.jpg"));
+				robotImage       = ImageIO.read(this.getClass().getResource("Robot.jpg"));
+				wreckImage       = ImageIO.read(this.getClass().getResource("Wreck.jpg"));
+			}
+			catch(IllegalArgumentException ex)
+			{
+				playerAliveImage = ImageIO.read(new java.io.File("images/PlayerAlive.jpg"));
+				playerDeadImage  = ImageIO.read(new java.io.File("images/PlayerDead.jpg"));
+				robotImage       = ImageIO.read(new java.io.File("images/Robot.jpg"));
+				wreckImage       = ImageIO.read(new java.io.File("images/Wreck.jpg"));
+			}
 		}
 		catch(IOException ex)
 		{
@@ -227,50 +240,6 @@ public class Game extends Panel
 		{
 			return null;
 		}
-	}
-
-/**
-	 * Prints the board. Calls void paint(Graphics).
-	 */
-	public void printBoard()
-
-	{
-
-		this.repaint();
-
-		//paintToConsole();
-	}
-	/**
-	 * paints the board to the console
-	 */
-	@SuppressWarnings({ "unused", "deprecation" })
-	private void paintToConsole()
-	{
-		System.out.println("\n\n\n");
-		System.out.println("--Score = " + score + (score < 10 ? '-' : ""));
-		System.out.println("----Key-----");
-		System.out.println("  1 = Robot");
-		System.out.println("  * = Wreck");
-		System.out.println("  # = Player (X = DEAD)");
-		for(int c = -1; c <= COLS; c++)
-		{
-			System.out.print('-');
-		}
-		System.out.println();
-		for(int r = 0; r < ROWS; r++)
-		{
-			System.out.print('|');
-			for(int c = 0; c < COLS; c++)
-			{
-				System.out.print(board[r][c].value());
-			}
-			System.out.println('|');
-		}
-		for(int c = -1; c < COLS; c++)
-		{
-			System.out.print('-');
-		}
-		System.out.println();
 	}
 
 	/**
@@ -425,11 +394,15 @@ public class Game extends Panel
 	public void increaseLevel()
 	{
 		level++;
-		safeTeleports++;
+		safeTeleports = 20;
+		do
+		{
+			board = createBoard();
+			this.fillBots();
+		}
+		while(!(board[ROWS / 2][COLS / 2] instanceof Robot));
 		human = new Player(ROWS / 2, COLS / 2, generator, ROWS, COLS);
-		board = createBoard();
 		board[ROWS / 2][COLS / 2] = human;
-		fillBots();
 		levelLabel.setText("Level: " + level);
 		safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
 
@@ -457,101 +430,62 @@ public class Game extends Panel
 	public void makeMove(Direction dir)
 	{
 		try{Thread.sleep(100);}catch(InterruptedException ex){ex.printStackTrace();}
-		//if(this.isValid(human, dir))
+		int row = 0, col = 0;
+		if(dir == Direction.SAFE && safeTeleports > 0)
 		{
-			if(dir == Direction.SAFE && safeTeleports > 0)
+			safeTeleports--;
+			boolean safe;
+			do
 			{
-					safeTeleports--;
-					int row, col;
-					do
+				safe = true;
+				row = generator.nextInt(ROWS);
+				col = generator.nextInt(COLS);
+
+				//makes sure the selected location is valid
+				if(board[row][col].isEnemy())
+				{
+					safe = false;
+					continue;
+				}
+				for(int r = row - 1; r <= row + 1 && safe; r++)
+				{
+					for(int c = col - 1; c <= col + 1 && safe; c++)
 					{
-						row = generator.nextInt(ROWS);
-						col = generator.nextInt(COLS);
+						if(this.isValid(r, c) && board[r][c] instanceof Robot)
+						{
+							safe = false;
+						}
 					}
-				while(!isValid(board[row][col], Direction.SAME));
-					safeTeleports--;
+				}
+			}
+			while(!safe);
+		}
+		else
+		{
+			Player loc = new Player(human);
+			loc.updatePos(dir);
+	
+			if(board[loc.getRow()][loc.getCol()].isEnemy())
+			{
+				human.die();
+			}
+		}
+		//This step is not needed if the human is not <u>PHYSICALLY</u> moving.
+		if(dir != Direction.SAME && dir != Direction.CONTINUOUS)
+		{
+			//Move the human.
+			board[human.getRow()][human.getCol()] = new Location(human);
+			if(dir == Direction.SAFE)
+			{
+				human.updatePos(row, col);
 			}
 			else
 			{
-				Player loc = new Player(human);
-				loc.updatePos(dir);
-		
-				if(board[loc.getRow()][loc.getCol()].isEnemy())
-				{
-					human.die();
-				}
-			}
-			//This step is not needed if the human is not <u>PHYSICALLY</u> moving.
-			if(dir != Direction.SAME && dir != Direction.CONTINUOUS)
-			{
-				//Move the human.
-				board[human.getRow()][human.getCol()] = new Location(human);
 				human.updatePos(dir);
-				board[human.getRow()][human.getCol()] = human;
 			}
-			this.updateBoard();
+			board[human.getRow()][human.getCol()] = human;
 		}
-	}
-
-	/**
-	 * Sees if it is safe for the specified Location to move in the specified Direction.  If the Direction is CONTINOUS or RANDOM or SAFE, true will be returned.  Uses {@link #isValid(Location) isValid(Location)} and {@link #locsAround(Location) locsAround(Location)}.
-	 *
-	 * @param testLocation The starting Location.
-	 * @param dir The Direction to see if is valid for the testLocation to move to.
-	 */
-	protected boolean isValid(Location testLocation, Direction dir)
-	{
-		if(dir == Direction.RANDOM || dir == Direction.CONTINUOUS || dir == Direction.SAFE)
-		{
-			return true;
-		}
-
-		Location desiredLocation = new Location(testLocation).updatePos(dir);
-		if(this.isValid(desiredLocation) && !desiredLocation.isEnemy())
-		{
-			for(Location spot : locsAround(desiredLocation))
-			{
-				if(spot instanceof Robot)
-				{
-					return false;
-				}
-			}
-			return true;
-		}
-		return false;
-	}
-
-	/**
-	 * Gets a list of valid locations around the specified location.
-	 *
-	 * @param loc The location to get the list of locations around.
-	 * @return The list of locations.
-	 */
-	protected Location[] locsAround(Location loc)
-	{
-		Location[] locationList = new Location[8];
-		for(int pos = 0, r = loc.getRow() - 1; r <= loc.getRow() + 1; r++)
-		{
-			for(int c = loc.getCol() - 1; c <= loc.getCol() + 1; c++)
-			{
-				if(this.isValid(r, c))
-				{
-					locationList[++pos] = board[r][c];
-				}
-			}
-		}
-		return locationList;
-	}
-
-	/**
-	 * Tells if a Location is on the board.
-	 *
-	 * @param loc The location to see if is valid.
-	 * @return True if the specified location is on the board. Otherwise, false.
-	 */
-	protected final boolean isValid(Location loc)
-	{
-		return isValid(loc.getRow(), loc.getCol());
+		this.updateBoard();
 	}
 
 	/**
