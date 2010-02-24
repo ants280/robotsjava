@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -37,23 +38,28 @@ public class Game extends Panel
 	/**
 	 * The width of the board.
 	 */
-	protected final int ROWS;
+	private final int ROWS;
 
 	/**
 	 * The width of the board.
 	 */
-	protected final int COLS;
+	private final int COLS;
 
 
 	/**
 	 * The container of all the Locations.
 	 */
-	protected Location[][] board;
+	private Location[][] board;
+
+	/**
+	 * Used for updating the board with updateBoard(int, int). Is cleared on each player move.
+	 */
+	private Location[][] tempBoard;
 
 	/**
 	 * The only Player on the board
 	 */
-	protected Player human;
+	private Player human;
 
 	/**
 	 * Returns the player. There should only be 1 player (human).
@@ -105,7 +111,7 @@ public class Game extends Panel
 	 *
 	 * @param numBots Starts at 2, increases by 1 on each level increase.
 	 */
-	protected void setNumBots(int numBots)
+	private void setNumBots(int numBots)
 	{
 		if(numBots > ROWS * COLS / 2)
 		{
@@ -117,16 +123,10 @@ public class Game extends Panel
 		}
 	}
 
-
-	/**
-	 * Used for updating the board with updateBoard(int, int). Is cleared on each player move.
-	 */
-	protected Location[][] tempBoard;
-
 	/**
 	 * Initializes the images of the painted Locations.
 	 */
-	protected void initializeImages()
+	private void initializeImages()
 	{
 		try
 		{
@@ -203,6 +203,16 @@ public class Game extends Panel
 		g.drawString(scoreLabel.getText(),         1,                           jpegSize * ROWS + ROWS / 2);
 		g.drawString(safeTeleportsLabel.getText(), jpegSize * ((COLS / 2) - 2), jpegSize * ROWS + ROWS / 2);
 		g.drawString(levelLabel.getText(),         jpegSize *  (COLS - 3),      jpegSize * ROWS + ROWS / 2);
+
+		//Tell the player to restart if he dies.
+		//TODO: show new high score, if applicable?
+		if(!human.isAlive())
+		{
+			g.setFont(new Font("serif", Font.BOLD, 32));
+			g.setColor(Color.GREEN);
+			g.drawString("SORRY, YOU LOSE.",				   jpegSize * COLS / 2 - 140, jpegSize * ROWS / 2 + jpegSize - 32);
+			g.drawString("PRESS ANY KEY TO START A NEW GAME.", jpegSize * COLS / 2 - 335, jpegSize * ROWS / 2 + jpegSize + 32);
+		}
 	}
 
 	/**
@@ -212,7 +222,7 @@ public class Game extends Panel
 	 * @param col The column of the location on the board to get the image for.
 	 * @return The image of the board's row and column.
 	 */
-	protected Image getImage(int row, int col)
+	private Image getImage(int row, int col)
 	{
 		if(board[row][col] instanceof Player)
 		{
@@ -242,7 +252,7 @@ public class Game extends Panel
 	/**
 	 * Updates the board for the Player's current Location.  Runs even if the player will die in his/her current Location.
 	 */
-	protected void updateBoard()
+	private void updateBoard()
 	{
 		int tempScore = 0, numReturned;
 		tempBoard = createBoard();
@@ -271,7 +281,7 @@ public class Game extends Panel
 	 * @param boardCol The column of the piece being moved.
 	 * @return Returns 1 if the piece to move dies.  Returns 2 if lands on another piece.  Otherwise, returns 0.
 	 */
-	protected int updateBoard(int boardRow, int boardCol)
+	private int updateBoard(int boardRow, int boardCol)
 	{
 		int rowsTo, colsTo, tempRow, tempCol;
 		if(board[boardRow][boardCol] instanceof Wreck)
@@ -380,7 +390,7 @@ public class Game extends Panel
 	 * @param n The nth enemy being added.
 	 * @return The enemy to add to the board.  The Location should return true for isEnemy().
 	 */
-	protected Location addEnemy(int row, int col, int n)
+	private Location addEnemy(int row, int col, int n)
 	{
 		return new Robot(row, col);
 	}
@@ -499,7 +509,7 @@ public class Game extends Panel
 	 * @param col The column to test if is on the board.
 	 * @return True if the specified location is on the board. Otherwise, false.
 	 */
-	protected final boolean isValid(int row, int col)
+	private boolean isValid(int row, int col)
 	{
  		return row >= 0 && row < ROWS && col >= 0 && col < COLS;
 	}

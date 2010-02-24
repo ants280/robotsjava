@@ -1,7 +1,6 @@
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JApplet;
-import javax.swing.JApplet;
 import Pieces.Direction;
 
 /**
@@ -51,32 +50,30 @@ public class Gui extends JApplet implements KeyListener
 	{
 		if(game.getHuman().isAlive())
 		{
-			//if(key.getKeyLocation() == KeyEvent.KEY_LOCATION_NUMPAD)
-			//{
-				continous = false;
-				switch(key.getKeyChar())
-				{
-					case '1' : this.performAction(Direction.SW);    break;
-					case '2' : this.performAction(Direction.S);     break;
-					case '3' : this.performAction(Direction.SE);    break;
-					case '4' : this.performAction(Direction.W);     break;
-					case '5' : this.performAction(Direction.SAME);  break;
-					case '6' : this.performAction(Direction.E);     break;
-					case '7' : this.performAction(Direction.NW);    break;
-					case '8' : this.performAction(Direction.N);     break;
-					case '9' : this.performAction(Direction.NE);    break;
-					case '+' : this.performAction(Direction.SAFE);  break;
-					case '*' : this.performAction(Direction.RANDOM);break;
-					case KeyEvent.VK_ENTER : 
-						continous = true;
-						this.performAction(Direction.CONTINUOUS);
-						break;
-				}
-			//}
+			continous = false;
+			switch(key.getKeyChar())
+			{
+				case '1' : this.performAction(Direction.SW);    break;
+				case '2' : this.performAction(Direction.S);     break;
+				case '3' : this.performAction(Direction.SE);    break;
+				case '4' : this.performAction(Direction.W);     break;
+				case '5' : this.performAction(Direction.SAME);  break;
+				case '6' : this.performAction(Direction.E);     break;
+				case '7' : this.performAction(Direction.NW);    break;
+				case '8' : this.performAction(Direction.N);     break;
+				case '9' : this.performAction(Direction.NE);    break;
+				case '+' : this.performAction(Direction.SAFE);  break;
+				case '*' : this.performAction(Direction.RANDOM);break;
+				case KeyEvent.VK_ENTER : 
+					continous = true;
+					this.performAction(Direction.CONTINUOUS);
+					break;
+			}
 		}
 		else
 		{
-			this.performAction(null);	
+			//Game needs to be restarted.
+			game.resetBoard();
 		}
 	}
 
@@ -97,40 +94,23 @@ public class Gui extends JApplet implements KeyListener
 	 */
 	protected void performAction(Direction move)
 	{
-			if(move != null)
+		do
+		{
+			game.makeMove(move);
+			game.repaint();
+			if(!game.getHuman().isAlive() || game.numBots() == 0)
 			{
-				do
-				{
-					game.makeMove(move);
-					game.repaint();
+				continous = false;
+			}
+		}
+		while(continous);
 
-					if(!game.getHuman().isAlive() || game.numBots() == 0)
-					{
-						continous = false;
-					}
-				}
-				while(continous);
-			}
-			if(game.getHuman().isAlive())
+		if(game.getHuman().isAlive())
+		{
+			if(game.numBots() == 0)
 			{
-				if(game.numBots() == 0)
-				{
-					game.increaseLevel();
-				}
+				game.increaseLevel();
 			}
-			else
-			{
-				try
-				{
-					Thread.sleep(1000);
-				}
-				catch(InterruptedException ex)
-				{
-					ex.printStackTrace();
-				}
-				//Do something to indicate new game.
-				game.resetBoard();
-				game.repaint();
-			}
+		}
 	}
 }
