@@ -132,10 +132,10 @@ public class Game extends Panel
 		{
 			try
 			{
-				playerAliveImage = ImageIO.read(this.getClass().getResource("PlayerAlive.jpg"));
-				playerDeadImage  = ImageIO.read(this.getClass().getResource("PlayerDead.jpg"));
-				robotImage       = ImageIO.read(this.getClass().getResource("Robot.jpg"));
-				wreckImage       = ImageIO.read(this.getClass().getResource("Wreck.jpg"));
+				playerAliveImage = ImageIO.read(this.getClass().getResource("images/PlayerAlive.jpg"));
+				playerDeadImage  = ImageIO.read(this.getClass().getResource("images/PlayerDead.jpg"));
+				robotImage       = ImageIO.read(this.getClass().getResource("images/Robot.jpg"));
+				wreckImage       = ImageIO.read(this.getClass().getResource("images/Wreck.jpg"));
 			}
 			catch(IllegalArgumentException ex)
 			{
