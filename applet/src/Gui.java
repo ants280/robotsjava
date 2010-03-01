@@ -92,12 +92,13 @@ public class Gui extends JApplet implements KeyListener
 	 *
 	 * @param move The Direction to move the Player.
 	 */
-	protected void performAction(Direction move)
+	private void performAction(Direction move)
 	{
 		do
 		{
 			game.makeMove(move);
 			game.repaint();
+
 			if(!game.getHuman().isAlive() || game.numBots() == 0)
 			{
 				continous = false;
@@ -105,12 +106,9 @@ public class Gui extends JApplet implements KeyListener
 		}
 		while(continous);
 
-		if(game.getHuman().isAlive())
+		if(game.numBots() == 0 && game.getHuman().isAlive())
 		{
-			if(game.numBots() == 0)
-			{
-				game.increaseLevel();
-			}
+			game.increaseLevel();
 		}
 	}
 }

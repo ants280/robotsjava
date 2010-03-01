@@ -471,7 +471,15 @@ public class Game extends Panel
 	
 			if(board[loc.getRow()][loc.getCol()].isEnemy())
 			{
-				human.die();
+				if(board[loc.getRow()][loc.getCol()] instanceof Robot)
+				{
+					human.die();
+				}
+				else
+				{
+					//Move is invalid.  Human is not allowed to move into a Wreck.
+					return;
+				}
 			}
 		}
 		//This step is not needed if the human is not <u>PHYSICALLY</u> moving.
