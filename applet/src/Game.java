@@ -426,7 +426,6 @@ public class Game extends Panel
 	 */
 	public void makeMove(Direction dir)
 	{
-		try{Thread.sleep(100);}catch(InterruptedException ex){ex.printStackTrace();}
 		int row = 0, col = 0;
 		if(dir == Direction.RANDOM || dir == Direction.SAFE)
 		{
@@ -478,6 +477,7 @@ public class Game extends Panel
 				else
 				{
 					//Move is invalid.  Human is not allowed to move into a Wreck.
+					//Do not update the board (let the human move onto the Wreck and die).
 					return;
 				}
 			}

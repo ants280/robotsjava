@@ -40,6 +40,12 @@
 		<copy file="robots.css" todir="${jar.dir}"/>
     </target>
 
-    <target name="main" depends="clean,jar"/>
+	<target name="run" depends="jar">
+		<exec executable="firefox">
+			<arg value="build/jar/robots.html"/>
+		</exec>
+	</target>
+
+    <target name="main" depends="clean,run"/>
 
 </project>
