@@ -29,4 +29,13 @@ public class Wreck extends Location
 	{
 		super(row, col);
 	}
+	/**
+	 * Constructor for a Wreck.
+	 *
+	 * @param loc The Location to create the Wreck out of.
+	 */
+	public Wreck(Location loc)
+	{
+		this(loc.getRow(), loc.getCol());
+	}
 }

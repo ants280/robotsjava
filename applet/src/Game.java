@@ -483,11 +483,32 @@ public class Game extends Panel
 				{
 					human.die();
 				}
-				else
+				else // insntanceof Wreck
 				{
-					//Move is invalid.  Human is not allowed to move into a Wreck.
-					//Do not update the board (let the human move onto the Wreck and die).
-					return;
+					if(!dir.isCardinal())
+					{
+						//Not allowed to push a Wreck in a diagonal Direction.
+						return;
+					}
+					Wreck wreck = (Wreck)board[loc.getRow()][loc.getCol()];
+					if(this.isValid(wreck.updatePos(dir)))
+					if((board[wreck.getCol()][wreck.getRow()] instanceof Wreck))
+					{
+						//Not allowed to push a Wreck into a Wreck.
+						return;
+					}
+
+					//Move Wreck.
+					Location wreckDestination = new Location(wreck);
+					wreck = new Wreck(loc);
+					if(board[wreckDestination.getRow()][wreckDestination.getCol()] instanceof Robot)
+					{
+						//TODO: SAY SPLAT!!!
+					}
+					//"wreck" is not a wreck.  "loc" is still the Wreck.
+					board[wreckDestination.getRow()][wreckDestination.getCol()] = wreck.updatePos(dir);
+					//Make the old place Wreck was a location (The Player will move onto it.
+					board[loc.getRow()][loc.getCol()] = new Location(loc);
 				}
 			}
 		}

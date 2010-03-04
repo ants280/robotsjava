@@ -50,8 +50,9 @@ public class Location
 	 * Updates the row and column of the Location in the specified Direction.
 	 *
 	 * @param dir The Direction to update the Location's row and column.
+	 * @return The updated Location.
 	 */
-	public void updatePos(Direction dir)
+	public Location updatePos(Direction dir)
 	{
 		switch(dir)
 		{
@@ -67,6 +68,7 @@ public class Location
 			case NE : m_row--; m_col++;	break;
 			default : break; // SAFE or RANDOM
 		}
+		return this;
 	}
 	
 	/**
