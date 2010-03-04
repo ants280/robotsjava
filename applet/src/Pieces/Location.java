@@ -61,7 +61,7 @@ public class Location
 			case S : m_row++;			break;
 			case SE : m_row++; m_col++;	break;
 			case W : m_col--;			break;
-			case SAME: case CONTINUOUS:	break;
+			case SAME: case WAIT:	break;
 			case E : m_col++;			break;
 			case NW : m_row--; m_col--;	break;
 			case N : m_row--;			break;

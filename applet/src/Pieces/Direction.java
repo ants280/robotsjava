@@ -63,15 +63,5 @@ public enum Direction
 	/**
 	 * Move for continuous Robot movement until the Player dies or all of the Robots are dead. The Player does not move during this time.
 	 */
-	CONTINUOUS;
-
-	/**
-	 * Used to tell if a Direction is a cardinal direction.
-	 *
-	 * @return True if the Direction is a cardinal direction, otherwise false.
-	 */
-	public boolean isCardinal()
-	{
-		return this == N || this == S || this == E || this == W;
-	}
+	WAIT;
 }

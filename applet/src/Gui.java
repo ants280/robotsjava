@@ -85,7 +85,7 @@ public class Gui extends JApplet implements KeyListener, ActionListener
 				case '+' : move = Direction.SAFE;   timer.start(); break;
 				case '*' : move = Direction.RANDOM; timer.start(); break;
 				case KeyEvent.VK_ENTER : 
-					move = Direction.CONTINUOUS;
+					move = Direction.WAIT;
 					timer.start();
 					break;
 			}
@@ -115,7 +115,7 @@ public class Gui extends JApplet implements KeyListener, ActionListener
 		game.repaint();
 
 		//Determines if game should stop moving.
-		if( !(move == Direction.CONTINUOUS && game.getHuman().isAlive() && game.numBots() != 0) )
+		if( !(move == Direction.WAIT && game.getHuman().isAlive() && game.numBots() != 0) )
 		{
 			timer.stop();
 		}

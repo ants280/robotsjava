@@ -474,7 +474,7 @@ public class Game extends Panel
 	
 			if(!this.isValid(loc))
 			{
-				//Cancel the move because the playr is trying to move off the board.
+				//Cancel the move because the player is trying to move off the board.
 				return;
 			}
 			if(board[loc.getRow()][loc.getCol()].isEnemy())
@@ -485,14 +485,8 @@ public class Game extends Panel
 				}
 				else // insntanceof Wreck
 				{
-					if(!dir.isCardinal())
-					{
-						//Not allowed to push a Wreck in a diagonal Direction.
-						return;
-					}
 					Wreck wreck = (Wreck)board[loc.getRow()][loc.getCol()];
-					if(this.isValid(wreck.updatePos(dir)))
-					if((board[wreck.getCol()][wreck.getRow()] instanceof Wreck))
+					if(this.isValid(wreck.updatePos(dir)) &&board[wreck.getCol()][wreck.getRow()] instanceof Wreck)
 					{
 						//Not allowed to push a Wreck into a Wreck.
 						return;
@@ -504,6 +498,7 @@ public class Game extends Panel
 					if(board[wreckDestination.getRow()][wreckDestination.getCol()] instanceof Robot)
 					{
 						//TODO: SAY SPLAT!!!
+						numBots--;
 					}
 					//"wreck" is not a wreck.  "loc" is still the Wreck.
 					board[wreckDestination.getRow()][wreckDestination.getCol()] = wreck.updatePos(dir);
@@ -513,7 +508,7 @@ public class Game extends Panel
 			}
 		}
 		//(This step is not needed if the human is not <u>PHYSICALLY</u> moving.)
-		if(dir != Direction.SAME && dir != Direction.CONTINUOUS)
+		if(dir != Direction.SAME && dir != Direction.WAIT)
 		{
 			//Move the human.
 			board[human.getRow()][human.getCol()] = new Location(human);
