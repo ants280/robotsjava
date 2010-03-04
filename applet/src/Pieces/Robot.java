@@ -13,7 +13,7 @@ public class Robot extends Location
 	public boolean isEnemy() { return true; }
 
 	/**
-	 * Prints out the Player and it's row and column.
+	 * Prints out the Robot's textual image.
 	 * 
 	 * @deprecated Use for debugging purposes only.
 	 */
@@ -25,5 +25,8 @@ public class Robot extends Location
 	 * @param row The row of the new Wreck.
 	 * @param col The column of the new Wreck.
 	 */
-	public Robot(int row, int col) { super(row, col); }
+	public Robot(int row, int col)
+	{
+		super(row, col);
+	}
 }

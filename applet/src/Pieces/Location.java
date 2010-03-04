@@ -50,9 +50,8 @@ public class Location
 	 * Updates the row and column of the Location in the specified Direction.
 	 *
 	 * @param dir The Direction to update the Location's row and column.
-	 * @return The location with its row and column fields updated
 	 */
-	public Location updatePos(Direction dir)
+	public void updatePos(Direction dir)
 	{
 		switch(dir)
 		{
@@ -68,17 +67,18 @@ public class Location
 			case NE : m_row--; m_col++;	break;
 			default : break; // SAFE or RANDOM
 		}
-		return this;
 	}
 	
 	/**
+	 * Updates the row and column of the Location
 	 *
+	 * @param row The new row of the Location.
+	 * @param col The new column of the Location.
 	 */
-	public Location updatePos(int row, int col)
+	public void updatePos(int row, int col)
 	{
 		m_row = row;
 		m_col = col;
-		return this;
 	}
 
 	/**
@@ -87,12 +87,20 @@ public class Location
 	 * @param row The row of the new Location.
 	 * @param col The column of the new Location.
 	 */
-	public Location(int row, int col) { m_row = row; m_col = col; }
+	public Location(int row, int col)
+	{
+		m_row = row;
+		m_col = col;
+	}
 
 	/**
 	 * Copy constructor. Creates a new Location equal to the one specified.
 	 *
 	 * @param loc The Location to create the new one out of.
 	 */
-	public Location(Location loc) { m_row = loc.getRow(); m_col = loc.getCol(); }
+	public Location(Location loc)
+	{
+		m_row = loc.getRow();
+		m_col = loc.getCol();
+	}
 }

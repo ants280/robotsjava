@@ -7,21 +7,30 @@ import javax.swing.Timer;
 import Pieces.Direction;
 
 /**
- * The home control point for the game.
- * Includes options and information about the game.
+ * The home control point for the game.  Includes options and information about the game.
  */
 public class Gui extends JApplet implements KeyListener, ActionListener
 {
-	/** The game being played. */
+	/** 
+	 * The game being played.
+	 */
 	private Game game;	
-	/** The system that actual triggers game moves for the game. */
+	/**
+	 * The system that actual triggers game moves for the game.
+	 */
 	private Timer timer;			
-	/** Tells the Timer if the player wants to keep moving until he dies or moves on. */		
+	/**
+	 * Tells the Timer if the player wants to keep moving until he dies or moves on.
+	 */
 	private boolean continous;
-	/** The move being made. */
+	/**
+	 * The move being made.
+	 */
 	private Direction move;
 
-	/** The entry point for the Applet. */
+	/**
+	 * The entry point for the Applet.
+	 */
 	public void init()
 	{
 		//Creates a timer with no ititial delay and a short delay if is run multiple times before being stopped (if continous).
@@ -34,8 +43,7 @@ public class Gui extends JApplet implements KeyListener, ActionListener
 	}
 
 	/**
-	 * Creates a default, classic game.
-	 * Sets up all components and some frames
+	 * Creates a default, classic game.  Sets up all components and some frames
 	 */
 	public void showGui(Game game)
 	{
@@ -93,9 +101,14 @@ public class Gui extends JApplet implements KeyListener, ActionListener
 		}
 	}
 
-	/** Not implemented. */
+	/**
+	 *Not implemented.
+	 */
 	public void keyPressed(KeyEvent key)  { }
-	/** Not implemented. */
+
+	/**
+	 * Not implemented.
+	 */
 	public void keyReleased(KeyEvent key) { }
 
 	/**
@@ -106,10 +119,7 @@ public class Gui extends JApplet implements KeyListener, ActionListener
 		game.makeMove(move);
 		game.repaint();
 
-
-
 		//Determines if game should stop moving.
-		//if(!continous || (game.numBots() == 0 && game.getHuman().isAlive()))
 		if( !(continous && game.getHuman().isAlive() && game.numBots() != 0) )
 		{
 			continous = false;
