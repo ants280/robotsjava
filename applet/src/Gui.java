@@ -7,27 +7,38 @@ import javax.swing.Timer;
 import Pieces.Direction;
 
 /**
- * The home control point for the game.  Includes options and information about the game.
+ * The home control point for the game.
+ * Includes options and information about the game.
  */
 public class Gui extends JApplet implements KeyListener, ActionListener
 {
+	/** The game being played. */
+	private Game game;	
+	/** The system that actual triggers game moves for the game. */
+	private Timer timer;			
+	/** Tells the Timer if the player wants to keep moving until he dies or moves on. */		
 	private boolean continous;
-	private Game game;
-	private Timer timer;
+	/** The move being made. */
+	private Direction move;
 
+	/** The entry point for the Applet. */
 	public void init()
 	{
+		//Creates a timer with no ititial delay and a short delay if is run multiple times before being stopped (if continous).
 		timer = new Timer(0, this);
 		timer.setDelay(200);
-		this.showGui(new Game());
+
+		//Creates and Launches the Game.
+		this.game = new Game();
+		this.showGui(game);
 	}
 
 	/**
-	 * Creates a default, classic game.  Sets up all components and some frames
+	 * Creates a default, classic game.
+	 * Sets up all components and some frames
 	 */
 	public void showGui(Game game)
 	{
-		this.game = game;
 		this.game.addKeyListener(this);
 
 		this.add(game);
@@ -56,71 +67,58 @@ public class Gui extends JApplet implements KeyListener, ActionListener
 	{
 		if(game.getHuman().isAlive())
 		{
-			continous = false;
 			switch(key.getKeyChar())
 			{
-				case '1' : this.performAction(Direction.SW);    break;
-				case '2' : this.performAction(Direction.S);     break;
-				case '3' : this.performAction(Direction.SE);    break;
-				case '4' : this.performAction(Direction.W);     break;
-				case '5' : this.performAction(Direction.SAME);  break;
-				case '6' : this.performAction(Direction.E);     break;
-				case '7' : this.performAction(Direction.NW);    break;
-				case '8' : this.performAction(Direction.N);     break;
-				case '9' : this.performAction(Direction.NE);    break;
-				case '+' : this.performAction(Direction.SAFE);  break;
-				case '*' : this.performAction(Direction.RANDOM);break;
+				case '1' : move = Direction.SW;     timer.start(); break;
+				case '2' : move = Direction.S;      timer.start(); break;
+				case '3' : move = Direction.SE;     timer.start(); break;
+				case '4' : move = Direction.W;      timer.start(); break;
+				case '5' : move = Direction.SAME;   timer.start(); break;
+				case '6' : move = Direction.E;      timer.start(); break;
+				case '7' : move = Direction.NW;     timer.start(); break;
+				case '8' : move = Direction.N;      timer.start(); break;
+				case '9' : move = Direction.NE;     timer.start(); break;
+				case '+' : move = Direction.SAFE;   timer.start(); break;
+				case '*' : move = Direction.RANDOM; timer.start(); break;
 				case KeyEvent.VK_ENTER : 
 					continous = true;
-					this.performAction(Direction.CONTINUOUS);
+					move = Direction.CONTINUOUS;
+					timer.start();
 					break;
 			}
 		}
 		else
 		{
-			//Game needs to be restarted.
 			game.resetBoard();
 		}
 	}
 
-	/**
-	 * Not implemented.
-	 */
-	public void keyPressed(KeyEvent key) { }
-
-	/**
-	 * Not implemented.
-	 */
-	public void keyReleased(KeyEvent key) { /*Does nothing. */ }
+	/** Not implemented. */
+	public void keyPressed(KeyEvent key)  { }
+	/** Not implemented. */
+	public void keyReleased(KeyEvent key) { }
 
 	/**
 	 * Moves the player in the specified Direction.  Also moves the player the correct number of steps in the game.
-	 *
-	 * @param move The Direction to move the Player.
 	 */
-	private Direction move;
-	private void performAction(Direction move)
-	{
-		this.move = move;
-		timer.start();
-
-	}
 	public void actionPerformed(ActionEvent event)
 	{
 		game.makeMove(move);
 		game.repaint();
 
+
+
+		//Determines if game should stop moving.
+		//if(!continous || (game.numBots() == 0 && game.getHuman().isAlive()))
+		if( !(continous && game.getHuman().isAlive() && game.numBots() != 0) )
+		{
+			continous = false;
+			timer.stop();
+		}
+		
 		if(game.numBots() == 0 && game.getHuman().isAlive())
 		{
-			continous = false;
-			timer.stop();
 			game.increaseLevel();
-		}
-		else if(!(continous & game.getHuman().isAlive()))
-		//else if(!continous || !game.getHuman().isAlive())
-		{
-			continous = false;
-			timer.stop();
 		}
 	}
 }
