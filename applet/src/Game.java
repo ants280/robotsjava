@@ -468,6 +468,11 @@ public class Game extends Panel
 			Player loc = new Player(human);
 			loc.updatePos(dir);
 	
+			if(!this.isValid(loc))
+			{
+				//Cancel the move because the playr is trying to move off the board.
+				return;
+			}
 			if(board[loc.getRow()][loc.getCol()].isEnemy())
 			{
 				if(board[loc.getRow()][loc.getCol()] instanceof Robot)
@@ -511,4 +516,16 @@ public class Game extends Panel
 	{
  		return row >= 0 && row < ROWS && col >= 0 && col < COLS;
 	}
+
+	 /**
+	 * Tells if the specified row and column is on the board.
+	 *
+	 * @param loc The Location to test if is on the board.
+	 * @return True if the specified location is on the board. Otherwise, false.
+	 */
+	private boolean isValid(Location loc)
+	{
+ 		return this.isValid(loc.getRow(), loc.getCol());
+	}
+	
 }
