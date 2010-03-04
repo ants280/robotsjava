@@ -111,18 +111,33 @@ public class Gui extends JApplet implements KeyListener, ActionListener
 	 */
 	public void actionPerformed(ActionEvent event)
 	{
-		game.makeMove(move);
-		game.repaint();
-
-		//Determines if game should stop moving.
-		if( !(move == Direction.WAIT && game.getHuman().isAlive() && game.numBots() != 0) )
+		if(move != null)
 		{
-			timer.stop();
+			game.makeMove(move);
+			game.repaint();
+
+			//Determines if game should stop moving.
+			if( !(move == Direction.WAIT && game.getHuman().isAlive() && game.numBots() != 0) )
+			{
+				timer.stop();
+			}
+	
+			if(game.numBots() == 0 && game.getHuman().isAlive())
+			{
+				//Lags the display after each level.
+				move = null;
+				timer.setInitialDelay(1000);
+				//Forces the action to be performed again, but to only pause before increasing the level.
+				timer.start();
+			}
 		}
-		
-		if(game.numBots() == 0 && game.getHuman().isAlive())
+		else
 		{
 			game.increaseLevel();
+
+			//Lag complete.  Set delay between movesto 0.  Stop timer.
+			timer.setInitialDelay(0);
+			timer.stop();
 		}
 	}
 }

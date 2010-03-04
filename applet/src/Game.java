@@ -25,6 +25,7 @@ public class Game extends Panel
 	private Image playerDeadImage;
 	private Image robotImage;
 	private Image wreckImage;
+	private Image splatImage;
 	private Label levelLabel;
 	private Label scoreLabel;
 	private Label safeTeleportsLabel;
@@ -138,6 +139,7 @@ public class Game extends Panel
 			playerDeadImage  = ImageIO.read(this.getClass().getResource("images/PlayerDead.jpg"));
 			robotImage       = ImageIO.read(this.getClass().getResource("images/Robot.jpg"));
 			wreckImage       = ImageIO.read(this.getClass().getResource("images/Wreck.jpg"));
+			splatImage       = ImageIO.read(this.getClass().getResource("images/Splat!.jpg"));
 		}
 		catch(IOException ex)
 		{
@@ -235,7 +237,14 @@ public class Game extends Panel
 		}
 		else if(board[row][col] instanceof Wreck)
 		{
-			return wreckImage;
+			if(((Wreck)board[row][col]).justSplat())
+			{
+				((Wreck)board[row][col]).triggerSplat();
+				return splatImage;
+			}
+			{
+				return wreckImage;
+			}
 		}
 		else
 		{
@@ -498,6 +507,7 @@ public class Game extends Panel
 					if(board[wreckDestination.getRow()][wreckDestination.getCol()] instanceof Robot)
 					{
 						//TODO: SAY SPLAT!!!
+						wreck.triggerSplat();
 						numBots--;
 					}
 					//"wreck" is not a wreck.  "loc" is still the Wreck.

@@ -6,6 +6,28 @@ package Pieces;
 public class Wreck extends Location
 {
 	/**
+	 * Determines if the Wreck just did some splat!'n.  A "splat"" happens when the player pushes the Wreck onto a Robot.
+	 */
+	private boolean splat;
+
+	/**
+	 * Used to tell if the Wreck just splat!'d a Robot
+	 *
+	 * @return True if the Wreck just splat!'d a Robot. Otherwise, False.
+	 */
+	public boolean justSplat()
+	{
+		return splat;
+	}
+
+	/**
+	 * Used to trigger the Wreck's splat! property.  Either sets or unsets it.
+	 */
+	public void triggerSplat()
+	{
+		splat = !splat;
+	}
+	/**
 	 * For telling the Player that it is an enemy.
 	 * 
 	 * @return True.
