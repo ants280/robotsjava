@@ -12,40 +12,38 @@ public class Player extends Location
 	public boolean isEnemy() { return false; }
 	
 	/**
-	 * Prints out the Player and it's row and column.
+	 * Prints out the Player's textual image.  The image varies depending on if the player is alive or not.
 	 * 
 	 * @deprecated Use for debugging purposes only.
 	 */
-	public char value() { return m_dead ? 'X' : '#'; }
+	public char value()
+	{
+		return alive ? '#' : 'X';
+	}
 	
-	private final int ROWS;
-
-	private final int COLS;
-	
-	private boolean m_dead;
+	/**
+	 * Tells if the player is alive or not.
+	 */
+	private boolean alive;
 
 	/**
 	 * Instructs the player to die. Usually ends the game.
 	 */	
-	public void die() { m_dead = true; }
+	public void die()
+	{
+		alive = false;
+	}
 	
 	/**
 	 * Tells if the Player is alive.
 	 *
 	 * @return True if the player is alive, otherwise false.
 	 */
-	public boolean isAlive() { return !m_dead; }
+	public boolean isAlive()
+	{
+		return alive;
+	}
  	
-	/**
-	 * Returns the board width.
-	 */
-	public int getWidth() { return ROWS; }
-
-	/**
-	 * Returns the board height.
-	 */
-	public int getHeight() { return COLS; }
-
 	/**
 	 * Changes the Player's Location.
 	 *
@@ -63,16 +61,12 @@ public class Player extends Location
 	 *
 	 * @param row The row to set as the Player's row.
 	 * @param col The column to set as the Player's column.
-	 * @param rows The number of rows on the playing grid.
-	 * @param cols The number of columns on the playing grid.
 	 */
-	public Player(int row, int col, final int rows, final int cols)
+	public Player(int row, int col)
 	{
 		super(row, col);
 		
-		ROWS = rows;
-		COLS = cols;
-		m_dead = false;
+		alive = true;
 	}
 
 	/**
@@ -83,10 +77,7 @@ public class Player extends Location
 	public Player(Player other)
 	{
 		super(other.getRow(), other.getCol());
-		
-		this.ROWS = other.getWidth();
-		this.COLS = other.getHeight();
-		
-		m_dead = false;
+
+		alive = true;
 	}
 }

@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 import Pieces.*;
 
 /**
- * The default form of the robots game.
+ * The Robots game.
  */
 public class Game extends Panel
 {
@@ -21,7 +21,6 @@ public class Game extends Panel
 	private int score;
 	private int numBots;
 	private int safeTeleports;
-	private final int jpegSize = 20;
 	private Image playerAliveImage;
 	private Image playerDeadImage;
 	private Image robotImage;
@@ -29,6 +28,11 @@ public class Game extends Panel
 	private Label levelLabel;
 	private Label scoreLabel;
 	private Label safeTeleportsLabel;
+
+	/**
+	 * Used to determine how large to draw the Panel.
+	 */
+	private final int jpegSize = 20;
 
 	/**
 	 * Used to randomly teleport the Player.
@@ -88,7 +92,7 @@ public class Game extends Panel
 	public int numBots() { return numBots; }
 
 	/**
-	 * Creates a new Game. Calls resetBoard to add the board.
+	 * Creates a new Game. Calls resetBoard() to add the board.
 	 */
 	public Game()
 	{
@@ -143,7 +147,7 @@ public class Game extends Panel
 
 	/**
 	 * Draws the image using DoubleBuffered graphics.
-	 * @param g Should be the Paint panels Graphics
+	 * @param g Should be the Panel's Graphics.
 	 */
 	public void update(Graphics g)
 	{
@@ -398,7 +402,7 @@ public class Game extends Panel
 			this.fillBots();
 		}
 		while(board[ROWS / 2][COLS / 2] instanceof Robot);
-		human = new Player(ROWS / 2, COLS / 2, ROWS, COLS);
+		human = new Player(ROWS / 2, COLS / 2);
 		board[ROWS / 2][COLS / 2] = human;
 		levelLabel.setText("Level: " + level);
 		safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
@@ -487,7 +491,7 @@ public class Game extends Panel
 				}
 			}
 		}
-		//This step is not needed if the human is not <u>PHYSICALLY</u> moving.
+		//(This step is not needed if the human is not <u>PHYSICALLY</u> moving.)
 		if(dir != Direction.SAME && dir != Direction.CONTINUOUS)
 		{
 			//Move the human.
