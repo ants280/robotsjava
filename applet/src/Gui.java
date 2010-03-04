@@ -1,18 +1,24 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JApplet;
+import javax.swing.Timer;
 import Pieces.Direction;
 
 /**
  * The home control point for the game.  Includes options and information about the game.
  */
-public class Gui extends JApplet implements KeyListener
+public class Gui extends JApplet implements KeyListener, ActionListener
 {
 	private boolean continous;
 	private Game game;
+	private Timer timer;
 
 	public void init()
 	{
+		timer = new Timer(0, this);
+		timer.setDelay(200);
 		this.showGui(new Game());
 	}
 
@@ -92,23 +98,29 @@ public class Gui extends JApplet implements KeyListener
 	 *
 	 * @param move The Direction to move the Player.
 	 */
+	private Direction move;
 	private void performAction(Direction move)
 	{
-		do
-		{
-			game.makeMove(move);
-			game.repaint();
+		this.move = move;
+		timer.start();
 
-			if(!game.getHuman().isAlive() || game.numBots() == 0)
-			{
-				continous = false;
-			}
-		}
-		while(continous);
+	}
+	public void actionPerformed(ActionEvent event)
+	{
+		game.makeMove(move);
+		game.repaint();
 
 		if(game.numBots() == 0 && game.getHuman().isAlive())
 		{
+			continous = false;
+			timer.stop();
 			game.increaseLevel();
+		}
+		else if(!(continous & game.getHuman().isAlive()))
+		//else if(!continous || !game.getHuman().isAlive())
+		{
+			continous = false;
+			timer.stop();
 		}
 	}
 }
