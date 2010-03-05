@@ -3,16 +3,23 @@ body
  background-image: url("robots.png");
  background-repeat: repeat;
  text-align:center;
- text-decoration:bold
+ text-decoration:bold;
+ color:red;
 }
 
 h1
 {
  size:48;
+ background-color:black;
 }
 
 a:link, a:visited
 {
  text-decoration:underline;
- color:black;
+ color:red;
+}
+
+p
+{
+ background-color:black;
 }
