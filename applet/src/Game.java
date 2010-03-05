@@ -135,11 +135,11 @@ public class Game extends Panel
 	{
 		try
 		{
-			playerAliveImage = ImageIO.read(this.getClass().getResource("images/PlayerAlive.jpg"));
-			playerDeadImage  = ImageIO.read(this.getClass().getResource("images/PlayerDead.jpg"));
-			robotImage       = ImageIO.read(this.getClass().getResource("images/Robot.jpg"));
-			wreckImage       = ImageIO.read(this.getClass().getResource("images/Wreck.jpg"));
-			splatImage       = ImageIO.read(this.getClass().getResource("images/Splat!.jpg"));
+			playerAliveImage = ImageIO.read(this.getClass().getResource("images/PlayerAlive.png"));
+			playerDeadImage  = ImageIO.read(this.getClass().getResource("images/PlayerDead.png"));
+			robotImage       = ImageIO.read(this.getClass().getResource("images/Robot.png"));
+			wreckImage       = ImageIO.read(this.getClass().getResource("images/Wreck.png"));
+			splatImage       = ImageIO.read(this.getClass().getResource("images/Splat!.png"));
 		}
 		catch(IOException ex)
 		{
