@@ -8,9 +8,6 @@
     <property name="doc.dir"     value="doc"/>
     <property name="resources.dir"     value="resources"/>
 
-    <property name="main-class"  value="Program"/>
-
-
     <target name="doc">
         <mkdir dir="${doc.dir}"/>
         <javadoc destdir="${doc.dir}">
@@ -32,9 +29,6 @@
     <target name="jar" depends="compile">
         <mkdir dir="${jar.dir}"/>
         <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
-            <manifest>
-                <attribute name="Main-Class" value="${main-class}"/>
-            </manifest>
             <fileset dir="${src.dir}"/> <!-- Copies source and images -->
         </jar>
 		<copy todir="${jar.dir}">
