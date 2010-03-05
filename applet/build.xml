@@ -38,6 +38,8 @@
         </jar>
         <copy file="robots.html" todir="${jar.dir}"/>
         <copy file="robots.css" todir="${jar.dir}"/>
+		<copy file="robots.png" todir="${jar.dir}"/>
+		<copy file="GPL.txt" todir="${jar.dir}"/>
     </target>
 
     <target name="run" depends="jar">

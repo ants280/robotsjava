@@ -1,4 +1,18 @@
-div.robots
+body
 {
+ background-image: url("robots.png");
+ background-repeat: repeat;
  text-align:center;
+ text-decoration:bold
+}
+
+h1
+{
+ size:48;
+}
+
+a:link, a:visited
+{
+ text-decoration:underline;
+ color:black;
 }
