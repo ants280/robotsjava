@@ -470,11 +470,25 @@ public class Game extends Panel
 				}
 			}
 			while(!safe && dir == Direction.SAFE && safeTeleports > 0);
-			if(dir == Direction.SAFE && safeTeleports > 0)
+			if(dir == Direction.SAFE)
 			{
-				safeTeleports--;
-				safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
+				if(safeTeleports > 0)
+				{
+					safeTeleports--;
+					safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
+				}
 			}
+			else // dir == Direction.RANDOM
+			{
+				//The special case that the Player randomly teleports onto an enemy
+				if(board[row][col].isEnemy())
+				{
+					human.die();
+				}
+			}
+
+			//Virtually move the human.
+			human.updatePos(row, col);
 		}
 		else
 		{
@@ -506,7 +520,6 @@ public class Game extends Panel
 					wreck = new Wreck(loc);
 					if(board[wreckDestination.getRow()][wreckDestination.getCol()] instanceof Robot)
 					{
-						//TODO: SAY SPLAT!!!
 						wreck.triggerSplat();
 						numBots--;
 					}
@@ -516,22 +529,13 @@ public class Game extends Panel
 					board[loc.getRow()][loc.getCol()] = new Location(loc);
 				}
 			}
+
+			//Virtually Move the human.
+			human.updatePos(dir);
 		}
-		//(This step is not needed if the human is not <u>PHYSICALLY</u> moving.)
-		if(dir != Direction.SAME && dir != Direction.WAIT)
-		{
-			//Move the human.
-			board[human.getRow()][human.getCol()] = new Location(human);
-			if(dir == Direction.SAFE || dir == Direction.RANDOM)
-			{
-				human.updatePos(row, col);
-			}
-			else
-			{
-				human.updatePos(dir);
-			}
-			board[human.getRow()][human.getCol()] = human;
-		}
+
+		//Actually do the updating.
+		board[human.getRow()][human.getCol()] = human;
 		this.updateBoard();
 	}
 

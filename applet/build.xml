@@ -6,6 +6,7 @@
     <property name="images.dir"  value="${src.dir}/images"/>
     <property name="jar.dir"     value="${build.dir}/jar"/>
     <property name="doc.dir"     value="doc"/>
+    <property name="resources.dir"     value="resources"/>
 
     <property name="main-class"  value="Program"/>
 
@@ -36,10 +37,9 @@
             </manifest>
             <fileset dir="${src.dir}"/> <!-- Copies source and images -->
         </jar>
-        <copy file="robots.html" todir="${jar.dir}"/>
-        <copy file="robots.css" todir="${jar.dir}"/>
-		<copy file="robots.png" todir="${jar.dir}"/>
-		<copy file="GPL.txt" todir="${jar.dir}"/>
+		<copy todir="${jar.dir}">
+			<fileset dir="${resources.dir}"/>
+		</copy>
     </target>
 
     <target name="run" depends="jar">
