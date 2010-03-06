@@ -1,6 +1,6 @@
 body
 {
- background-image: url("robots.png");
+ background-image: url("robots_background.png");
  background-repeat: repeat;
  text-align:center;
  text-decoration:bold;
@@ -10,16 +10,10 @@ body
 h1
 {
  size:48;
- background-color:black;
 }
 
 a:link, a:visited
 {
  text-decoration:underline;
  color:red;
-}
-
-p
-{
- background-color:black;
 }
