@@ -1,18 +1,20 @@
-// This script will make the window large enough for the game (only if it is not).
+// This script will make the screen large enough for the game (only if it is not).
 
 <!--
  x = 840;
  y = 850;
  
- /*if(x > window.width && x <= window.availWidth)
+ /*
+ if(x > screen.width && x <= screen.availWidth)
  {
-  window.resizeTo(x,window.height);
+  screen.resizeTo(x,screen.height);
  }
 
- if(y > window.height && x <= window.availHeight)
+ if(y > screen.height && x <= screen.availHeight)
  {
-  window.resizeTo(window.width, y);
- }*/
+  screen.resizeTo(screen.width, y);
+ }
+ */
 
  window.resizeTo(x,y);
 -->
