@@ -10,7 +10,7 @@
   screen.resizeTo(x,screen.height);
  }
 
- if(y > screen.height && x <= screen.availHeight)
+ if(y > screen.height && y <= screen.availHeight)
  {
   screen.resizeTo(screen.width, y);
  }
