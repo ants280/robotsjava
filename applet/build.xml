@@ -5,6 +5,7 @@
     <property name="classes.dir" value="${build.dir}/classes"/>
     <property name="images.dir"  value="${src.dir}/images"/>
     <property name="jar.dir"     value="${build.dir}/jar"/>
+    <property name="game.dir"     value="${jar.dir}/game"/>
     <property name="doc.dir"     value="doc"/>
     <property name="resources.dir"     value="resources"/>
 
@@ -27,8 +28,8 @@
     </target>
 
     <target name="jar" depends="compile">
-        <mkdir dir="${jar.dir}"/>
-        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+        <mkdir dir="${game.dir}"/>
+        <jar destfile="${game.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
             <fileset dir="${src.dir}"/> <!-- Copies source and images -->
         </jar>
 		<copy todir="${jar.dir}">
@@ -38,10 +39,10 @@
 
     <target name="run" depends="jar">
         <exec executable="firefox">
-            <arg value="build/jar/robots.html"/>
+            <arg value="http://localhost/robots/game/robots.html"/>
         </exec>
     </target>
 
-    <target name="main" depends="clean,run"/>
+    <target name="main" depends="clean,jar"/>
 
 </project>
