@@ -2,10 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
  
  <head>
-  <title>Example Form/XHTML page</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-  <link rel="stylesheet" type="text/css" href="form.css"/>
-  <link rel="stylesheet" type="text/css" href="table.css"/>
  </head>
  
  <body>
@@ -45,8 +42,8 @@
     die('Incorrect Username or password:<br>'.mysql_error());
    }
    else {
-    echo "Successful login, redirecting in 3 seconds.\n";
-	echo '<meta http-equiv="refresh" content="3, url=game/robots.html"/>';
+    echo "Successful login, redirecting to Robots game.\n";
+	echo '<meta http-equiv="refresh" content="0, url=game/robots.html"/>';
    }
 
    mysql_close($connect);
