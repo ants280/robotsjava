@@ -16,5 +16,5 @@
  }
  */
 
- window.resizeTo(x,y);
+//window.resizeTo(x,y);
 -->
