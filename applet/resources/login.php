@@ -18,38 +18,27 @@
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    echo "<br/>\n";
-
     //connect to MySQL
     $connect = mysql_connect($db_host, $db_user, $db_pwd);
-    if ($connect) { 
-     echo "Database connection sucessful!\n";
-     echo "<br/>\n";
-    }
-    else {
-     die('Could not make a connection to MySQL:<br>'.mysql_error());
+    if(!$connect) { 
+     die("Could not make a connection to MySQL:\n<br/>\n".mysql_error());
     } 
 
     //select the database to work with
     $db_selected = mysql_select_db($database, $connect);
-    if ($db_selected) {
-     //Pass username to game.
-     echo "The database username and password are good\n";
-     echo "<br/>\n";	
-    }
-    else {
-     die('unable to insert into table:<br>'.mysql_error());
+    if(!$db_selected) {
+     die("Unable to select database:\n<br/>\n".mysql_error());
     }
 
     //make sure the user and the password match.
     $query = "SELECT username, password FROM ".$table." WHERE username='".$username."' and password='".$password."'";
     $exists = mysql_query($query);
     if(mysql_affected_rows() == 0) {
-     die('Incorrect Username or password:<br>'.mysql_error());
+     echo "Incorrect Username or password:<br/>".mysql_error()."\n<br/>\n";
     }
     else {
      echo "Successful login, redirecting to Robots game.\n";
-     //echo '<meta http-equiv="refresh" content="0, url=game/robots.html"/>';
+     echo '<meta http-equiv="refresh" content="3, url=game/robots.html"/>';
     }
 
     mysql_close($connect);

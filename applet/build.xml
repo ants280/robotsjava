@@ -32,17 +32,20 @@
         <jar destfile="${game.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
             <fileset dir="${src.dir}"/> <!-- Copies source and images -->
         </jar>
+    </target>
+
+	<target name="copy">
 		<copy todir="${jar.dir}">
 			<fileset dir="${resources.dir}"/>
 		</copy>
-    </target>
+	</target>
 
-    <target name="run" depends="jar">
+    <target name="run" depends="jar,copy">
         <exec executable="firefox">
             <arg value="http://localhost/robots/game/robots.html"/>
         </exec>
     </target>
 
-    <target name="main" depends="clean,jar"/>
+    <target name="main" depends="clean,jar,copy"/>
 
 </project>

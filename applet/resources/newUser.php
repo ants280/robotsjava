@@ -5,6 +5,13 @@
   <title>Create new User account.</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <link rel="stylesheet" type="text/css"  href="master.css"/>
+  <style type="text/css">
+   div.footnote
+   {
+    color:#FFA500;
+	font-size:8;
+   }
+  </style>
  </head>
 
  <body>
@@ -23,27 +30,16 @@
     $email1    = $_POST['email1'];
     $email2    = $_POST['email2'];
 
-    echo "<br/>\n";
- 
     //connect to MySQL
     $connect = mysql_connect($db_host, $db_user, $db_pwd);
-    if($connect) {
-     echo "Database connection sucessful!\n";
-     echo "<br/>\n";
-    }
-    else {
-     die('Could not make a connection to MySQL:<br/>'.mysql_error());
+    if(!$connect) {
+     die("Could not make a connection to MySQL:\n<br/>\n".mysql_error());
     }
 
     //select the database to work with
     $db_selected = mysql_select_db($database, $connect);
-    if($db_selected) {
-     //Pass username to game.
-     echo "The database username and password are good\n";
-     echo "<br/>\n<br/>\n";
-    }
-    else {
-     die('unable to insert into table:<br/>'.mysql_error());
+    if(!$db_selected) {
+     die("Unable to select database:\n<br/>\n".mysql_error());
     }
 
     $errors = array();
@@ -76,7 +72,7 @@
      if($inserted) {
       //mail user info to email
       echo "User added sucessfully, redirecting to the game.\n<br/>\n";
-      //echo '<meta http-equiv="refresh" content="3, url=game/robots.html"/>';:
+      echo '<meta http-equiv="refresh" content="3, url=game/robots.html"/>;';
      }
      else {
       echo "ERROR: Unable to add user to system.\n";
@@ -93,17 +89,18 @@
    }
   ?>
 
-  <form action=<?php echo $_SEVRER['PHP_SELF']; ?> method="post">
+  <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post">
    <table>
-    <tr><td><label for="username" >Username:       </label></td> <td><input type="text"     name="username"   maxlength="25" /></td></tr> <br/>
-    <tr><td><label for="password1">Password:       </label></td> <td><input type="password" name="password1"  maxlength="25" /></td></tr> <br/>
-    <tr><td><label for="password2">Retype Password:</label></td> <td><input type="password" name="password2"  maxlength="25" /></td></tr> <br/>
-    <tr><td><br/></td></tr>
-    <tr><td><label for="firstname">First Name:     </label></td> <td><input type="text"     name="firstname"  maxlength="25" /></td></tr> <br/>
-    <tr><td><label for="lastname" >Last  Name:     </label></td> <td><input type="text"     name="lastname"   maxlength="25" /></td></tr> <br/>
-    <tr><td><label for="email1"   >Email:          </label></td> <td><input type="text"     name="email1"     maxlength="128"/></td></tr> <br/>
-    <tr><td><label for="email2"   >Retype Email:   </label></td> <td><input type="text"     name="email2"     maxlength="128"/></td></tr> <br/>
-    <tr><td/><td><button type="submit" name="submit">Login</button></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label for="username" >Username:       </label></td> <td><input type="text"     name="username"   maxlength="25" /></td></tr> <br/>
+    <tr><td><div class="footnote">*</div></td> <td><label for="password1">Password:       </label></td> <td><input type="password" name="password1"  maxlength="25" /></td></tr> <br/>
+    <tr><td><div class="footnote">*</div></td> <td><label for="password2">Retype Password:</label></td> <td><input type="password" name="password2"  maxlength="25" /></td></tr> <br/>
+    <tr><td><br/></td><td/><td/></tr>
+    <tr><td/>                                  <td><label for="firstname">First Name:     </label></td> <td><input type="text"     name="firstname"  maxlength="25" /></td></tr> <br/>
+    <tr><td/>                                  <td><label for="lastname" >Last  Name:     </label></td> <td><input type="text"     name="lastname"   maxlength="25" /></td></tr> <br/>
+    <tr><td><div class="footnote">*</div></td> <td><label for="email1"   >Email:          </label></td> <td><input type="text"     name="email1"     maxlength="128"/></td></tr> <br/>
+    <tr><td><div class="footnote">*</div></td> <td><label for="email2"   >Retype Email:   </label></td> <td><input type="text"     name="email2"     maxlength="128"/></td></tr> <br/>
+    <tr><td/> <td><div class="footnote">* required</div>            </td> <td/></tr> <br/>
+    <tr><td/> <td><button type="submit" name="submit">Login</button></td> <td/></tr>
    </table>
   </form>
 
