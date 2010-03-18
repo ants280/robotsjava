@@ -99,7 +99,7 @@
     <tr><td/>                                  <td><label for="lastname" >Last  Name:     </label></td> <td><input type="text"     name="lastname"   maxlength="25" /></td></tr> <br/>
     <tr><td><div class="footnote">*</div></td> <td><label for="email1"   >Email:          </label></td> <td><input type="text"     name="email1"     maxlength="128"/></td></tr> <br/>
     <tr><td><div class="footnote">*</div></td> <td><label for="email2"   >Retype Email:   </label></td> <td><input type="text"     name="email2"     maxlength="128"/></td></tr> <br/>
-    <tr><td/> <td><div class="footnote">* required</div>            </td> <td/></tr> <br/>
+    <tr><td/> <td><small><div class="footnote">* required field</div></small></td> <td/></tr> <br/>
     <tr><td/> <td><button type="submit" name="submit">Login</button></td> <td/></tr>
    </table>
   </form>
