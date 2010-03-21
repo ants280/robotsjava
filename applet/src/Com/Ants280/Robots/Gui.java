@@ -1,10 +1,12 @@
+package Com.Ants280.Robots;
+
+import Com.Ants280.Robots.Pieces.Direction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JApplet;
 import javax.swing.Timer;
-import Pieces.Direction;
 
 /**
  * The home control point for the game.  Includes options and information about the game.

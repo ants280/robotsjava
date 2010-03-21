@@ -30,7 +30,10 @@
     <target name="jar" depends="compile">
         <mkdir dir="${game.dir}"/>
         <jar destfile="${game.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
-            <fileset dir="${src.dir}"/> <!-- Copies source and images -->
+		<manifest>
+			<attribute name="Main-Class" value="Com.Ants280.Robots.Gui"/>
+		</manifest>
+		<fileset dir="${src.dir}"/> <!-- Copies source and images -->
         </jar>
     </target>
 

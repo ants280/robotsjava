@@ -1,3 +1,6 @@
+package Com.Ants280.Robots;
+
+import Com.Ants280.Robots.Pieces.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -9,7 +12,6 @@ import java.awt.Panel;
 import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
-import Pieces.*;
 
 /**
  * The Robots game.
