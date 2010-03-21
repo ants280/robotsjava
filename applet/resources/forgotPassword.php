@@ -35,7 +35,7 @@
     $query = "SELECT username, email FROM ".$table." WHERE email='".$email."'";
     $exists = mysql_query($query);
     if(mysql_affected_rows() == 0) {
-     echo 'Incorrect email:<br/>'.mysql_error()."\n<br/>\n";
+     echo 'Incorrect email:<br/>'.mysql_error()."\n";
     }
     else {
      echo "Mail usename to ".$email."\n";

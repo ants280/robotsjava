@@ -71,8 +71,8 @@
      $inserted = mysql_query($query);
      if($inserted) {
       //mail user info to email
-      echo "User added sucessfully, redirecting to the game.\n<br/>\n";
-      echo '<meta http-equiv="refresh" content="3, url=game/robots.html"/>;';
+      echo "User added sucessfully, redirecting to the game.\n";
+      echo '<meta http-equiv="refresh" content="3, url=game/robots.html"/>';
      }
      else {
       echo "ERROR: Unable to add user to system.\n";
