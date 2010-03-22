@@ -16,7 +16,7 @@
     //Variable initialization
     include ('databaseLogin.php');
     $username = $_POST['username'];
-    $password = $_POST['password'];
+    $password = md5($_POST['password']);
 
     //connect to MySQL
     $connect = mysql_connect($db_host, $db_user, $db_pwd);
@@ -34,11 +34,11 @@
     $query = "SELECT username, password FROM ".$table." WHERE username='".$username."' and password='".$password."'";
     $exists = mysql_query($query);
     if(mysql_affected_rows() == 0) {
-     echo "Incorrect Username or password:<br/>".mysql_error()."\n<br/>\n";
+     echo "Incorrect Username or password.\n";
     }
     else {
      echo "Successful login, redirecting to Robots game.\n";
-     echo '<meta http-equiv="refresh" content="0, url=game/robots.html"/>';
+     echo '<meta http-equiv="refresh" content="1, url=game/robots.html"/>';
     }
 
     mysql_close($connect);

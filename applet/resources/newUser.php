@@ -67,12 +67,14 @@
     /* --- END CHECK TO MAKE SURE INFO IS OK --- */
 
     if(empty($errors)) {
+     //Hash the password
+     $password1 = md5($password1);
      $query = "INSERT INTO ".$table." (username, password, email, firstname, lastname) VALUES('".$username."', '".$password1."', '".$email1."', '".$firstname."', '".$lastname."');";
      $inserted = mysql_query($query);
      if($inserted) {
       //mail user info to email
       echo "User added sucessfully, redirecting to the game.\n";
-      echo '<meta http-equiv="refresh" content="3, url=game/robots.html"/>';
+      echo '<meta http-equiv="refresh" content="2, url=game/robots.html"/>';
      }
      else {
       echo "ERROR: Unable to add user to system.\n";
@@ -100,7 +102,7 @@
     <tr><td><div class="footnote">*</div></td> <td><label for="email1"   >Email:          </label></td> <td><input type="text"     name="email1"     maxlength="128"/></td></tr> <br/>
     <tr><td><div class="footnote">*</div></td> <td><label for="email2"   >Retype Email:   </label></td> <td><input type="text"     name="email2"     maxlength="128"/></td></tr> <br/>
     <tr><td/> <td><small><div class="footnote">* required field</div></small></td> <td/></tr> <br/>
-    <tr><td/> <td><button type="submit" name="submit">Login</button></td> <td/></tr>
+    <tr><td/> <td><button type="submit" name="submit">Create</button></td> <td/></tr>
    </table>
   </form>
 
