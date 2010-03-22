@@ -1,4 +1,4 @@
-package Com.Ants280.Robots.Pieces;
+package Pieces;
 
 /**
  * The Direction class is a format for moves. It is used to provide communication between the KeyListener and the Game.

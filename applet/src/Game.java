@@ -1,6 +1,4 @@
-package Com.Ants280.Robots;
-
-import Com.Ants280.Robots.Pieces.*;
+import Pieces.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -137,11 +135,19 @@ public class Game extends Panel
 	{
 		try
 		{
-			playerAliveImage = ImageIO.read(this.getClass().getResource("images/PlayerAlive.png"));
-			playerDeadImage  = ImageIO.read(this.getClass().getResource("images/PlayerDead.png"));
-			robotImage       = ImageIO.read(this.getClass().getResource("images/Robot.png"));
-			wreckImage       = ImageIO.read(this.getClass().getResource("images/Wreck.png"));
-			splatImage       = ImageIO.read(this.getClass().getResource("images/Splat!.png"));
+			/*
+			playerAliveImage = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/Images/PlayerAlive.png"));
+			playerDeadImage  = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/Images/PlayerDead.png"));
+			robotImage       = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/Images/Robot.png"));
+			wreckImage       = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/Images/Wreck.png"));
+			splatImage       = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/Images/Splat!.png"));
+			*/
+
+			playerAliveImage = ImageIO.read(this.getClass().getResource("Images/PlayerAlive.png"));
+			playerDeadImage  = ImageIO.read(this.getClass().getResource("Images/PlayerDead.png"));
+			robotImage       = ImageIO.read(this.getClass().getResource("Images/Robot.png"));
+			wreckImage       = ImageIO.read(this.getClass().getResource("Images/Wreck.png"));
+			splatImage       = ImageIO.read(this.getClass().getResource("Images/Splat!.png"));
 		}
 		catch(IOException ex)
 		{
@@ -181,7 +187,7 @@ public class Game extends Panel
 			{
 				g.drawLine(jpegSize * col, 0, (jpegSize * col) + 0, (jpegSize * row) + jpegSize);
 				g.drawLine(0, jpegSize * row, (jpegSize * col) + jpegSize, (jpegSize * row) + 0);
-				g.drawImage( getImage(row, col), jpegSize * col, jpegSize * row, null);
+				g.drawImage(this.getImage(row, col), jpegSize * col, jpegSize * row, null);
 			}	
     	}
 

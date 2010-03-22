@@ -1,4 +1,4 @@
-package Com.Ants280.Robots.Pieces;
+package Pieces;
 
 /**
  * The game piece the human moves.  A Player is the only piece the human moves to "trick the robots into colliding with themselves/running into a wreck.
