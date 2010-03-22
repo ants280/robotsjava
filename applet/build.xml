@@ -42,7 +42,7 @@
 
     <target name="run" depends="jar,copy">
         <exec executable="firefox">
-            <arg value="http://localhost/robots/game/robots.html"/>
+            <arg value="http://localhost/robots/login.php"/>
         </exec>
     </target>
 

@@ -38,7 +38,7 @@
     }
     else {
      echo "Successful login, redirecting to Robots game.\n";
-     echo '<meta http-equiv="refresh" content="1, url=game/robots.html"/>';
+     echo '<meta http-equiv="refresh" content="0, url=game/robots.html"/>';
     }
 
     mysql_close($connect);

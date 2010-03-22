@@ -392,7 +392,7 @@ public class Game extends Panel
 	private void fillBots()
 	{
 		int row, col;
-		this.setNumBots(level + 1);
+		this.setNumBots(level + 5);
 		for(int n = 0; n < numBots; n++)
 		{
 			row = generator.nextInt(ROWS);
@@ -430,7 +430,7 @@ public class Game extends Panel
 
 		if(waitMode)
 		{
-			safeTeleports += waitScore;
+			safeTeleports += waitScore > 10 ? 10 : waitScore;
 			waitMode = false;
 		}
 
