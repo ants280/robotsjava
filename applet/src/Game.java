@@ -31,6 +31,16 @@ public class Game extends Panel
 	private Label safeTeleportsLabel;
 
 	/**
+	 * Indicates if the game is in a continous loop until all the robots are dead or the Player is dead.
+	 */
+	private boolean waitMode;
+
+	/**
+	 * Used to tell how much to increase the safeTeleports by if the Player survives waitMode.
+	 */
+	private int waitScore;
+
+	/**
 	 * Used to determine how large to draw the Panel.
 	 */
 	private final int jpegSize = 20;
@@ -280,7 +290,12 @@ public class Game extends Panel
 		safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
 		if(human.isAlive())
 		{
-			score += tempScore;	
+			score += tempScore;
+
+			if(waitMode)
+			{
+				waitScore += tempScore;
+			}
 		}
 		board = tempBoard;
 	}
@@ -412,7 +427,13 @@ public class Game extends Panel
 	public void increaseLevel()
 	{
 		level++;
-		safeTeleports++;
+
+		if(waitMode)
+		{
+			safeTeleports += waitScore;
+			waitMode = false;
+		}
+
 		do
 		{
 			board = createBoard();
@@ -434,7 +455,7 @@ public class Game extends Panel
 	{
 		score = 0;
 		level = 0;
-		safeTeleports = -1;
+		safeTeleports = 0;
 		
 		scoreLabel.setText("Score: 0");
 		this.increaseLevel();
@@ -447,6 +468,13 @@ public class Game extends Panel
 	 */
 	public void makeMove(Direction dir)
 	{
+		//Puts the game into waitMode if the Direction is WAIT and waitMode has not yet started.
+		if(dir == Direction.WAIT && !waitMode)
+		{
+			waitMode = true;
+			waitScore = 0;
+		}
+
 		int row = 0, col = 0;
 		if(dir == Direction.RANDOM || dir == Direction.SAFE)
 		{
