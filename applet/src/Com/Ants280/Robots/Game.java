@@ -432,7 +432,7 @@ public class Game extends Panel
 
 		if(waitMode)
 		{
-			safeTeleports += waitScore > 10 ? 10 : waitScore;
+			this.increaseSafeTeleports(waitScore);
 			waitMode = false;
 		}
 
@@ -449,6 +449,24 @@ public class Game extends Panel
 
 		this.repaint();
 	}
+
+	/**
+	 * Decreases the amount of safe teleports by 1.
+	 */
+	public void decreaseSafeTeleports()
+	{
+		this.increaseSafeTeleports(-1);
+	}
+
+	/**
+	 * Increases the amount of safe teleports.  Caps the number of safe teleports to 10.
+	 *
+	 * @param amount The amount to increase the number of safe teleports by.
+	 */
+	 public void increaseSafeTeleports(int amount)
+	 {
+		safeTeleports = (safeTeleports + amount) >= 10 ? 10 : (safeTeleports + amount);
+	 }
 
 	/**
 	 * Resets the game. Called if the player wants to play another game.  Updates the score and level labels.
@@ -512,7 +530,7 @@ public class Game extends Panel
 			{
 				if(safeTeleports > 0)
 				{
-					safeTeleports--;
+					this.decreaseSafeTeleports();
 					safeTeleportsLabel.setText("SafeTeleports: " + safeTeleports);
 				}
 			}
