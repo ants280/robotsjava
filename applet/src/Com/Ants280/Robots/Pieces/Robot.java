@@ -1,4 +1,4 @@
-package Pieces;
+package Com.Ants280.Robots.Pieces;
 
 /**
  * A Robot.  A Robot moves toward the player on each player move.  A robot moves by increasing/increasing it's row and column by 1 to be on the same position as the player on the board.

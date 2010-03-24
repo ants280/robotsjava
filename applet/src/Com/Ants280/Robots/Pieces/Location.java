@@ -1,4 +1,4 @@
-package Pieces;
+package Com.Ants280.Robots.Pieces;
 
 /**
  * A default spot in the grid.  All objects on the grid extend Location.

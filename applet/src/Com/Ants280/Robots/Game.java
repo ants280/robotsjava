@@ -1,4 +1,6 @@
-import Pieces.*;
+package Com.Ants280.Robots;
+
+import Com.Ants280.Robots.Pieces.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
