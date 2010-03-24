@@ -1,6 +1,6 @@
-package Com.Ants280.Robots;
+package com.ants280.robots;
 
-import Com.Ants280.Robots.Pieces.Direction;
+import com.ants280.robots.pieces.Direction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;

@@ -1,4 +1,4 @@
-package Com.Ants280.Robots.Pieces;
+package com.ants280.robots.pieces;
 
 /**
  * A Wreck, or junk-heap that is created when robots collide.  A robot dies if it runs into a Wreck.

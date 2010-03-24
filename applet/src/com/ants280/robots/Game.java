@@ -1,6 +1,6 @@
-package Com.Ants280.Robots;
+package com.ants280.robots;
 
-import Com.Ants280.Robots.Pieces.*;
+import com.ants280.robots.pieces.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -119,7 +119,7 @@ public class Game extends Panel
 		COLS = 40;
 		dimension = new Dimension(COLS * 21 + 1, ROWS * 21 + 1);
 		this.resetBoard();
-		this.initializeImages();
+		this.initializeimages();
 		this.setBackground(Color.WHITE);
 	}
 
@@ -143,23 +143,23 @@ public class Game extends Panel
 	/**
 	 * Initializes the images of the painted Locations.
 	 */
-	private void initializeImages()
+	private void initializeimages()
 	{
 		try
 		{
 			/*
-			playerAliveImage = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/Images/PlayerAlive.png"));
-			playerDeadImage  = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/Images/PlayerDead.png"));
-			robotImage       = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/Images/Robot.png"));
-			wreckImage       = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/Images/Wreck.png"));
-			splatImage       = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/Images/Splat!.png"));
+			playerAliveImage = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/images/PlayerAlive.png"));
+			playerDeadImage  = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/images/PlayerDead.png"));
+			robotImage       = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/images/Robot.png"));
+			wreckImage       = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/images/Wreck.png"));
+			splatImage       = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/images/Splat!.png"));
 			*/
 
-			playerAliveImage = ImageIO.read(this.getClass().getResource("Images/PlayerAlive.png"));
-			playerDeadImage  = ImageIO.read(this.getClass().getResource("Images/PlayerDead.png"));
-			robotImage       = ImageIO.read(this.getClass().getResource("Images/Robot.png"));
-			wreckImage       = ImageIO.read(this.getClass().getResource("Images/Wreck.png"));
-			splatImage       = ImageIO.read(this.getClass().getResource("Images/Splat!.png"));
+			playerAliveImage = ImageIO.read(this.getClass().getResource("images/PlayerAlive.png"));
+			playerDeadImage  = ImageIO.read(this.getClass().getResource("images/PlayerDead.png"));
+			robotImage       = ImageIO.read(this.getClass().getResource("images/Robot.png"));
+			wreckImage       = ImageIO.read(this.getClass().getResource("images/Wreck.png"));
+			splatImage       = ImageIO.read(this.getClass().getResource("images/Splat!.png"));
 		}
 		catch(IOException ex)
 		{
@@ -394,7 +394,7 @@ public class Game extends Panel
 	private void fillBots()
 	{
 		int row, col;
-		this.setNumBots(level + 5);
+		this.setNumBots(level * 5);
 		for(int n = 0; n < numBots; n++)
 		{
 			row = generator.nextInt(ROWS);
