@@ -46,30 +46,52 @@
     /* --- BEGIN CHECK TO MAKE SURE INFO IS OK -- */
 
     //make sure there is no username the same as the one given.
-    $query = "SELECT username FROM ".$table." WHERE username='".$username."'";
+    $query = sprintf("SELECT username FROM ".$table." WHERE username='%s'",
+        mysql_real_escape_string($username));
     $exists = mysql_query($query);
     if(mysql_affected_rows() != 0) {
      array_push($errors, "Username already exists.");
     }
+	elseif(preg_match("/\s+/", $username))
+    {
+     array_push($errors, "No whitespace allowed in username.");
+	}
 
     //make sure the passwords are the same.
     if($password1 != $password2) {
      array_push($errors, "Passwords are not the same.");
     }
-
-    //TODO: make sure firstname and lastname are mysql-safe.
+	if(strlen($password1) < 8) {
+     array_push($errors, "Please choose a password that is 8 letters long.");
+	}
+	elseif(preg_match("/\s+/", $password1))
+    {
+     array_push($errors, "No whitespace allowed in password.");
+	}
 
     //make sure the emails are the same.
     if($email1 != $email2) {
      array_push($errors, "Emails are not the same.");
     }
+	elseif(preg_match("/\s+/", $email1))
+    {
+     array_push($errors, "Only 1 email allowed.");
+	}
+	elseif(!preg_match("/@.*(.)/", $email1))
+    {
+     array_push($errors, "Please enter a valid email!");
+	}
 
     /* --- END CHECK TO MAKE SURE INFO IS OK --- */
 
     if(empty($errors)) {
-     //Hash the password
-     $password1 = md5($password1);
-     $query = "INSERT INTO ".$table." (username, password, email, firstname, lastname) VALUES('".$username."', '".$password1."', '".$email1."', '".$firstname."', '".$lastname."');";
+     $query = sprintf("INSERT INTO ".$table." (username, password, email, firstname, lastname) VALUES('%s', '%s', '%s', '%s', '%s')",
+         mysql_real_escape_string($username),
+         mysql_real_escape_string(md5($password1)), //hashes the password
+         mysql_real_escape_string($email1),
+         mysql_real_escape_string($firstname),
+         mysql_real_escape_string($lastname));
+
      $inserted = mysql_query($query);
      if($inserted) {
       //mail user info to email
@@ -77,8 +99,8 @@
 
       //'Submits' login information to login.php
       echo '<form action="login.php" method="post" name="login">';
-      echo '<input type="hidden" name="username" value="'.$username.'"/>';
-      echo '<input type="hidden" name="password" value="'.$password2.'"/>';
+      echo ' <input type="hidden" name="username" value="'.$username.'" />';
+      echo ' <input type="hidden" name="password" value="'.$password1.'"/>';
       echo '</form>';
       echo '<script type="text/javascript">';
       echo ' document.login.submit();';

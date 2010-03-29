@@ -18,7 +18,7 @@
     //Variable initialization
     include ('databaseLogin.php');
     $username = $_POST['username'];
-    $password = md5($_POST['password']);
+    $password = $_POST['password'];
 
     //connect to MySQL
     $connect = mysql_connect($db_host, $db_user, $db_pwd);
@@ -32,8 +32,10 @@
      die("Unable to select database:\n<br/>\n".mysql_error());
     }
 
-    //make sure the user and the password match.
-    $query = "SELECT username, password FROM ".$table." WHERE username='".$username."' and password='".$password."'";
+    //make sure the user and the password match (in the database).
+    $query = sprintf("SELECT username, password FROM ".$table." WHERE username='%s' and password='%s'",
+        mysql_real_escape_string($username),
+        mysql_real_escape_string(md5($password)));
     $exists = mysql_query($query);
     if(mysql_affected_rows() == 0) {
      echo "Incorrect Username or password.\n";
