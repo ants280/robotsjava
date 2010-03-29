@@ -23,7 +23,7 @@
   <applet code="com.ants280.robots.Gui" archive="Robots.jar" height="631" width="801">
    <strong>ERROR: NO JAVA PLUGIN DETECTED!</strong>
    <br/>
-  Click <a href="http://www.java.com/getjava/">here</a> to get java! (required to run game)
+   Click <a href="http://www.java.com/getjava/">here</a> to get java! (required to run game)
   </applet>
 
   <br/>

@@ -38,7 +38,7 @@
     }
     else {
      echo "Successful login, redirecting to Robots game.\n";
-     echo '<meta http-equiv="refresh" content="0, url=game/robots.html"/>';
+     echo '<meta http-equiv="refresh" content="0, url=game/robots.php"/>';
     }
 
     mysql_close($connect);
@@ -47,8 +47,8 @@
 
   <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post"> 
    <table>
-    <tr><td><label for="username">Username:</label></td> <td><input type="text"     name="username" maxlength="25"/></td></tr> <br/>
-    <tr><td><label for="password">Password:</label></td> <td><input type="password" name="password" maxlength="25"/></td></tr> <br/>
+    <tr><td><label for="username">Username:</label></td> <td><input type="text"     name="username" maxlength="25"/></td></tr>
+<tr><td><label for="password">Password:</label></td> <td><input type="password" name="password" maxlength="25"/></td></tr>
     <tr><td/><td><button type="submit" name="submit">Login</button></td></tr>
    </table>
   </form>

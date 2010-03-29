@@ -74,7 +74,15 @@
      if($inserted) {
       //mail user info to email
       echo "User added sucessfully, redirecting to the game.\n";
-      echo '<meta http-equiv="refresh" content="2, url=game/robots.html"/>';
+
+      //'Submits' login information to login.php
+      echo '<form action="login.php" method="post" name="login">';
+      echo '<input type="hidden" name="username" value="'.$username.'"/>';
+      echo '<input type="hidden" name="password" value="'.$password2.'"/>';
+      echo '</form>';
+      echo '<script type="text/javascript">';
+      echo ' document.login.submit();';
+      echo '</script>';
      }
      else {
       echo "ERROR: Unable to add user to system.\n";
@@ -93,15 +101,15 @@
 
   <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post">
    <table>
-    <tr><td><div class="footnote">*</div></td> <td><label for="username" >Username:       </label></td> <td><input type="text"     name="username"   maxlength="25" /></td></tr> <br/>
-    <tr><td><div class="footnote">*</div></td> <td><label for="password1">Password:       </label></td> <td><input type="password" name="password1"  maxlength="25" /></td></tr> <br/>
-    <tr><td><div class="footnote">*</div></td> <td><label for="password2">Retype Password:</label></td> <td><input type="password" name="password2"  maxlength="25" /></td></tr> <br/>
-    <tr><td><br/></td><td/><td/></tr>
-    <tr><td/>                                  <td><label for="firstname">First Name:     </label></td> <td><input type="text"     name="firstname"  maxlength="25" /></td></tr> <br/>
-    <tr><td/>                                  <td><label for="lastname" >Last  Name:     </label></td> <td><input type="text"     name="lastname"   maxlength="25" /></td></tr> <br/>
-    <tr><td><div class="footnote">*</div></td> <td><label for="email1"   >Email:          </label></td> <td><input type="text"     name="email1"     maxlength="128"/></td></tr> <br/>
-    <tr><td><div class="footnote">*</div></td> <td><label for="email2"   >Retype Email:   </label></td> <td><input type="text"     name="email2"     maxlength="128"/></td></tr> <br/>
-    <tr><td/> <td><small><div class="footnote">* required field</div></small></td> <td/></tr> <br/>
+    <tr><td><div class="footnote">*</div></td> <td><label for="username" >Username:       </label></td> <td><input type="text"     name="username"   maxlength="25" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label for="password1">Password:       </label></td> <td><input type="password" name="password1"  maxlength="25" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label for="password2">Retype Password:</label></td> <td><input type="password" name="password2"  maxlength="25" /></td></tr>
+    <tr></tr>
+    <tr><td/>                                  <td><label for="firstname">First Name:     </label></td> <td><input type="text"     name="firstname"  maxlength="25" /></td></tr>
+    <tr><td/>                                  <td><label for="lastname" >Last  Name:     </label></td> <td><input type="text"     name="lastname"   maxlength="25" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label for="email1"   >Email:          </label></td> <td><input type="text"     name="email1"     maxlength="128"/></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label for="email2"   >Retype Email:   </label></td> <td><input type="text"     name="email2"     maxlength="128"/></td></tr>
+    <tr><td/> <td><small><div class="footnote">* required field</div></small></td> <td/></tr>
     <tr><td/> <td><button type="submit" name="submit">Create</button></td> <td/></tr>
    </table>
   </form>

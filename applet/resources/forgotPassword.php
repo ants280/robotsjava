@@ -47,7 +47,7 @@
 
   <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post"> 
 	<table>
-     <tr><td><label for="email"   >Email   :</label></td> <td><input type="text" name="email"    maxlength="128"/></td></tr> <br/>
+     <tr><td><label for="email"   >Email   :</label></td> <td><input type="text" name="email"    maxlength="128"/></td></tr>
      <tr><td/><td><button type="submit" name="submit">Email</button></td></tr>
    </table>
   </form>
