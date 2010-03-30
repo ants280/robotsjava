@@ -21,3 +21,10 @@ table
  margin: 0 auto;
  text-align:left;
 }
+
+div.header
+{
+ top:0;
+ width:100%;
+ position:fixed;
+}

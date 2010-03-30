@@ -1,5 +1,6 @@
 package com.ants280.robots;
 
+import com.ants280.robots.mysql.*;
 import com.ants280.robots.pieces.*;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -31,6 +32,11 @@ public class Game extends Panel
 	private Label levelLabel;
 	private Label scoreLabel;
 	private Label safeTeleportsLabel;
+
+	/**
+	 * Queries and adds high scores to the selected database.
+	 */
+	private HighScoreBot highScoreBot;
 
 	/**
 	 * Indicates if the game is in a continous loop until all the robots are dead or the Player is dead.
@@ -84,20 +90,6 @@ public class Game extends Panel
 	public Player getHuman() { return human; }
 
 	/**
-	 * Getter for the level of the game.
-	 *
-	 * @return The level of the game.
-	 */
-	public int getLevel() { return level; }
-
-	/**
-	 * Getter for the score of the game.
-	 *
-	 * @return The score of the game.
-	 */
-	public int getScore() { return score; }
-
-	/**
 	 * Getter for the number of robots on the board.  A variable is returned to increase game speed. This makes the game not have an "int numBots()" to count the number of robots on the board every time it is called.
 	 *
 	 * @return The number of robots on the board.
@@ -121,6 +113,21 @@ public class Game extends Panel
 		this.resetBoard();
 		this.initializeimages();
 		this.setBackground(Color.WHITE);
+		this.createHighScoreBot("noName");
+	}
+
+	/**
+	 * Creates the HighScoreBot.
+	 *
+	 * @param username The user playing the game.
+	 */
+	private void createHighScoreBot(String username)
+	{
+		String url = "jdbc:mysql://localhost/patterson";
+		String user = "patterson";
+		String password = "patterson";
+
+		highScoreBot = new HighScoreBot(username, url, user, password);
 	}
 
 	/**
@@ -147,14 +154,6 @@ public class Game extends Panel
 	{
 		try
 		{
-			/*
-			playerAliveImage = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/images/PlayerAlive.png"));
-			playerDeadImage  = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/images/PlayerDead.png"));
-			robotImage       = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/images/Robot.png"));
-			wreckImage       = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/images/Wreck.png"));
-			splatImage       = ImageIO.read(this.getClass().getResource("Com/Ants280/Robots/images/Splat!.png"));
-			*/
-
 			playerAliveImage = ImageIO.read(this.getClass().getResource("images/PlayerAlive.png"));
 			playerDeadImage  = ImageIO.read(this.getClass().getResource("images/PlayerDead.png"));
 			robotImage       = ImageIO.read(this.getClass().getResource("images/Robot.png"));
@@ -220,14 +219,42 @@ public class Game extends Panel
 		g.drawString(safeTeleportsLabel.getText(), jpegSize * ((COLS / 2) - 2), jpegSize * ROWS + ROWS / 2);
 		g.drawString(levelLabel.getText(),         jpegSize *  (COLS - 3),      jpegSize * ROWS + ROWS / 2);
 
-		//Tell the player to restart if he dies.
-		//TODO: show new high score, if applicable?
+		// Tell the player to restart if he dies.  Tell the player how his score ranked on the highScore database table.
 		if(!human.isAlive())
 		{
+			String message = "score here";
+			/*
+			switch(highScoreBot.feedHighScore(score))
+			{
+				case ConnectionError: 
+					message = "ConnectionError";
+					break;
+				case AccessError:
+					message = "AccessError";
+					break;
+				case InsertionError:
+					message = "InsertionError";
+					break;
+				case NormalScore:
+					message = "NormalScore";
+					break;
+				case PersonalHigh:
+					message = "PersonalHigh!";
+					break;
+				case GlobalHigh:
+					message = "GlobalHigh!!!";
+					break;
+			}
+			*/
+
+			// The distance to seperate lines by.
+			int spacing = 32;
+
 			g.setFont(new Font("serif", Font.BOLD, 32));
 			g.setColor(Color.GREEN);
-			g.drawString("SORRY, YOU LOSE.",				   jpegSize * COLS / 2 - 140, jpegSize * ROWS / 2 + jpegSize - 32);
-			g.drawString("PRESS ANY KEY TO START A NEW GAME.", jpegSize * COLS / 2 - 335, jpegSize * ROWS / 2 + jpegSize + 32);
+			g.drawString("SORRY, YOU LOSE.",                   jpegSize * COLS / 2 - 140, jpegSize * ROWS / 2 + jpegSize - spacing * 1);
+			g.drawString("PRESS ANY KEY TO START A NEW GAME.", jpegSize * COLS / 2 - 335, jpegSize * ROWS / 2 + jpegSize + spacing * 1);
+			g.drawString(message,                              jpegSize * COLS / 2 - 140, jpegSize * ROWS / 2 + jpegSize + spacing * 2);
 		}
 	}
 

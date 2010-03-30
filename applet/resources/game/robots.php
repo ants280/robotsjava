@@ -20,9 +20,21 @@
  </head>
 
  <body>
-  <h1>Robots</h1>
+  <div class="header">
+   <table>
+    <tr>
+     <td>Hello, <?php echo $_SESSION['username']; ?>. </td>
+     <td><a href="../game/robots.php">Game</a>        </td>
+     <td><a href="../highScores.php">High Scores</a>  </td>
+     <td><a href="../profile.php">View Profile</a></td>
+     <td><a href="../logout.php">Logout</a>           </td>
+    </tr>
+   </table>
+  </div>
 
-  <?php include('../header.php'); ?>
+  <br/>
+
+  <h1>Robots</h1>
 
   <applet code="com.ants280.robots.Gui" archive="Robots.jar" height="631" width="801">
    <strong>ERROR: NO JAVA PLUGIN DETECTED!</strong>
@@ -44,9 +56,6 @@
     <td><a href="README.txt">Readme</a></td>
    </tr>
 
-   <tr>
-    <td>Javascript: coming soon!</td>
-   </tr>
   </table>
 
  </body>

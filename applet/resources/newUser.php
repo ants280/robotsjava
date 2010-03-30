@@ -9,13 +9,12 @@
    div.footnote
    {
     color:#FFA500;
-	font-size:8;
+    font-size:8;
    }
   </style>
  </head>
 
  <body>
-
   <h1>Create Robots account</h1>
 
   <?php
@@ -61,26 +60,23 @@
     if($password1 != $password2) {
      array_push($errors, "Passwords are not the same.");
     }
-	if(strlen($password1) < 8) {
+    if(strlen($password1) < 8) {
      array_push($errors, "Please choose a password that is 8 letters long.");
-	}
-	elseif(preg_match("/\s+/", $password1))
-    {
+    }
+    elseif(preg_match("/\s+/", $password1)) {
      array_push($errors, "No whitespace allowed in password.");
-	}
+    }
 
     //make sure the emails are the same.
     if($email1 != $email2) {
      array_push($errors, "Emails are not the same.");
     }
-	elseif(preg_match("/\s+/", $email1))
-    {
+    elseif(preg_match("/\s+/", $email1)) {
      array_push($errors, "Only 1 email allowed.");
-	}
-	elseif(!preg_match("/@.*(.)/", $email1))
-    {
+    }
+    elseif(!preg_match("/@.*(.)/", $email1)) {
      array_push($errors, "Please enter a valid email!");
-	}
+    }
 
     /* --- END CHECK TO MAKE SURE INFO IS OK --- */
 

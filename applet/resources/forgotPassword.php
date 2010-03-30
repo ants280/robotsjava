@@ -8,7 +8,6 @@
  </head>
 
  <body>
-
   <h1>Email lost password</h1>
  <?php
    if($_POST) {
@@ -17,8 +16,6 @@
     $username = $_POST['username'];
     $email = $_POST['email'];
  
-    echo "<br/>\n";
-
     //connect to MySQL
     $connect = mysql_connect($db_host, $db_user, $db_pwd);
     if(!$connect) { 
@@ -46,7 +43,7 @@
   ?>
 
   <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post"> 
-	<table>
+   <table>
      <tr><td><label for="email"   >Email   :</label></td> <td><input type="text" name="email"    maxlength="128"/></td></tr>
      <tr><td/><td><button type="submit" name="submit">Email</button></td></tr>
    </table>
