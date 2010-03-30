@@ -36,14 +36,15 @@ public class Gui extends JApplet implements KeyListener, ActionListener
 		timer.setDelay(200);
 
 		//Creates and Launches the Game.
-		this.game = new Game();
+		String username = this.getParameter("username");
+		this.game = new Game(username);
 		this.showGui(game);
 	}
 
 	/**
 	 * Creates a default, classic game.  Sets up all components and some frames
 	 */
-	public void showGui(Game game)
+	private void showGui(Game game)
 	{
 		this.game.addKeyListener(this);
 

@@ -76,7 +76,7 @@ public class HighScoreBot
 			return AddedScore.AccessError;
 		}
 
-		// TODO: Add score to the highScore table.
+		// Adds the score to the highScore table.
 		try
 		{
 			Date date = new Date(System.currentTimeMillis());

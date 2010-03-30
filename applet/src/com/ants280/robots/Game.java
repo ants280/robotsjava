@@ -98,14 +98,16 @@ public class Game extends Panel
 
 	/**
 	 * Creates a new Game. Calls resetBoard() to add the board.
+	 *
+	 * @param username The player of the game.  Used for keeping track of scores.
 	 */
-	public Game()
+	public Game(String username)
 	{
 		super();
 		
-		levelLabel         = new Label("level");
-		scoreLabel         = new Label("score");
-		safeTeleportsLabel = new Label("safe");
+		levelLabel         = new Label();
+		scoreLabel         = new Label();
+		safeTeleportsLabel = new Label();
 		generator = new Random();
 		ROWS = 30;
 		COLS = 40;
@@ -113,7 +115,7 @@ public class Game extends Panel
 		this.resetBoard();
 		this.initializeimages();
 		this.setBackground(Color.WHITE);
-		this.createHighScoreBot("noName");
+		this.createHighScoreBot(username);
 	}
 
 	/**
@@ -247,14 +249,11 @@ public class Game extends Panel
 			}
 			*/
 
-			// The distance to seperate lines by.
-			int spacing = 32;
-
 			g.setFont(new Font("serif", Font.BOLD, 32));
 			g.setColor(Color.GREEN);
-			g.drawString("SORRY, YOU LOSE.",                   jpegSize * COLS / 2 - 140, jpegSize * ROWS / 2 + jpegSize - spacing * 1);
-			g.drawString("PRESS ANY KEY TO START A NEW GAME.", jpegSize * COLS / 2 - 335, jpegSize * ROWS / 2 + jpegSize + spacing * 1);
-			g.drawString(message,                              jpegSize * COLS / 2 - 140, jpegSize * ROWS / 2 + jpegSize + spacing * 2);
+			g.drawString("SORRY, YOU LOSE.",                   jpegSize * COLS / 2 - 140, jpegSize * ROWS / 2 + jpegSize - 32);
+			g.drawString("PRESS ANY KEY TO START A NEW GAME.", jpegSize * COLS / 2 - 335, jpegSize * ROWS / 2 + jpegSize + 32);
+			g.drawString(message,                              jpegSize * COLS / 2 - 140, jpegSize * ROWS / 2 + jpegSize + 64);
 		}
 	}
 

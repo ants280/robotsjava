@@ -37,6 +37,7 @@
   <h1>Robots</h1>
 
   <applet code="com.ants280.robots.Gui" archive="Robots.jar" height="631" width="801">
+   <param name="username" value='<?php echo $_SESSION['username']; ?>'/>
    <strong>ERROR: NO JAVA PLUGIN DETECTED!</strong>
    <br/>
    Click <a href="http://www.java.com/getjava/">here</a> to get java! (required to run game)
