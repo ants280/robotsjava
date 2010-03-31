@@ -5,13 +5,7 @@
   <title>Create new User account.</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <link rel="stylesheet" type="text/css"  href="master.css"/>
-  <style type="text/css">
-   div.footnote
-   {
-    color:#FFA500;
-    font-size:8;
-   }
-  </style>
+  <link rel="stylesheet" type="text/css"  href="form.css"/>
  </head>
 
  <body>
@@ -83,7 +77,7 @@
     if(empty($errors)) {
      $query = sprintf("INSERT INTO ".$table." (username, password, email, firstname, lastname) VALUES('%s', '%s', '%s', '%s', '%s')",
          mysql_real_escape_string($username),
-         mysql_real_escape_string(md5($password1)), //hashes the password
+         (md5($password1), //hashes the password
          mysql_real_escape_string($email1),
          mysql_real_escape_string($firstname),
          mysql_real_escape_string($lastname));

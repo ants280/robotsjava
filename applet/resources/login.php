@@ -35,14 +35,17 @@
     //make sure the user and the password match (in the database).
     $query = sprintf("SELECT username, password FROM ".$table." WHERE username='%s' and password='%s'",
         mysql_real_escape_string($username),
-        mysql_real_escape_string(md5($password)));
+        md5($password));
     $exists = mysql_query($query);
     if(mysql_affected_rows() == 0) {
      echo "Incorrect Username or password.\n";
     }
     else {
      echo "Successful login, redirecting to Robots game.\n";
-     $_SESSION['username']=$username;
+     $_SESSION['username' ]=$username;
+     $_SESSION['firstname']=$firstname;
+     $_SESSION['lastname' ]=$lastname;
+     $_SESSION['email'    ]=$email;
      echo '<meta http-equiv="refresh" content="0, url=game/robots.php"/>';
     }
 

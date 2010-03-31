@@ -28,3 +28,8 @@ div.header
  width:100%;
  position:fixed;
 }
+
+div.header table
+{
+ background-color:black;
+}

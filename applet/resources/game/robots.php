@@ -23,11 +23,11 @@
   <div class="header">
    <table>
     <tr>
-     <td>Hello, <?php echo $_SESSION['username']; ?>. </td>
-     <td><a href="../game/robots.php">Game</a>        </td>
-     <td><a href="../highScores.php">High Scores</a>  </td>
-     <td><a href="../profile.php">View Profile</a></td>
-     <td><a href="../logout.php">Logout</a>           </td>
+     <td>Hello, <?php echo $_SESSION['username']; ?>.</td>
+     <td>Game                                        </td>
+     <td><a href="../highScores.php">High Scores</a> </td>
+     <td><a href="../profile.php">View Profile  </a> </td>
+     <td><a href="../logout.php">Logout         </a> </td>
     </tr>
    </table>
   </div>

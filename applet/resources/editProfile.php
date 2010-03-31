@@ -1,0 +1,250 @@
+<?php include('session.php');
+ $username = $_SESSION['username'];
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+ <head>
+  <title>Edit profile.</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css"  href="master.css"/>
+  <link rel="stylesheet" type="text/css"  href="form.css"/>
+ </head>
+
+ <body>
+  <h1>Edit account for <?php echo $username; ?></h1>
+
+  <p>Enter any account information you wish to change:</p>
+
+  <?php
+   include ('databaseLogin.php');
+
+   //connect to MySQL
+   $connect = mysql_connect($db_host, $db_user, $db_pwd);
+   if(!$connect) {
+    die("Could not make a connection to MySQL:\n<br/>\n".mysql_error());
+   }
+
+   //select the database to work with
+   $db_selected = mysql_select_db($database, $connect);
+   if(!$db_selected) {
+    die("Unable to select database:\n<br/>\n".mysql_error());
+   }
+
+   if($_POST) {
+    //Variable initialization
+    $old_password1 = $_POST['old_password1'];
+    $old_password2 = $_POST['old_password2'];
+    $new_password1 = $_POST['new_password1'];
+    $new_password2 = $_POST['new_password2'];
+    $new_firstname = $_POST['new_firstname'];
+    $new_lastname  = $_POST['new_lastname'];
+    $new_email1    = $_POST['new_email1'];
+    $new_email2    = $_POST['new_email2'];
+    $update_firstname = ($new_firstname != '');
+    $update_lastname  = ($new_lastname  != '');
+    $update_email     = ($new_email1    != '' && $new_email2    != '');
+    $update_password  = ($new_password1 != '' && $new_password2 != '');
+
+    $errors = array();
+
+    //if($update_firstname && $update_lastname && $update_email && $update_password) {
+	if(true) {
+     if($old_password1 != $old_password2) {
+      array_push($errors, "Old passwords don't match");
+     }
+     else
+     {
+      $query = "SELECT password FROM robots WHERE username='".$username."'";
+      $result = mysql_query($query);
+      if($result) {
+       if($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+        if($row['password'] != mysql_real_escape_string(md5($old_password1))) {
+         array_push($errors, "Old password is not correct!");
+        }
+       }
+      }
+     }
+
+     //make sure the passwords are the same.
+     if($update_password) {
+      if($new_password1 != $new_password2) {
+       array_push($errors, "New passwords are not the same.");
+      }
+      if(strlen($new_password1) < 8) {
+       array_push($errors, "Please choose a password that is 8 letters long.");
+      }
+      elseif(preg_match("/\s+/", $new_password1)) {
+       array_push($errors, "No whitespace allowed in password.");
+      }
+     }
+
+     //make sure the emails are the same.
+     if($update_email) {
+      if($new_email1 != $new_email2) {
+       array_push($errors, "New emails are not the same.");
+      }
+      elseif(preg_match("/\s+/", $new_email1)) {
+       array_push($errors, "Only 1 email allowed.");
+      }
+      elseif(!preg_match("/@.*(.)/", $new_email1)) {
+       array_push($errors, "Please enter a valid email!");
+      }
+     }
+    }
+	else {
+     array_push($errors, "Pick something to change!!!");
+    }
+
+    if(empty($errors)) {
+
+     if($update_firstname) {
+      $query = sprintf("UPDATE robots SET firstname='%s' WHERE username='".$username."'",
+          mysql_real_escape_string($new_firstname));
+      $result = mysql_query($query);
+      if($result) {
+       echo"Firstname sucessfully updated.\n<br>\n";
+      }
+     }
+
+     if($update_lastname) {
+      $query = sprintf("UPDATE robots SET lastname='%s' WHERE username='".$username."'",
+          mysql_real_escape_string($new_lastname));
+      $result = mysql_query($query);
+      if($result) {
+       echo"Lastname sucessfully updated.\n<br>\n";
+      }
+     }
+
+     if($update_firstname) {
+      $query = sprintf("UPDATE robots SET email='%s' WHERE username='".$username."'",
+          mysql_real_escape_string($new_email1));
+      $result = mysql_query($query);
+      if($result) {
+       echo"Email sucessfully updated.\n<br>\n";
+      }
+     }
+
+     if($update_firstname) {
+      $query = sprintf("UPDATE robots SET password='%s' WHERE username='".$username."'",
+          md5($new_password1));
+      $result = mysql_query($query);
+      if($result) {
+       echo"Password sucessfully updated.\n<br>\n";
+      }
+     }
+    }
+    else {
+     echo "ERRORS EXIST:";
+     foreach ($errors as $error) {
+      echo "\n<br/>\n".$error;
+     }
+	 echo "\n<br/>\n";
+    }
+   }
+  
+   // Sets variable names for table.
+   $query = "SELECT username, firstname, lastname, email FROM robots WHERE username='".$_username."'";
+   $result = mysql_query($query);
+   if($result) {
+    if($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+     $firstname = $row['firstname'];
+     $lastname  = $row['lastname'];
+     $email     = $row['email'];
+    }
+
+  ?>
+
+  <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post">
+   <table>
+    
+    <tr>
+     <td>Current First Name:</td>
+     <td/>
+     <td><?php echo $firstname; ?></td>
+     <td><label for="new_firstname">New First Name:</label></td>
+     <td><input type="text" name="new_firstname" maxlength="25"/></td>
+    </tr>
+
+    <tr>
+     <td>Current Last Name: </td>
+     <td/>
+     <td><?php echo $lastname; ?></td>
+     <td><label for="new_lastname">New Last Name:</label></td>
+     <td><input type="text" name="new_lastname" maxlength="25"/></td>
+    </tr>
+
+    <tr>
+     <td>Current email:</td>
+     <td/>
+     <td><?php echo $email; ?></td>
+     <td><label for="new_email1">New Email:</label></td>
+     <td><input type="text" name="new_email1" maxlength="128"/></td>
+    </tr>
+
+    <tr>
+     <td/>
+     <td/>
+     <td/>
+     <td><label for="new_email2">Retype New Email:</label></td>
+     <td><input type="text" name="new_email2" maxlength="128"/></td>
+    </tr>
+
+ 	<tr>
+     <td/>
+     <td/>
+     <td/>
+     <td><label for="new_password1">New Password:</label></td>
+     <td><input type="password" name="new_password1" maxlength="25" /></td>
+    </tr>
+
+    <tr>
+     <td/>
+     <td/>
+     <td/>
+     <td><label for="new_password2">Retype New Password:</label></td>
+     <td><input type="password" name="new_password2" maxlength="25"/></td>
+    </tr>
+
+    <tr>
+     <td/>
+     <td><div class="footnote">*</div></td>
+     <td><label for="old_password1">Old Password: (required)</label></td>
+     <td><input type="password" name="old_password1" maxlength="25"/></td>
+    </tr>
+
+    <tr>
+     <td/>
+     <td><div class="footnote">*</div></td>
+     <td><label for="old_password2">Retype Old Password:</label></td>
+     <td><input type="password" name="old_password2" maxlength="25"/></td>
+    </tr>
+
+    <tr>
+     <td/>
+     <td/>
+     <td><small><div class="footnote">* required field</div></small></td>
+    </tr>
+
+    <tr>
+     <td/>
+     <td/>
+     <td/>
+     <td><button type="submit" name="submit">Change</button></td>
+    </tr>
+
+   </table>
+  </form>
+
+  <?php
+   }
+   else {
+    echo "ERROR: Could not get user info!!!";
+   }
+
+   mysql_close($connect);
+  ?>
+
+ </body>
+</html>
