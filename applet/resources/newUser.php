@@ -68,7 +68,7 @@
     elseif(preg_match("/\s+/", $email1)) {
      array_push($errors, "Only 1 email allowed.");
     }
-    elseif(!preg_match("/@.*(.)/", $email1)) {
+    elseif(!preg_match("/^.*@\w+(.)\w+$/", $email1)) {
      array_push($errors, "Please enter a valid email!");
     }
 
@@ -77,7 +77,7 @@
     if(empty($errors)) {
      $query = sprintf("INSERT INTO ".$table." (username, password, email, firstname, lastname) VALUES('%s', '%s', '%s', '%s', '%s')",
          mysql_real_escape_string($username),
-         (md5($password1), //hashes the password
+         md5($password1), //hashes the password
          mysql_real_escape_string($email1),
          mysql_real_escape_string($firstname),
          mysql_real_escape_string($lastname));

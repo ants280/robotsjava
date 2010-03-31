@@ -13,6 +13,18 @@
  </head>
 
  <body>
+  <div class="header">
+   <table>
+	<tr>
+	 <td>Hello, <?php echo $_SESSION['username']; ?>.</td>
+	 <td><a href="game/robots.php">Game      </a>    </td>
+	 <td><a href="highScores.php">High Scores</a>    </td>
+     <td><a href "profile.php">View Profile  </a>    </td>
+     <td><a href="logout.php">Logout         </a>    </td>
+    </tr>
+   </table>
+  </div>
+
   <h1>Edit account for <?php echo $username; ?></h1>
 
   <p>Enter any account information you wish to change:</p>
@@ -42,15 +54,15 @@
     $new_lastname  = $_POST['new_lastname'];
     $new_email1    = $_POST['new_email1'];
     $new_email2    = $_POST['new_email2'];
-    $update_firstname = ($new_firstname != '');
-    $update_lastname  = ($new_lastname  != '');
-    $update_email     = ($new_email1    != '' && $new_email2    != '');
-    $update_password  = ($new_password1 != '' && $new_password2 != '');
 
-    $errors = array();
+    $update_firstname = !empty($new_firstname);
+    $update_lastname  = !empty($new_lastname);
+    $update_email     = !empty($new_email1)    && !empty($new_email2);
+    $update_password  = !empty($new_password1) && !empty($new_password2);
 
-    //if($update_firstname && $update_lastname && $update_email && $update_password) {
-	if(true) {
+    if($update_firstname || $update_lastname || $update_email || $update_password) {
+     $errors = array();
+
      if($old_password1 != $old_password2) {
       array_push($errors, "Old passwords don't match");
      }
@@ -88,7 +100,7 @@
       elseif(preg_match("/\s+/", $new_email1)) {
        array_push($errors, "Only 1 email allowed.");
       }
-      elseif(!preg_match("/@.*(.)/", $new_email1)) {
+      elseif(!preg_match("/^.*@\w+(.)\w+$/", $new_email1)) {
        array_push($errors, "Please enter a valid email!");
       }
      }
@@ -117,16 +129,17 @@
       }
      }
 
-     if($update_firstname) {
+     if($update_email) {
       $query = sprintf("UPDATE robots SET email='%s' WHERE username='".$username."'",
           mysql_real_escape_string($new_email1));
       $result = mysql_query($query);
       if($result) {
+       //TODO: send confirm email to new email?
        echo"Email sucessfully updated.\n<br>\n";
       }
      }
 
-     if($update_firstname) {
+     if($update_password) {
       $query = sprintf("UPDATE robots SET password='%s' WHERE username='".$username."'",
           md5($new_password1));
       $result = mysql_query($query);
@@ -134,6 +147,9 @@
        echo"Password sucessfully updated.\n<br>\n";
       }
      }
+
+	 echo "\n<br>\n";
+
     }
     else {
      echo "ERRORS EXIST:";
@@ -145,7 +161,7 @@
    }
   
    // Sets variable names for table.
-   $query = "SELECT username, firstname, lastname, email FROM robots WHERE username='".$_username."'";
+   $query = "SELECT username, firstname, lastname, email FROM robots WHERE username='".$username."'";
    $result = mysql_query($query);
    if($result) {
     if($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
