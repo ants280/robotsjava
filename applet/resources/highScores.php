@@ -10,6 +10,19 @@
  </head>
 
  <body>
+  <div class="header">
+   <table>
+    <tr>
+     <td>Hello, <?php echo $_SESSION['username']; ?>.</td>
+     <td><a href="main.php">Main             </a>    </td>
+     <td><a href="game/robots.php">Game      </a>    </td>
+     <td>High Scores                         </a>    </td>
+     <td><a href="profile.php">View Profile  </a>    </td>
+     <td><a href="logout.php">Logout         </a>    </td>
+    </tr>
+   </table>
+  </div>
+
   <strong>COMING SOON!</strong>
  </body>
 </html>
