@@ -46,7 +46,7 @@
      $_SESSION['firstname']=$firstname;
      $_SESSION['lastname' ]=$lastname;
      $_SESSION['email'    ]=$email;
-     echo '<meta http-equiv="refresh" content="0, url=game/robots.php"/>';
+     echo '<meta http-equiv="refresh" content="0, url=main.php"/>';
     }
 
     mysql_close($connect);

@@ -7,8 +7,6 @@
   <title>Profile</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <link rel="stylesheet" type="text/css"  href="master.css"/>
-  <style>
-  </style>
  </head>
 
  <body>
@@ -16,6 +14,7 @@
    <table>
     <tr>
      <td>Hello, <?php echo $_SESSION['username']; ?>.</td>
+     <td><a href="main.php">Main             </a>    </td>
      <td><a href="game/robots.php">Game      </a>    </td>
      <td><a href="highScores.php">High Scores</a>    </td>
      <td>View Profile                                </td>

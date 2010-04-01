@@ -11,11 +11,18 @@
   <style>
    html
    {
-    background-image: url("robots_background.png");
-    background-repeat: repeat;
+    background-image:url("game_background.png");
    }
-   h1 { background-color: black; }
-   table { background-color: black; }
+   h1
+   {
+    width:12%;
+    background-color:black;
+    margin:0 auto;
+   }
+   table
+   {
+    background-color:black;
+   }
   </style>
  </head>
 
@@ -24,6 +31,7 @@
    <table>
     <tr>
      <td>Hello, <?php echo $_SESSION['username']; ?>.</td>
+     <td><a href="../main.php">Main             </a> </td>
      <td>Game                                        </td>
      <td><a href="../highScores.php">High Scores</a> </td>
      <td><a href="../profile.php">View Profile  </a> </td>
@@ -36,7 +44,11 @@
 
   <h1>Robots</h1>
 
+  <br/>
+
   <applet code="com.ants280.robots.Gui" archive="Robots.jar" height="631" width="801">
+  <br/>
+
    <param name="username" value='<?php echo $_SESSION['username']; ?>'/>
    <strong>ERROR: NO JAVA PLUGIN DETECTED!</strong>
    <br/>
