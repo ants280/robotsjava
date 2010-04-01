@@ -3,6 +3,11 @@ body
  text-align:center;
  text-decoration:bold;
  color:red;
+
+ background-image:url("background.png");
+ background-repeat:no-repeat;
+ background-position:center;
+ background-attachment:fixed;
 }
 
 h1
