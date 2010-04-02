@@ -48,7 +48,7 @@
 
   <br/>
 
-  <applet code="com.ants280.robots.Gui" archive="Robots.jar" height="631" width="801">
+  <applet code="com.ants280.robots.Gui" archive="Robots.jar" height="610" width="788">
   <br/>
 
    <param name="username" value='<?php echo $_SESSION['username']; ?>'/>

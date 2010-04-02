@@ -111,7 +111,7 @@ public class Game extends Panel
 		generator = new Random();
 		ROWS = 30;
 		COLS = 40;
-		dimension = new Dimension(COLS * 21 + 1, ROWS * 21 + 1);
+		dimension = new Dimension(COLS * jpegSize + 1, ROWS * (jpegSize + 1));
 		this.resetBoard();
 		this.initializeimages();
 		this.setBackground(Color.WHITE);
