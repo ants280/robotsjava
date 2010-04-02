@@ -5,6 +5,5 @@
  $db_pwd='patterson';
 
  $database='patterson';
- $table='robots';
 
 ?>

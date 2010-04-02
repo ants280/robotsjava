@@ -15,16 +15,19 @@
  <body>
   <div class="header">
    <table>
-	<tr>
+    <tr>
 	 <td>Hello, <?php echo $_SESSION['username']; ?>.</td>
      <td><a href="main.php">Main             </a>    </td>
 	 <td><a href="game/robots.php">Game      </a>    </td>
 	 <td><a href="highScores.php">High Scores</a>    </td>
-     <td><a href "profile.php">View Profile  </a>    </td>
+     <td><a href="profile.php">View Profile  </a>    </td>
+     <td><a href="donate.php">Donate!        </a>    </td>
      <td><a href="logout.php">Logout         </a>    </td>
     </tr>
    </table>
   </div>
+
+  <br/>
 
   <h1>Edit account for <?php echo $username; ?></h1>
 
@@ -69,7 +72,7 @@
      }
      else
      {
-      $query = "SELECT password FROM robots WHERE username='".$username."'";
+      $query = "SELECT password FROM robots WHERE username='.$username'";
       $result = mysql_query($query);
       if($result) {
        if($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
@@ -113,7 +116,7 @@
     if(empty($errors)) {
 
      if($update_firstname) {
-      $query = sprintf("UPDATE robots SET firstname='%s' WHERE username='".$username."'",
+      $query = sprintf("UPDATE robots SET firstname='%s' WHERE username='$username'",
           mysql_real_escape_string($new_firstname));
       $result = mysql_query($query);
       if($result) {
@@ -122,7 +125,7 @@
      }
 
      if($update_lastname) {
-      $query = sprintf("UPDATE robots SET lastname='%s' WHERE username='".$username."'",
+      $query = sprintf("UPDATE robots SET lastname='%s' WHERE username='$username'",
           mysql_real_escape_string($new_lastname));
       $result = mysql_query($query);
       if($result) {
@@ -131,7 +134,7 @@
      }
 
      if($update_email) {
-      $query = sprintf("UPDATE robots SET email='%s' WHERE username='".$username."'",
+      $query = sprintf("UPDATE robots SET email='%s' WHERE username='$username.",
           mysql_real_escape_string($new_email1));
       $result = mysql_query($query);
       if($result) {
@@ -141,7 +144,7 @@
      }
 
      if($update_password) {
-      $query = sprintf("UPDATE robots SET password='%s' WHERE username='".$username."'",
+      $query = sprintf("UPDATE robots SET password='%s' WHERE username='$username'",
           md5($new_password1));
       $result = mysql_query($query);
       if($result) {
@@ -155,14 +158,14 @@
     else {
      echo "ERRORS EXIST:";
      foreach ($errors as $error) {
-      echo "\n<br/>\n".$error;
+      echo "\n<br/>\n$error";
      }
 	 echo "\n<br/>\n";
     }
    }
   
    // Sets variable names for table.
-   $query = "SELECT username, firstname, lastname, email FROM robots WHERE username='".$username."'";
+   $query = "SELECT username, firstname, lastname, email FROM robots WHERE username='$username'";
    $result = mysql_query($query);
    if($result) {
     if($row = mysql_fetch_array($result, MYSQL_ASSOC)) {

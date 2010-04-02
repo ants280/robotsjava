@@ -224,8 +224,7 @@ public class Game extends Panel
 		// Tell the player to restart if he dies.  Tell the player how his score ranked on the highScore database table.
 		if(!human.isAlive())
 		{
-			String message = "score here";
-			/*
+			String message = new String("ERROR");
 			switch(highScoreBot.feedHighScore(score))
 			{
 				case ConnectionError: 
@@ -247,13 +246,12 @@ public class Game extends Panel
 					message = "GlobalHigh!!!";
 					break;
 			}
-			*/
 
 			g.setFont(new Font("serif", Font.BOLD, 32));
 			g.setColor(Color.GREEN);
 			g.drawString("SORRY, YOU LOSE.",                   jpegSize * COLS / 2 - 140, jpegSize * ROWS / 2 + jpegSize - 32);
 			g.drawString("PRESS ANY KEY TO START A NEW GAME.", jpegSize * COLS / 2 - 335, jpegSize * ROWS / 2 + jpegSize + 32);
-			g.drawString(message,                              jpegSize * COLS / 2 - 140, jpegSize * ROWS / 2 + jpegSize + 64);
+			g.drawString(message,                              jpegSize * COLS / 2 - 140, jpegSize * ROWS / 2 + jpegSize + 128);
 		}
 	}
 

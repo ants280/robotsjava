@@ -39,7 +39,7 @@
     /* --- BEGIN CHECK TO MAKE SURE INFO IS OK -- */
 
     //make sure there is no username the same as the one given.
-    $query = sprintf("SELECT username FROM ".$table." WHERE username='%s'",
+    $query = sprintf("SELECT username FROM $robots WHERE username='%s'",
         mysql_real_escape_string($username));
     $exists = mysql_query($query);
     if(mysql_affected_rows() != 0) {
@@ -75,7 +75,7 @@
     /* --- END CHECK TO MAKE SURE INFO IS OK --- */
 
     if(empty($errors)) {
-     $query = sprintf("INSERT INTO ".$table." (username, password, email, firstname, lastname) VALUES('%s', '%s', '%s', '%s', '%s')",
+     $query = sprintf("INSERT INTO robots (username, password, email, firstname, lastname) VALUES('%s', '%s', '%s', '%s', '%s')",
          mysql_real_escape_string($username),
          md5($password1), //hashes the password
          mysql_real_escape_string($email1),
@@ -89,8 +89,8 @@
 
       //'Submits' login information to login.php
       echo '<form action="login.php" method="post" name="login">';
-      echo ' <input type="hidden" name="username" value="'.$username.'" />';
-      echo ' <input type="hidden" name="password" value="'.$password1.'"/>';
+      echo ' <input type="hidden" name="username" value="$username" />';
+      echo ' <input type="hidden" name="password" value="$password1"/>';
       echo '</form>';
       echo '<script type="text/javascript">';
       echo ' document.login.submit();';
@@ -103,7 +103,7 @@
     else {
      echo "ERRORS EXIST:";
      foreach ($errors as $error) {
-      echo "\n<br/>\n".$error;
+      echo "\n<br/>\n$error";
      }
     }
 

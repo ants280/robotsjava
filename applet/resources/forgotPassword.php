@@ -29,13 +29,13 @@
     }
 
     //make sure the user and the password match.
-    $query = "SELECT username, email FROM ".$table." WHERE email='".$email."'";
+    $query = "SELECT username, email FROM robots WHERE email='$email'";
     $exists = mysql_query($query);
     if(mysql_affected_rows() == 0) {
      echo 'Incorrect email:<br/>'.mysql_error()."\n";
     }
     else {
-     echo "Mail usename to ".$email."\n";
+     echo "Mail usename to $email\n";
     }
 
     mysql_close($connect);

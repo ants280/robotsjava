@@ -12,6 +12,7 @@
    html
    {
     background-image:url("game_background.png");
+    background-repeat:repeat;
    }
    h1
    {
@@ -35,6 +36,7 @@
      <td>Game                                        </td>
      <td><a href="../highScores.php">High Scores</a> </td>
      <td><a href="../profile.php">View Profile  </a> </td>
+     <td><a href="../donate.php">Donate!        </a> </td>
      <td><a href="../logout.php">Logout         </a> </td>
     </tr>
    </table>

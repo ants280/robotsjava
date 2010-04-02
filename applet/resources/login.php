@@ -33,7 +33,7 @@
     }
 
     //make sure the user and the password match (in the database).
-    $query = sprintf("SELECT username, password FROM ".$table." WHERE username='%s' and password='%s'",
+    $query = sprintf("SELECT username, password FROM robots WHERE username='%s' and password='%s'",
         mysql_real_escape_string($username),
         md5($password));
     $exists = mysql_query($query);

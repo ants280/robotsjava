@@ -18,6 +18,7 @@
      <td><a href="game/robots.php">Game      </a>    </td>
      <td><a href="highScores.php">High Scores</a>    </td>
      <td>View Profile                                </td>
+     <td><a href="donate.php">Donate!        </a>    </td>
      <td><a href="logout.php">Logout         </a>    </td>
     </tr>
    </table>
@@ -33,8 +34,8 @@
      <table>
       <tr><td>Username   </td><td><?php echo $_SESSION['username' ]; ?></td></tr>
       <tr><td>FirstName: </td><td><?php echo $_SESSION['firstname']; ?></td></tr>
-       <tr><td>Lastname:  </td><td><?php echo $_SESSION['lastname' ]; ?></td></tr>
-       <tr><td>Email:     </td><td><?php echo $_SESSION['email'    ]; ?></td></tr>
+      <tr><td>Lastname:  </td><td><?php echo $_SESSION['lastname' ]; ?></td></tr>
+      <tr><td>Email:     </td><td><?php echo $_SESSION['email'    ]; ?></td></tr>
        <tr/>
        <tr><td><a href="editProfile.php">Edit Profile</a></td><td/></tr>
       </table>

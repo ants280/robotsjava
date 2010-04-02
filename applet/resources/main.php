@@ -6,13 +6,8 @@
  <head>
   <title>Profile</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-  <link rel="stylesheet" type="text/css"  href="master.css"/>
-  <style>
-   td
-   {
-    text-align:center;
-   }
-  </style>
+  <link rel="stylesheet" type="text/css" href="master.css"/>
+  <link rel="stylesheet" type="text/css" href="cellCenter.css"/>
  </head>
 
  <body>
@@ -20,10 +15,11 @@
   <h1>Hello, <?php echo $_SESSION['username']; ?>.</h1>
 
   <table>
-   <tr><td><a href="game/robots.php">Game      </a>    </td></tr>
-   <tr><td><a href="highScores.php">High Scores</a>    </td></tr>
-   <tr><td><a href="profile.php">View Profile  </a>    </td></tr>
-   <tr><td><a href="logout.php">Logout         </a>    </td></tr>
+   <tr><td><a href="game/robots.php">Game      </a></td></tr>
+   <tr><td><a href="highScores.php">High Scores</a></td></tr>
+   <tr><td><a href="profile.php">View Profile  </a></td></tr>
+   <tr><td><a href="donate.php">Donate!        </a></td></tr>
+   <tr><td><a href="logout.php">Logout         </a></td></tr>
   </table>
 
   <br/>
