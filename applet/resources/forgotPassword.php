@@ -32,10 +32,10 @@
     $query = "SELECT username, email FROM robots WHERE email='$email'";
     $exists = mysql_query($query);
     if(mysql_affected_rows() == 0) {
-     echo 'Incorrect email:<br/>'.mysql_error()."\n";
+     echo "No account registered with $email\n<br/>\n";
     }
     else {
-     echo "Mail usename to $email\n";
+     echo "Mail new password to $email\n";
     }
 
     mysql_close($connect);
@@ -44,7 +44,7 @@
 
   <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post"> 
    <table>
-     <tr><td><label for="email"   >Email   :</label></td> <td><input type="text" name="email"    maxlength="128"/></td></tr>
+     <tr><td><label for="email">Email:</label></td><td><input type="text" name="email" maxlength="128"/></td></tr>
      <tr><td/><td><button type="submit" name="submit">Email</button></td></tr>
    </table>
   </form>

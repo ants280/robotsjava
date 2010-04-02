@@ -9,10 +9,10 @@ import java.sql.Statement;
 import java.util.PriorityQueue;
 
 /**
- * Provides a connection to the server-side database of high scores. Uses the java.swl package.  Keeps track of both personal and global high scores.
+ * Provides a connection to the server-side databases.  Uses the java.sql package.  Keeps track of both personal and global high scores.  Also keeps track of safe teleports.
  * Some of these docs copied directly from "http://java.sun.com/j2se/1.5.0/docs/api/java/sql/DriverManager.html".
  */
-public class HighScoreBot
+public class MysqlBot
 {
 	/**
 	 * The name of the user accumulating the high scores.
@@ -20,25 +20,25 @@ public class HighScoreBot
 	private String username;
 
 	/**
-	 * The connection to the database.
+	 * The Connection to the high score database.
 	 */
 	private Connection conn;
 
 	/**
-	 * Creates a new HighScoreBot. Establishes connection to the database.
+	 * Creates a new MysqlBot. Establishes connection to the database.
 	 *
 	 * @param username The name of the user accumulationg the high scores.
 	 * @param url A database url of the form jdbc:subprotocol:subname
 	 * @param user The database user on whose behalf the connection is being made.
 	 * @param password The user's password.
 	 */
-	public HighScoreBot(String username, String url, String user, String password)
+	public MysqlBot(String username, String url, String user, String password)
 	{
 		this.username = username;
 
 		try
 		{
-			conn = DriverManager.getConnection(url, user, password);
+			conn  = DriverManager.getConnection(url, user, password);
 		}
 		catch(SQLException ex)
 		{
@@ -50,7 +50,7 @@ public class HighScoreBot
 	/**
 	 * Gives a score to the database.  The score may be added to up two two tables.
 	 *
-	 * @param score The score being fed to the HighScoreBot.
+	 * @param score The score being fed to the MysqlBot.
 	 * @return An AddedScore which describes the result of the score that was fed.
 	 */
 	public AddedScore feedHighScore(int score)

@@ -36,7 +36,7 @@ public class Game extends Panel
 	/**
 	 * Queries and adds high scores to the selected database.
 	 */
-	private HighScoreBot highScoreBot;
+	private MysqlBot mysqlBot;
 
 	/**
 	 * Indicates if the game is in a continous loop until all the robots are dead or the Player is dead.
@@ -119,7 +119,7 @@ public class Game extends Panel
 	}
 
 	/**
-	 * Creates the HighScoreBot.
+	 * Creates the MysqlBot.
 	 *
 	 * @param username The user playing the game.
 	 */
@@ -129,7 +129,7 @@ public class Game extends Panel
 		String user = "patterson";
 		String password = "patterson";
 
-		highScoreBot = new HighScoreBot(username, url, user, password);
+		mysqlBot = new MysqlBot(username, url, user, password);
 	}
 
 	/**
@@ -221,11 +221,11 @@ public class Game extends Panel
 		g.drawString(safeTeleportsLabel.getText(), jpegSize * ((COLS / 2) - 2), jpegSize * ROWS + ROWS / 2);
 		g.drawString(levelLabel.getText(),         jpegSize *  (COLS - 3),      jpegSize * ROWS + ROWS / 2);
 
-		// Tell the player to restart if he dies.  Tell the player how his score ranked on the highScore database table.
+		// Tell the player to restart if he dies.  Tell the player how his score ranked on the mysql database table.
 		if(!human.isAlive())
 		{
 			String message = new String("ERROR");
-			switch(highScoreBot.feedHighScore(score))
+			switch(mysqlBot.feedHighScore(score))
 			{
 				case ConnectionError: 
 					message = "ConnectionError";

@@ -173,7 +173,7 @@
      $lastname  = $row['lastname'];
      $email     = $row['email'];
     }
-
+    // Still part of if statement: (pure html for easy reading)
   ?>
 
   <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post">

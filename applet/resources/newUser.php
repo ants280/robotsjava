@@ -39,7 +39,7 @@
     /* --- BEGIN CHECK TO MAKE SURE INFO IS OK -- */
 
     //make sure there is no username the same as the one given.
-    $query = sprintf("SELECT username FROM $robots WHERE username='%s'",
+    $query = sprintf("SELECT username FROM robots WHERE username='%s'",
         mysql_real_escape_string($username));
     $exists = mysql_query($query);
     if(mysql_affected_rows() != 0) {
@@ -89,8 +89,8 @@
 
       //'Submits' login information to login.php
       echo '<form action="login.php" method="post" name="login">';
-      echo ' <input type="hidden" name="username" value="$username" />';
-      echo ' <input type="hidden" name="password" value="$password1"/>';
+      echo ' <input type="hidden" name="username" value="'.$username.'" />';
+      echo ' <input type="hidden" name="password" value="'.$password1.'"/>';
       echo '</form>';
       echo '<script type="text/javascript">';
       echo ' document.login.submit();';
@@ -121,8 +121,8 @@
     <tr><td/>                                  <td><label for="lastname" >Last  Name:     </label></td> <td><input type="text"     name="lastname"   maxlength="25" /></td></tr>
     <tr><td><div class="footnote">*</div></td> <td><label for="email1"   >Email:          </label></td> <td><input type="text"     name="email1"     maxlength="128"/></td></tr>
     <tr><td><div class="footnote">*</div></td> <td><label for="email2"   >Retype Email:   </label></td> <td><input type="text"     name="email2"     maxlength="128"/></td></tr>
-    <tr><td/> <td><small><div class="footnote">* required field</div></small></td> <td/></tr>
-    <tr><td/> <td><button type="submit" name="submit">Create</button></td> <td/></tr>
+    <tr><td/><td><small><div class="footnote">* required field</div></small></td> <td/></tr>
+    <tr><td/><td/><td><button type="submit" name="submit">Create</button></td></tr>
    </table>
   </form>
 
