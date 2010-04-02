@@ -589,7 +589,7 @@ public class Game extends Panel
 				else // insntanceof Wreck
 				{
 					Wreck wreck = (Wreck)board[loc.getRow()][loc.getCol()];
-					if(this.isValid(wreck.updatePos(dir)) &&board[wreck.getCol()][wreck.getRow()] instanceof Wreck)
+					if(this.isValid(wreck.updatePos(dir)) && board[wreck.getRow()][wreck.getCol()] instanceof Wreck)
 					{
 						//Not allowed to push a Wreck into a Wreck.
 						return;

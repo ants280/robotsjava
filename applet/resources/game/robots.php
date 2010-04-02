@@ -6,7 +6,7 @@
  <head>
   <title>Robots</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-  <link rel="stylesheet" type="text/css"  href="../master.css"/>
+  <link rel="stylesheet" type="text/css" href="../master.css"/>
   <script type="text/javascript" src="screenResize.js"></script>
   <style>
    html
@@ -60,12 +60,11 @@
   <br/>
 
   <table>
+
    <tr>
     <td><a href="Robots.jar">Get source</a></td>
     <td><a href= "GPL.txt">License</a></td>
    </tr>
-
-   <br/>
 
    <tr>
     <td><a href="README.txt">Readme</a></td>
