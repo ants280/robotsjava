@@ -60,9 +60,14 @@
      }
      else {
       //Rounds the number to  the nearest hundredth.
-      $amount = round($amount, 2);
+      if ($amount < .01) {
+       array_push($errors, "Please enter a larger amount.");
+      }
+      else {
+       $amount = number_format($amount, 2);
+      }
      }
-	}
+    }
 
     if(empty($errors)) {
      // Increeases the amount donated.
@@ -70,7 +75,7 @@
          mysql_real_escape_string($amount)); //Just to be safe.
      $result = mysql_query($query);
      if($result) {
-      echo "Thanks for donating $amount!\n<br/>\n<br/>\n";
+      echo "Thanks for donating $$amount!\n<br/>\n<br/>\n";
 	 }
     }
     else {
@@ -86,7 +91,7 @@
   $query = "SELECT amount_donated FROM robots WHERE username='$username'";
   $result = mysql_query($query);
   $row = mysql_fetch_array($result, MYSQL_ASSOC);
-  echo "You have donated ".$row['amount_donated']."\n<br/>\n";
+  echo "You have donated $".number_format($row['amount_donated'], 2)."\n<br/>\n";
 
   mysql_close($connect);
   ?>
@@ -94,7 +99,7 @@
   <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post">
    <table>
     <tr>
-     <td><label for="amount">Amount to donate:</label></td>
+     <td><label for="amount">Amount to donate: $</label></td>
      <td><input type=text" name="amount" maxlength="25"/></td>
     </tr>
 
