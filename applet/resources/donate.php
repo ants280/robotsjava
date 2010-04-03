@@ -106,7 +106,7 @@
 
     <tr>
      <td/>
-     <td><button type="submit" name="Donate!">Change</button></td>
+     <td><button type="submit" name="submit">Donate!</button></td>
     </tr>
 
    </table>

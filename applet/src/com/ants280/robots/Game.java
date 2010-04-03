@@ -156,7 +156,7 @@ public class Game extends Panel
 	{
 		try
 		{
-			playerAliveImage = ImageIO.read(this.getClass().getResource("imaeuges/PlaoeuyerAlive.png"));
+			playerAliveImage = ImageIO.read(this.getClass().getResource("images/PlayerAlive.png"));
 			playerDeadImage  = ImageIO.read(this.getClass().getResource("images/PlayerDead.png"));
 			robotImage       = ImageIO.read(this.getClass().getResource("images/Robot.png"));
 			wreckImage       = ImageIO.read(this.getClass().getResource("images/Wreck.png"));

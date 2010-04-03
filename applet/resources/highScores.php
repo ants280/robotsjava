@@ -48,15 +48,15 @@
    $username = $_SESSION['username'];
 
    echo "<tr>";
-   echo "<td/><td><strong>$username</strong></td><td>";
+   echo "<td/><td><strong>$username</strong></td>";
    echo "<td width=100></td>";
    echo "<td/><td><strong>    Global   </strong></td><td>";
    echo "</tr>\n";
 
    echo "<tr>";
-   echo "<td>User:</td><td>Score:</td><td>Date:</td>";
+   echo "<td>Score:</td><td>Date:</td>";
    echo "<td/>";
-   echo "<td/>         <td>Score:</td><td>Date:</td>";
+   echo "<td>User:</td><td>Score:</td><td>Date:</td>";
    echo "</tr>\n";
 
    $global_query = "SELECT username, score, date FROM highScores                                ORDER BY score DESC";
@@ -71,12 +71,11 @@
      echo "<tr>";
 
      if($user_row   = mysql_fetch_array($user_result,   MYSQL_ASSOC)) {
-      echo "<td>".$user_row['username']."</td>";
       echo "<td>".$user_row['score']."</td>";
       echo "<td>".date('M d Y', $user_row['date'])."</td>";
      }
      else {
-      echo "<td/><td/><td/>";
+      echo "<td/><td/>";
      }
 
      echo "<td/>";
