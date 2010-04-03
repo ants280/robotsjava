@@ -72,8 +72,8 @@
 
      if($user_row   = mysql_fetch_array($user_result,   MYSQL_ASSOC)) {
       echo "<td>".$user_row['username']."</td>";
-      echo "<td>".$user_row['score']   ."</td>";
-      echo "<td>".$user_row['date']    ."</td>";
+      echo "<td>".$user_row['score']."</td>";
+      echo "<td>".date('M d Y', $user_row['date'])."</td>";
      }
      else {
       echo "<td/><td/><td/>";
@@ -84,7 +84,7 @@
      if($global_row = mysql_fetch_array($global_result, MYSQL_ASSOC)) {
       echo "<td>".$global_row['username']."</td>";
       echo "<td>".$global_row['score']   ."</td>";
-      echo "<td>".$global_row['date']    ."</td>";
+      echo "<td>".date('M d Y', $global_row['date'])."</td>";
      }
      else {
       echo "<td/><td/><td/>";

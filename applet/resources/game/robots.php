@@ -7,7 +7,11 @@
   <title>Robots</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <link rel="stylesheet" type="text/css" href="../master.css"/>
-  <script type="text/javascript" src="screenResize.js"></script>
+  <script language="javascript">
+   //Maximizes the screen
+   window.moveTo(0,0);
+   window.resizeTo(screen.width, screen.height);
+  </script>
   <style>
    html
    {
@@ -16,7 +20,7 @@
    }
    h1
    {
-    width:12%;
+    width:20%;
     background-color:black;
     margin:0 auto;
    }

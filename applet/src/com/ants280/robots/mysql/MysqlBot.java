@@ -38,12 +38,20 @@ public class MysqlBot
 
 		try
 		{
+			Class.forName("com.mysql.jdbc.Driver");
+		}
+		catch(ClassNotFoundException ex)
+		{
+			ex.printStackTrace();
+		}
+
+		try
+		{
 			conn  = DriverManager.getConnection(url, user, password);
 		}
 		catch(SQLException ex)
 		{
-			//Don't worry, nothing bad can happen.
-			conn = null;
+			ex.printStackTrace();
 		}
 	}
 
@@ -78,7 +86,7 @@ public class MysqlBot
 		// Adds the score to the highScore table.
 		try
 		{
-			Date date = new Date(System.currentTimeMillis());
+			long date = System.currentTimeMillis();
 			query = "INSERT INTO highScores (username, score, date) VALUES('" + username + "', '" + score + "', '" + date + "')"; 
 			stmt.executeUpdate(query);
 		}

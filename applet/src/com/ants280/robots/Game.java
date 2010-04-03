@@ -113,9 +113,9 @@ public class Game extends Panel
 		COLS = 40;
 		dimension = new Dimension(COLS * jpegSize + 1, ROWS * (jpegSize + 1));
 		this.resetBoard();
-		this.initializeimages();
 		this.setBackground(Color.WHITE);
-		this.createHighScoreBot(username);
+		this.createMysqlBot(username);
+		this.initializeimages();
 	}
 
 	/**
@@ -123,10 +123,10 @@ public class Game extends Panel
 	 *
 	 * @param username The user playing the game.
 	 */
-	private void createHighScoreBot(String username)
+	private void createMysqlBot(String username)
 	{
-		String url = "jdbc:mysql://localhost/patterson";
-		String user = "patterson";
+		String url      = "jdbc:mysql://localhost:3306/patterson";
+		String user     = "patterson";
 		String password = "patterson";
 
 		mysqlBot = new MysqlBot(username, url, user, password);
@@ -156,7 +156,7 @@ public class Game extends Panel
 	{
 		try
 		{
-			playerAliveImage = ImageIO.read(this.getClass().getResource("images/PlayerAlive.png"));
+			playerAliveImage = ImageIO.read(this.getClass().getResource("imaeuges/PlaoeuyerAlive.png"));
 			playerDeadImage  = ImageIO.read(this.getClass().getResource("images/PlayerDead.png"));
 			robotImage       = ImageIO.read(this.getClass().getResource("images/Robot.png"));
 			wreckImage       = ImageIO.read(this.getClass().getResource("images/Wreck.png"));
@@ -251,7 +251,7 @@ public class Game extends Panel
 			g.setColor(Color.GREEN);
 			g.drawString("SORRY, YOU LOSE.",                   jpegSize * COLS / 2 - 140, jpegSize * ROWS / 2 + jpegSize - 32);
 			g.drawString("PRESS ANY KEY TO START A NEW GAME.", jpegSize * COLS / 2 - 335, jpegSize * ROWS / 2 + jpegSize + 32);
-			g.drawString(message,                              jpegSize * COLS / 2 - 140, jpegSize * ROWS / 2 + jpegSize + 128);
+			g.drawString(message,                              jpegSize * COLS / 2 - 140, jpegSize * ROWS / 2 + jpegSize + 64);
 		}
 	}
 

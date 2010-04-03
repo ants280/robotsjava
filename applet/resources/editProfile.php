@@ -80,6 +80,9 @@
          array_push($errors, "Old password is not correct!");
         }
        }
+       else {
+        array_push($errors, "Cannot access mysql database!");
+       }
       }
      }
 
@@ -110,6 +113,7 @@
      }
     }
 	else {
+     // User posted without filling ANYTHING out.
      array_push($errors, "Pick something to change!!!");
     }
 
@@ -120,7 +124,10 @@
           mysql_real_escape_string($new_firstname));
       $result = mysql_query($query);
       if($result) {
-       echo"Firstname sucessfully updated.\n<br>\n";
+       echo "First name sucessfully updated.\n<br>\n";
+      }
+      else {
+       echo "Failed to update first name.\n<br>\n";
       }
      }
 
@@ -129,7 +136,10 @@
           mysql_real_escape_string($new_lastname));
       $result = mysql_query($query);
       if($result) {
-       echo"Lastname sucessfully updated.\n<br>\n";
+       echo"Last name sucessfully updated.\n<br>\n";
+      }
+      else {
+       echo "Failed to update last name.\n<br>\n";
       }
      }
 
@@ -141,6 +151,9 @@
        //TODO: send confirm email to new email?
        echo"Email sucessfully updated.\n<br>\n";
       }
+      else {
+       echo "Failed to update email.\n<br>\n";
+      }
      }
 
      if($update_password) {
@@ -149,6 +162,9 @@
       $result = mysql_query($query);
       if($result) {
        echo"Password sucessfully updated.\n<br>\n";
+      }
+      else {
+       echo "Failed to update password.\n<br>\n";
       }
      }
 
