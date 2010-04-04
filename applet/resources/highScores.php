@@ -16,7 +16,7 @@
     <tr>
      <td>Hello, <?php echo $_SESSION['username']; ?>.</td>
      <td><a href="main.php">Main             </a>    </td>
-     <td><a href="game/robots.php">Game      </a>    </td>
+     <td><a href="robots.php">Game      </a>    </td>
      <td>High Scores                                 </td>
      <td><a href="profile.php">View Profile  </a>    </td>
      <td><a href="donate.php">Donate!        </a>    </td>
@@ -67,12 +67,13 @@
 
    if($global_result || $user_result) {
     for($i = 1; $i <= 5; $i++) {
-
      echo "<tr>";
 
      if($user_row   = mysql_fetch_array($user_result,   MYSQL_ASSOC)) {
+      //Put the date in seconds.
+      $user_date = $user_row['date'] / 1000;
       echo "<td>".$user_row['score']."</td>";
-      echo "<td>".date('M d Y', $user_row['date'])."</td>";
+      echo "<td>".date('M d Y', $user_date)."</td>";
      }
      else {
       echo "<td/><td/>";
@@ -81,9 +82,11 @@
      echo "<td/>";
 
      if($global_row = mysql_fetch_array($global_result, MYSQL_ASSOC)) {
+      //Put the date in seconds
+      $global_date = $global_row['date'] / 1000;
       echo "<td>".$global_row['username']."</td>";
       echo "<td>".$global_row['score']   ."</td>";
-      echo "<td>".date('M d Y', $global_row['date'])."</td>";
+      echo "<td>".date('M d Y', $global_date)."</td>";
      }
      else {
       echo "<td/><td/><td/>";

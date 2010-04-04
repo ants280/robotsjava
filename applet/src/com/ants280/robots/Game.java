@@ -228,30 +228,29 @@ public class Game extends Panel
 			switch(mysqlBot.feedHighScore(score))
 			{
 				case ConnectionError: 
-					message = "ConnectionError";
+					message = "Error connecting to the database.";
 					break;
 				case AccessError:
-					message = "AccessError";
+					message = "Error accessing the database.";
 					break;
 				case InsertionError:
-					message = "InsertionError";
+					message = "Error inserting the high score.";
 					break;
 				case NormalScore:
-					message = "NormalScore";
+					message = "GAME OVER.  Thanks for playing!";
 					break;
 				case PersonalHigh:
-					message = "PersonalHigh!";
+					message = "You made a personal high score!";
 					break;
 				case GlobalHigh:
-					message = "GlobalHigh!!!";
+					message = "You made a global high score!!!";
 					break;
 			}
 
 			g.setFont(new Font("serif", Font.BOLD, 32));
 			g.setColor(Color.GREEN);
-			g.drawString("SORRY, YOU LOSE.",                   jpegSize * COLS / 2 - 140, jpegSize * ROWS / 2 + jpegSize - 32);
-			g.drawString("PRESS ANY KEY TO START A NEW GAME.", jpegSize * COLS / 2 - 335, jpegSize * ROWS / 2 + jpegSize + 32);
-			g.drawString(message,                              jpegSize * COLS / 2 - 140, jpegSize * ROWS / 2 + jpegSize + 64);
+			g.drawString(message,                              jpegSize * COLS / 2 - 270, jpegSize * ROWS / 2 - 32);
+			g.drawString("PRESS ANY KEY TO START A NEW GAME.", jpegSize * COLS / 2 - 335, jpegSize * ROWS / 2 + 32);
 		}
 	}
 

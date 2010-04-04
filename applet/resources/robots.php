@@ -1,4 +1,4 @@
-<?php include('../session.php'); ?>
+<?php include('session.php'); ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
@@ -6,7 +6,7 @@
  <head>
   <title>Robots</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-  <link rel="stylesheet" type="text/css" href="../master.css"/>
+  <link rel="stylesheet" type="text/css" href="master.css"/>
   <script language="javascript">
    //Maximizes the screen
    //window.moveTo(0,0);
@@ -24,6 +24,10 @@
     background-color:black;
     margin:0 auto;
    }
+   applet
+   {
+    background-color:black;
+   }
    table
    {
     background-color:black;
@@ -36,12 +40,12 @@
    <table>
     <tr>
      <td>Hello, <?php echo $_SESSION['username']; ?>.</td>
-     <td><a href="../main.php">Main             </a> </td>
+     <td><a href="main.php">Main             </a>    </td>
      <td>Game                                        </td>
-     <td><a href="../highScores.php">High Scores</a> </td>
-     <td><a href="../profile.php">View Profile  </a> </td>
-     <td><a href="../donate.php">Donate!        </a> </td>
-     <td><a href="../logout.php">Logout         </a> </td>
+     <td><a href="highScores.php">High Scores</a>    </td>
+     <td><a href="profile.php">View Profile  </a>    </td>
+     <td><a href="donate.php">Donate!        </a>    </td>
+     <td><a href="logout.php">Logout         </a>    </td>
     </tr>
    </table>
   </div>
@@ -59,6 +63,7 @@
    <strong>ERROR: NO JAVA PLUGIN DETECTED!</strong>
    <br/>
    Click <a href="http://www.java.com/getjava/">here</a> to get java! (required to run game)
+   <br/>
   </applet>
 
   <br/>

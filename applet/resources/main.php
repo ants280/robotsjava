@@ -15,7 +15,7 @@
   <h1>Hello, <?php echo $_SESSION['username']; ?>.</h1>
 
   <table>
-   <tr><td><a href="game/robots.php">Game      </a></td></tr>
+   <tr><td><a href="robots.php">Game      </a></td></tr>
    <tr><td><a href="highScores.php">High Scores</a></td></tr>
    <tr><td><a href="profile.php">View Profile  </a></td></tr>
    <tr><td><a href="donate.php">Donate!        </a></td></tr>
