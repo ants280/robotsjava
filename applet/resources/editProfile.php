@@ -16,7 +16,7 @@
   <div class="header">
    <table>
     <tr>
-	 <td>Hello, <?php echo $_SESSION['username']; ?>.</td>
+     <td>Hello, <?php echo $_SESSION['username']; ?>.</td>
      <td><a href="main.php">Main             </a>    </td>
 	 <td><a href="game/robots.php">Game      </a>    </td>
 	 <td><a href="highScores.php">High Scores</a>    </td>
@@ -50,8 +50,7 @@
 
    if($_POST) {
     //Variable initialization
-    $old_password1 = $_POST['old_password1'];
-    $old_password2 = $_POST['old_password2'];
+    $old_password  = $_POST['old_password'];
     $new_password1 = $_POST['new_password1'];
     $new_password2 = $_POST['new_password2'];
     $new_firstname = $_POST['new_firstname'];
@@ -67,22 +66,16 @@
     if($update_firstname || $update_lastname || $update_email || $update_password) {
      $errors = array();
 
-     if($old_password1 != $old_password2) {
-      array_push($errors, "Old passwords don't match");
-     }
-     else
-     {
-      $query = "SELECT password FROM robots WHERE username='.$username'";
-      $result = mysql_query($query);
-      if($result) {
-       if($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-        if($row['password'] != mysql_real_escape_string(md5($old_password1))) {
+     $query = "SELECT password FROM robots WHERE username='$username'";
+     $result = mysql_query($query);
+     if($result) {
+      if($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+       if($row['password'] != md5($old_password)) {
          array_push($errors, "Old password is not correct!");
-        }
        }
-       else {
-        array_push($errors, "Cannot access mysql database!");
-       }
+      }
+      else {
+       array_push($errors, "Cannot access mysql database to make sure the old password was correct!");
       }
      }
 
@@ -246,15 +239,8 @@
     <tr>
      <td/>
      <td><div class="footnote">*</div></td>
-     <td><label for="old_password1">Old Password: (required)</label></td>
-     <td><input type="password" name="old_password1" maxlength="25"/></td>
-    </tr>
-
-    <tr>
-     <td/>
-     <td><div class="footnote">*</div></td>
-     <td><label for="old_password2">Retype Old Password:</label></td>
-     <td><input type="password" name="old_password2" maxlength="25"/></td>
+     <td><label for="old_password">Old Password:</label></td>
+     <td><input type="password" name="old_password" maxlength="25"/></td>
     </tr>
 
     <tr>

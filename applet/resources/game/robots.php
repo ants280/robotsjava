@@ -9,8 +9,8 @@
   <link rel="stylesheet" type="text/css" href="../master.css"/>
   <script language="javascript">
    //Maximizes the screen
-   window.moveTo(0,0);
-   window.resizeTo(screen.width, screen.height);
+   //window.moveTo(0,0);
+   //window.resizeTo(screen.width, screen.height);
   </script>
   <style>
    html
