@@ -217,7 +217,7 @@ public class MysqlBot
 		if(safeTeleports > 10)
 		{
 			givenTeleports = 10;
-			safeTeleports -=10;
+			safeTeleports -= 10;
 		}
 		else
 		{

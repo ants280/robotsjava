@@ -235,20 +235,6 @@ public class Game extends Panel
 		// Tell the player to restart if he dies.  Tell the player how his score ranked on the mysql database table.
 		if(!human.isAlive())
 		{
-			//Adds the remaining safe teleports to the Players safe teleport total.
-			if(safeTeleports > 0)
-			{
-    		    try
-	        	{
-	            	mysqlBot.increaseSafeTeleports(safeTeleports);
-		        }
-		        catch(SQLException ex)
-		        {
-					ex.printStackTrace();
-		            submitScore = false;
-		        }
-			}
-
 			String message = new String();
 			if(!submitScore)
 			{
@@ -486,11 +472,8 @@ public class Game extends Panel
 	{
 		level++;
 
-		if(waitMode)
-		{
-			this.increaseSafeTeleports(waitScore);
-			waitMode = false;
-		}
+		this.increaseSafeTeleports(waitScore);
+		waitMode = false;
 
 		do
 		{
@@ -521,7 +504,18 @@ public class Game extends Panel
 	 */
 	 public void increaseSafeTeleports(int amount)
 	 {
-		safeTeleports = (safeTeleports + amount) >= MAX_SAFETELEPORTS ? MAX_SAFETELEPORTS : (safeTeleports + amount);
+		safeTeleports = (safeTeleports + amount >= MAX_SAFETELEPORTS) ? MAX_SAFETELEPORTS : (safeTeleports + amount);
+
+		//Adds the remaining safe teleports to the Players safe teleport total.
+		try
+		{
+			mysqlBot.increaseSafeTeleports(amount);
+		}
+		catch(SQLException ex)
+		{
+			ex.printStackTrace();
+			submitScore = false;
+		}
 	 }
 
 	/**
@@ -539,6 +533,8 @@ public class Game extends Panel
 		catch(SQLException ex)
 		{
 			ex.printStackTrace();
+			safeTeleports = 0;
+			//TODO: add some indication that the game will not add safe teleports/submit scores.
 			submitScore = false;
 		}
 		
@@ -554,10 +550,14 @@ public class Game extends Panel
 	public void makeMove(Direction dir)
 	{
 		//Puts the game into waitMode if the Direction is WAIT and waitMode has not yet started.
-		if(dir == Direction.WAIT && !waitMode)
+		if(!waitMode)
 		{
-			waitMode = true;
 			waitScore = 0;
+	
+			if(dir ==Direction.WAIT)
+			{
+				waitMode = true;
+			}
 		}
 
 		int row = 0, col = 0;
@@ -590,7 +590,7 @@ public class Game extends Panel
 					}
 				}
 			}
-			while(!safe && dir == Direction.SAFE && safeTeleports > 0);
+			while(dir == Direction.SAFE && safeTeleports > 0 && !safe);
 			if(dir == Direction.SAFE)
 			{
 				if(safeTeleports > 0)
