@@ -1,0 +1,64 @@
+<project name="database-setup" basedir=".">
+
+    <property name="sql.dir" value="sql"/>
+    <property name="sql.driver" value="com.mysql.jdbc.Driver"/>
+    <property name="sql.url" value="jdbc:mysql://localhost:3306/patterson"/>
+    <property name="sql.user" value="patterson"/>
+    <property name="sql.pass" value="patterson"/>
+
+    <target name="create-all" depends="create-robots,create-highScores"/>
+    <target name="drop-all" depends="drop-robots,drop-highScores"/>
+
+	<target name="create-robots">
+     <sql
+      driver="${sql.driver}"
+      url="${sql.url}"
+      userid="${sql.user}"
+      password="${sql.pass}"
+     >
+      CREATE TABLE robots (
+      username CHAR(25),
+      PRIMARY KEY(username),
+      password CHAR(32), firstname CHAR(25),
+      lastname CHAR(25), email CHAR(128),
+      amount_donated INT UNSIGNED NOT NULL,
+      safeTeleports INT UNSIGNED NOT NULL );
+     </sql>
+	</target>
+
+	<target name="create-highScores">
+     <sql
+      driver="${sql.driver}"
+      url="${sql.url}"
+      userid="${sql.user}"
+      password="${sql.pass}"
+     >
+      CREATE TABLE highScores (
+       username CHAR(25),
+       FOREIGN KEY(username) REFERENCES robots(username) ON DELETE CASCADE,
+       score INT, date BIGINT(13) );
+     </sql>
+	</target>
+
+	<target name="drop-robots">
+     <sql
+      driver="${sql.driver}"
+      url="${sql.url}"
+      userid="${sql.user}"
+      password="${sql.pass}"
+     >
+      DROP TABLE robots;
+     </sql>
+	</target>
+
+	<target name="drop-highScores">
+     <sql
+      driver="${sql.driver}"
+      url="${sql.url}"
+      userid="${sql.user}"
+      password="${sql.pass}"
+     >
+      DROP TABLE highScores;
+     </sql>
+    </target>
+</project>
