@@ -95,7 +95,7 @@ public class Gui extends JApplet implements KeyListener, ActionListener
 		}
 		else
 		{
-			game.resetBoard();
+			game.resetGame();
 		}
 	}
 

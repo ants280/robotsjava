@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.awt.Label;
 import java.awt.Panel;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Random;
 import javax.imageio.ImageIO;
 
@@ -37,6 +38,16 @@ public class Game extends Panel
 	 * Queries and adds high scores to the selected database.
 	 */
 	private MysqlBot mysqlBot;
+
+	/**
+	 * Indicates if the score should be submitted to the database once the player dies.  Set to fale if the database could not be connected to.
+	 */
+	 private boolean submitScore;
+
+	/**
+	 * The maximum number of safe teleports allowed in the game.
+	 */
+	 private final int MAX_SAFETELEPORTS = 10;
 
 	/**
 	 * Indicates if the game is in a continous loop until all the robots are dead or the Player is dead.
@@ -97,7 +108,7 @@ public class Game extends Panel
 	public int numBots() { return numBots; }
 
 	/**
-	 * Creates a new Game. Calls resetBoard() to add the board.
+	 * Creates a new Game. Calls resetGame() to add the board.
 	 *
 	 * @param username The player of the game.  Used for keeping track of scores.
 	 */
@@ -112,10 +123,10 @@ public class Game extends Panel
 		ROWS = 30;
 		COLS = 40;
 		dimension = new Dimension(COLS * jpegSize + 1, ROWS * (jpegSize + 1));
-		this.resetBoard();
 		this.setBackground(Color.WHITE);
 		this.createMysqlBot(username);
 		this.initializeimages();
+		this.resetGame();
 	}
 
 	/**
@@ -224,27 +235,49 @@ public class Game extends Panel
 		// Tell the player to restart if he dies.  Tell the player how his score ranked on the mysql database table.
 		if(!human.isAlive())
 		{
-			String message = new String("ERROR");
-			switch(mysqlBot.feedHighScore(score))
+			//Adds the remaining safe teleports to the Players safe teleport total.
+			if(safeTeleports > 0)
 			{
-				case ConnectionError: 
-					message = "Error connecting to the database.";
-					break;
-				case AccessError:
-					message = "Error accessing the database.";
-					break;
-				case InsertionError:
-					message = "Error inserting the high score.";
-					break;
-				case NormalScore:
-					message = "GAME OVER.  Thanks for playing!";
-					break;
-				case PersonalHigh:
-					message = "You made a personal high score!";
-					break;
-				case GlobalHigh:
-					message = "You made a global high score!!!";
-					break;
+    		    try
+	        	{
+	            	mysqlBot.increaseSafeTeleports(safeTeleports);
+		        }
+		        catch(SQLException ex)
+		        {
+					ex.printStackTrace();
+		            submitScore = false;
+		        }
+			}
+
+			String message = new String();
+			if(!submitScore)
+			{
+				// Indicate problems (now or previously during the game) about connecting to the database.
+				message = "Error connecting to the database.";
+			}
+			else
+			{
+				switch(mysqlBot.feedScore(score))
+				{
+					case ConnectionError: 
+						// The message already indicates that the score could not be submitted.
+						break;
+					case AccessError:
+						message = "Error accessing the database.";
+						break;
+					case InsertionError:
+						message = "Error inserting the high score.";
+						break;
+					case NormalScore:
+						message = "GAME OVER.  Thanks for playing!";
+						break;
+					case PersonalHigh:
+						message = "You made a personal high score!";
+						break;
+					case GlobalHigh:
+						message = "You made a global high score!!!";
+						break;
+				}
 			}
 
 			g.setFont(new Font("serif", Font.BOLD, 32));
@@ -482,23 +515,32 @@ public class Game extends Panel
 	}
 
 	/**
-	 * Increases the amount of safe teleports.  Caps the number of safe teleports to 10.
+	 * Increases the amount of safe teleports.  Caps the number of safe teleports to MAX_SAFETELEPORTS.
 	 *
 	 * @param amount The amount to increase the number of safe teleports by.
 	 */
 	 public void increaseSafeTeleports(int amount)
 	 {
-		safeTeleports = (safeTeleports + amount) >= 10 ? 10 : (safeTeleports + amount);
+		safeTeleports = (safeTeleports + amount) >= MAX_SAFETELEPORTS ? MAX_SAFETELEPORTS : (safeTeleports + amount);
 	 }
 
 	/**
-	 * Resets the game. Called if the player wants to play another game.  Updates the score and level labels.
+	 * Resets the game. Called if the player wants to play another game.  Updates the score and level labels.  Loads new safe telports.
 	 */
-	public void resetBoard()
+	public void resetGame()
 	{
 		score = 0;
 		level = 0;
-		safeTeleports = 0;
+		try
+		{
+			safeTeleports = mysqlBot.getSafeTeleports(MAX_SAFETELEPORTS);
+			submitScore = true;
+		}
+		catch(SQLException ex)
+		{
+			ex.printStackTrace();
+			submitScore = false;
+		}
 		
 		scoreLabel.setText("Score: 0");
 		this.increaseLevel();

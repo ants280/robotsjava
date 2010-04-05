@@ -20,21 +20,39 @@ public class MysqlBot
 	private String username;
 
 	/**
+	 * A database url of the form jdbc:subprotocol:subname
+	 */
+	private String db_url;
+
+	/**
+	 * The database user on whose behalf the connection is being made.
+	 */
+	private String db_user;
+
+	/**
+	 * The user's password
+	 */
+	private String db_password;
+
+	/**
 	 * The Connection to the high score database.
 	 */
 	private Connection conn;
 
 	/**
-	 * Creates a new MysqlBot. Establishes connection to the database.
+	 * Creates a new MysqlBot.
 	 *
 	 * @param username The name of the user accumulationg the high scores.
-	 * @param url A database url of the form jdbc:subprotocol:subname
-	 * @param user The database user on whose behalf the connection is being made.
-	 * @param password The user's password.
+	 * @param db_url A database url of the form jdbc:subprotocol:subname
+	 * @param db_user The database user on whose behalf the connection is being made.
+	 * @param db_password The user's password.
 	 */
-	public MysqlBot(String username, String url, String user, String password)
+	public MysqlBot(String username, String db_url, String db_user, String db_password)
 	{
 		this.username = username;
+		this.db_url = db_url;
+		this.db_user = db_user;
+		this.db_password = db_password;
 
 		try
 		{
@@ -44,15 +62,16 @@ public class MysqlBot
 		{
 			ex.printStackTrace();
 		}
+	}
 
-		try
-		{
-			conn  = DriverManager.getConnection(url, user, password);
-		}
-		catch(SQLException ex)
-		{
-			ex.printStackTrace();
-		}
+	/**
+	 * Connects to the database.
+	 *
+	 * @throws SQLException If the database could not be connected to.
+	 */
+	private void connectToDatabase() throws SQLException
+	{
+		conn  = DriverManager.getConnection(db_url, db_user, db_password);
 	}
 
 	/**
@@ -61,7 +80,7 @@ public class MysqlBot
 	 * @param score The score being fed to the MysqlBot.
 	 * @return An AddedScore which describes the result of the score that was fed.
 	 */
-	public AddedScore feedHighScore(int score)
+	public AddedScore feedScore(int score)
 	{
 		// The database connection failed.
 		if(conn == null)
@@ -80,6 +99,7 @@ public class MysqlBot
 		}
 		catch(SQLException ex)
 		{
+			ex.printStackTrace();
 			return AddedScore.AccessError;
 		}
 
@@ -93,6 +113,7 @@ public class MysqlBot
 		catch(SQLException ex)
 		{
 			// Could not add the score to the database.
+			ex.printStackTrace();
 			return AddedScore.InsertionError;
 		}
 
@@ -105,6 +126,7 @@ public class MysqlBot
 		catch(SQLException ex)
 		{
 			// Could not select from the database.
+			ex.printStackTrace();
 			return AddedScore.AccessError;
 		}
 
@@ -119,6 +141,7 @@ public class MysqlBot
 			catch(SQLException ex)
 			{
 				// Could not select from the database.
+				ex.printStackTrace();
 				return AddedScore.AccessError;
 			}
 
@@ -166,5 +189,69 @@ public class MysqlBot
 
 		// The score is not a high score in the provided ResultSet.
 		return false;
+	}
+
+	/**
+	 * Gets the amount of safe teleports the Player of the robots game has earned.
+	 *
+	 * @param cap The maximum number of safe teleports to remove from the database and return.
+	 * @return The numbe of safe teleports for 'username'.
+	 * @throws SQLException If the database could not be connected to.  This should cause the game to not submit future high scores.
+	 */
+	public int getSafeTeleports(int cap) throws SQLException
+	{
+		if(conn == null)
+		{
+			// Try to connect to the databese.
+			this.connectToDatabase();
+		}
+
+		Statement stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+		// Java requires a key to be selected from all statements.
+		String query = "SELECT username, safeTeleports FROM robots WHERE username='" + username + "'";
+		ResultSet set = stmt.executeQuery(query);
+		set.next(); // Get the result set ready for reading
+		int safeTeleports = set.getInt("safeTeleports");
+
+		int givenTeleports = 0;
+		if(safeTeleports > 10)
+		{
+			givenTeleports = 10;
+			safeTeleports -=10;
+		}
+		else
+		{
+			givenTeleports = safeTeleports;
+			safeTeleports = 0;
+		}
+
+		set.updateInt("safeTeleports", safeTeleports);
+		set.updateRow();
+
+		return givenTeleports;
+	}
+
+	/**
+	 * Changes the amount of safe teleports.  The amount of safe teleports can never go below 0.  This property is not chacked, as the 'safeTeleports' field of the database should be signed.
+	 *
+	 * @param amount The amount to increase the number of safeTeleports by.
+	 * @throws SQLException If the database could not be connected to.  This should cause the game to not submit future high scores.
+	 */
+	public void increaseSafeTeleports(int amount) throws SQLException
+	{
+		if(conn == null)
+		{
+			throw new SQLException("There is no connection to the database!");
+		}
+
+		Statement stmt = conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
+		// Java requires a key to be selected from all statements.
+		String query = "SELECT safeTeleports, username FROM robots WHERE username='" + username + "'";
+		ResultSet set = stmt.executeQuery(query);
+		set.next(); // Get the result set ready for reading
+
+		int safeTeleports = set.getInt("safeTeleports");
+		set.updateInt("safeTeleports", safeTeleports + amount);
+		set.updateRow();
 	}
 }
