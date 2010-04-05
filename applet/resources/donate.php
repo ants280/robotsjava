@@ -71,7 +71,7 @@
 
     if(empty($errors)) {
      // Increeases the amount donated.
-     $query = sprintf("UPDATE robots SET amount_donated=amount_donated+%s WHERE username='$username'",
+     $query = sprintf("UPDATE robots SET amountDonated=amountDonated+%s WHERE username='$username'",
          mysql_real_escape_string($amount)); //Just to be safe.
      $result = mysql_query($query);
      if($result) {
@@ -88,10 +88,11 @@
    }
 
   //Lists total donated by user.
-  $query = "SELECT amount_donated FROM robots WHERE username='$username'";
+  $query = sprintf("SELECT amountDonated FROM robots WHERE username='%s',",
+      mysql_real_escape_string($username));
   $result = mysql_query($query);
   $row = mysql_fetch_array($result, MYSQL_ASSOC);
-  echo "You have donated $".number_format($row['amount_donated'], 2)."\n<br/>\n";
+  echo "You have donated $".number_format($row['amountDonated'], 2)."\n<br/>\n";
 
   mysql_close($connect);
   ?>

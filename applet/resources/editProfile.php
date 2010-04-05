@@ -66,7 +66,9 @@
     if($update_firstname || $update_lastname || $update_email || $update_password) {
      $errors = array();
 
-     $query = "SELECT password FROM robots WHERE username='$username'";
+     $query = sprintf("SELECT password FROM robots WHERE username='%s'",
+         mysql_real_escape_string($username));
+
      $result = mysql_query($query);
      if($result) {
       if($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
@@ -174,7 +176,8 @@
    }
   
    // Sets variable names for table.
-   $query = "SELECT username, firstname, lastname, email FROM robots WHERE username='$username'";
+   $query = sprintf"SELECT username, firstname, lastname, email FROM robots WHERE username='%s'",
+       mysql_real_escape_string($username));
    $result = mysql_query($query);
    if($result) {
     if($row = mysql_fetch_array($result, MYSQL_ASSOC)) {

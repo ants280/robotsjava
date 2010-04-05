@@ -1,10 +1,19 @@
-<project name="database-setup" basedir=".">
+<project name="database-setup" basedir="." default="targets">
 
     <property name="sql.dir" value="sql"/>
     <property name="sql.driver" value="com.mysql.jdbc.Driver"/>
     <property name="sql.url" value="jdbc:mysql://localhost:3306/patterson"/>
     <property name="sql.user" value="patterson"/>
     <property name="sql.pass" value="patterson"/>
+
+    <target name="targets">
+     <echo message="create-all"/>
+     <echo message="drop-all"/>
+     <echo message="create-robots"/>
+     <echo message="create-highScores"/>
+     <echo message="drop-robots"/>
+     <echo message="drop-highScores"/>
+    </target>
 
     <target name="create-all" depends="create-robots,create-highScores"/>
     <target name="drop-all" depends="drop-robots,drop-highScores"/>
@@ -21,8 +30,8 @@
       PRIMARY KEY(username),
       password CHAR(32), firstname CHAR(25),
       lastname CHAR(25), email CHAR(128),
-      amount_donated INT UNSIGNED NOT NULL,
-      safeTeleports INT UNSIGNED NOT NULL );
+      amountDonated FLOAT UNSIGNED NOT NULL,
+      safeTeleports INT UNSIGNED NOT NULL);
      </sql>
 	</target>
 

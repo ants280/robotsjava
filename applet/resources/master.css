@@ -18,10 +18,20 @@ h1
  size:48;
 }
 
-a:link, a:visited
+a
 {
  text-decoration:underline;
+}
+
+a:link, a:visited
+{
  color:red;
+}
+
+a:hover
+{
+ color:black;
+ background:red;
 }
 
 table

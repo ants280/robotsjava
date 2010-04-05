@@ -29,7 +29,8 @@
     }
 
     //make sure the user and the password match.
-    $query = "SELECT username, email FROM robots WHERE email='$email'";
+    $query = sprintf("SELECT username, email FROM robots WHERE email='%s'",
+        mysql_real_escape_string($email));
     $exists = mysql_query($query);
     if(mysql_affected_rows() == 0) {
      echo "No account registered with $email\n<br/>\n";

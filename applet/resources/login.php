@@ -33,7 +33,7 @@
     }
 
     //make sure the user and the password match (in the database).
-    $query = sprintf("SELECT username, password, firstname, lastname, email FROM robots WHERE username='%s' and password='%s'",
+    $query = sprintf("SELECT username, password FROM robots WHERE username='%s' and password='%s'",
         mysql_real_escape_string($username),
         md5($password));
     $exists = mysql_query($query);
@@ -43,10 +43,6 @@
     else {
      echo "Successful login, redirecting to Robots game.\n";
      $_SESSION['username' ]=$username;
-	 $row = mysql_fetch_array($exists, MYSQL_ASSOC);
-     $_SESSION['firstname']=$row['firstname'];
-     $_SESSION['lastname' ]=$row['lastname'];
-     $_SESSION['email'    ]=$row['email'];
      echo '<meta http-equiv="refresh" content="0, url=main.php"/>';
     }
 
