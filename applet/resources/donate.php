@@ -88,11 +88,15 @@
    }
 
   //Lists total donated by user.
-  $query = sprintf("SELECT amountDonated FROM robots WHERE username='%s',",
+  $query = sprintf("SELECT amountDonated FROM robots WHERE username='%s'",
       mysql_real_escape_string($username));
   $result = mysql_query($query);
-  $row = mysql_fetch_array($result, MYSQL_ASSOC);
-  echo "You have donated $".number_format($row['amountDonated'], 2)."\n<br/>\n";
+  if($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+   echo "You have donated $".number_format($row['amountDonated'], 2)."\n<br/>\n";
+  }
+  else {
+   echo "Could not find out how much you have donated\n<br/>\n";
+  }
 
   mysql_close($connect);
   ?>

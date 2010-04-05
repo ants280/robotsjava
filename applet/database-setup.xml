@@ -45,7 +45,8 @@
       CREATE TABLE highScores (
        username CHAR(25),
        FOREIGN KEY(username) REFERENCES robots(username) ON DELETE CASCADE,
-       score INT, date BIGINT(13) );
+       score INT,
+       date INT);
      </sql>
 	</target>
 

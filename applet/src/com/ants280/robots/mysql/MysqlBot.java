@@ -106,7 +106,7 @@ public class MysqlBot
 		// Adds the score to the highScore table.
 		try
 		{
-			long date = System.currentTimeMillis();
+			long date = System.currentTimeMillis() / 1000;
 			query = "INSERT INTO highScores (username, score, date) VALUES('" + username + "', '" + score + "', '" + date + "')"; 
 			stmt.executeUpdate(query);
 		}

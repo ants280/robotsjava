@@ -72,7 +72,7 @@
 
      if($user_row   = mysql_fetch_array($user_result,   MYSQL_ASSOC)) {
       //Put the date in seconds.
-      $user_date = $user_row['date'] / 1000;
+      $user_date = $user_row['date'];
       echo "<td>".$user_row['score']."</td>";
       echo "<td>".date('M d Y', $user_date)."</td>";
      }
@@ -84,7 +84,7 @@
 
      if($global_row = mysql_fetch_array($global_result, MYSQL_ASSOC)) {
       //Put the date in seconds
-      $global_date = $global_row['date'] / 1000;
+      $global_date = $global_row['date'];
       echo "<td>".$global_row['username']."</td>";
       echo "<td>".$global_row['score']   ."</td>";
       echo "<td>".date('M d Y', $global_date)."</td>";
