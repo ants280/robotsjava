@@ -11,6 +11,10 @@
    //Maximizes the screen
    //window.moveTo(0,0);
    //window.resizeTo(screen.width, screen.height);
+   function open_win(file) {
+    var name = file.split(".", 1);
+    window.open(file, name, "width=550,height=450,menubar=no,toolbar=no,scrollbars=yes,location=no,status=no");
+   }
   </script>
   <style>
    html
@@ -72,11 +76,11 @@
 
    <tr>
     <td><a href="Robots.jar">Get source</a></td>
-    <td><a href= "GPL.txt">License</a></td>
    </tr>
 
    <tr>
-    <td><a href="README.txt">Readme</a></td>
+    <td><a href="javascript:open_win('GPL.txt')">License</a></td>
+    <td><a href="javascript:open_win('README.txt')">Readme</a></td>
    </tr>
 
   </table>
