@@ -1,4 +1,5 @@
-<? session_start(); ?>
+<? session_start();
+?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
@@ -15,24 +16,12 @@
 
   <?php
    if($_POST) {
-    //Variable initialization
     include ('databaseLogin.php');
+
+    //Variable initialization
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    //connect to MySQL
-    $connect = mysql_connect($db_host, $db_user, $db_pwd);
-    if(!$connect) { 
-     die("Could not make a connection to MySQL:\n<br/>\n".mysql_error());
-    } 
-
-    //select the database to work with
-    $db_selected = mysql_select_db($database, $connect);
-    if(!$db_selected) {
-     die("Unable to select database:\n<br/>\n".mysql_error());
-    }
-
-    //make sure the user and the password match (in the database).
     $query = sprintf("SELECT username, password FROM robots WHERE username='%s' and password='%s'",
         mysql_real_escape_string($username),
         md5($password));

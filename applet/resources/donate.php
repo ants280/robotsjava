@@ -1,4 +1,5 @@
 <?php include('session.php');
+ include ('databaseLogin.php');
  $username = $_SESSION['username'];
 ?>
 
@@ -31,19 +32,6 @@
   <h1>Donate!</h1>
 
   <?php
-   include ('databaseLogin.php');
-
-   //connect to MySQL
-   $connect = mysql_connect($db_host, $db_user, $db_pwd);
-   if(!$connect) {
-    die("Could not make a connection to MySQL:\n<br/>\n".mysql_error());
-   }
-
-   //select the database to work with
-   $db_selected = mysql_select_db($database, $connect);
-   if(!$db_selected) {
-    die("Unable to select database:\n<br/>\n".mysql_error());
-   }
 
    if($_POST) {
     //Variable initialization

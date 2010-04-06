@@ -13,8 +13,9 @@
 
   <?php
    if($_POST) {
-    //Variable initialization
     include ('databaseLogin.php');
+
+    //Variable initialization
     $username  = $_POST['username'];
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
@@ -22,18 +23,6 @@
     $lastname  = $_POST['lastname'];
     $email1    = $_POST['email1'];
     $email2    = $_POST['email2'];
-
-    //connect to MySQL
-    $connect = mysql_connect($db_host, $db_user, $db_pwd);
-    if(!$connect) {
-     die("Could not make a connection to MySQL:\n<br/>\n".mysql_error());
-    }
-
-    //select the database to work with
-    $db_selected = mysql_select_db($database, $connect);
-    if(!$db_selected) {
-     die("Unable to select database:\n<br/>\n".mysql_error());
-    }
 
     $errors = array();
     /* --- BEGIN CHECK TO MAKE SURE INFO IS OK -- */
