@@ -31,6 +31,11 @@
 
   <h1>Donate!</h1>
 
+  <strong>
+   <p>Remember that the only reason the Robots Game is here is because of donations!</p>
+   <p>Philanthropists also earn an extra safe teleport fo each $10 they donate!</p>
+  </strong>
+
   <?php
 
    if($_POST) {
@@ -58,13 +63,49 @@
     }
 
     if(empty($errors)) {
-     // Increeases the amount donated.
-     $query = sprintf("UPDATE robots SET amountDonated=amountDonated+%s WHERE username='$username'",
-         mysql_real_escape_string($amount)); //Just to be safe.
-     $result = mysql_query($query);
-     if($result) {
-      echo "Thanks for donating $$amount!\n<br/>\n<br/>\n";
-	 }
+     $old_amount_query = sprintf("SELECT amountDonated FROM robots WHERE username='%s'",
+          mysql_real_escape_string($username));
+     $old_amount_result = mysql_query($old_amount_query);
+     if($old_amount_row = mysql_fetch_array($old_amount_result, MYSQL_ASSOC)) {
+      // Increeases the amount donated.
+      $update_query = sprintf("UPDATE robots SET amountDonated=amountDonated+%s WHERE username='$username'",
+          mysql_real_escape_string($amount)); //Just to be safe.
+      $update_result = mysql_query($update_query);
+      if($update_result) {
+       echo "Thanks for donating $$amount!\n<br/>\n<br/>\n";
+
+       // Find new safe teleports to add, if applicable.
+       $amountPerFree = 10;
+       $newSafeTeleports = intval($amount / $amountPerFree);
+       $new_remainder = $amount % $amountPerFree;
+       $old_remainder = $old_amount_row['amountDonated'] % $amountPerFree;
+       if($new_remainder + $old_remainder >= $amountPerFree) {
+        $newSafeTeleports++;
+       }
+       if($newSafeTeleports > 0) {
+        $update_safeTeleports_query = sprintf("UPDATE robots SET safeTeleports=safeTeleports+%s WHERE username='$username'",
+            mysql_real_escape_string($newSafeTeleports)); //Just to be safe.
+        $update_safeTeleports_result = mysql_query($update_safeTeleports_query);
+        if($update_safeTeleports_result) {
+         if($newSafeTeleports == 1) {
+          echo "You earned an extra safe teleport!\n<br/>\n<br/>\n";
+         }
+         else {
+          echo "You earned an extra ".$newSafeTeleports." safe teleports!\n<br/>\n<br/>\n";
+         }
+        }
+        else {
+         echo "Error giving extra safe teleports!\n<br/>\n";
+        }
+       }
+	  }
+      else {
+       echo "Error adding donation!\n<br/>\n";
+      }
+     }
+     else {
+       echo "Error finding old amount donated!\n<br/>\n";
+     }
     }
     else {
      echo "ERRORS EXIST:";

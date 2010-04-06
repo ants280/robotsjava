@@ -31,7 +31,8 @@
       password CHAR(32), firstname CHAR(25),
       lastname CHAR(25), email CHAR(128),
       amountDonated FLOAT UNSIGNED NOT NULL,
-      safeTeleports INT UNSIGNED NOT NULL);
+      safeTeleports INT UNSIGNED NOT NULL)
+     TYPE=INNODB;
      </sql>
 	</target>
 
@@ -46,7 +47,8 @@
        username CHAR(25),
        FOREIGN KEY(username) REFERENCES robots(username) ON DELETE CASCADE,
        score INT,
-       date INT);
+       date INT)
+      TYPE=INNODB;
      </sql>
 	</target>
 

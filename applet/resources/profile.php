@@ -93,10 +93,10 @@
    <tr>
     <td>
      <table>
-      <tr><td>Username   </td><td><?php echo $_SESSION['username' ]; ?></td></tr>
-      <tr><td>FirstName: </td><td><?php echo $_SESSION['firstname']; ?></td></tr>
-      <tr><td>Lastname:  </td><td><?php echo $_SESSION['lastname' ]; ?></td></tr>
-      <tr><td>Email:     </td><td><?php echo $_SESSION['email'    ]; ?></td></tr>
+      <tr><td>Username   </td><td><?php echo $username;  ?></td></tr>
+      <tr><td>FirstName: </td><td><?php echo $firstname; ?></td></tr>
+      <tr><td>Lastname:  </td><td><?php echo $lastname;  ?></td></tr>
+      <tr><td>Email:     </td><td><?php echo $email;     ?></td></tr>
        <tr/>
        <tr><td><a href="editProfile.php">Edit Profile</a></td><td/></tr>
       </table>
