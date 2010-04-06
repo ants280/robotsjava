@@ -198,7 +198,7 @@ public class MysqlBot
 	 * @return The numbe of safe teleports for 'username'.
 	 * @throws SQLException If the database could not be connected to.  This should cause the game to not submit future high scores.
 	 */
-	public int getSafeTeleports(int cap) throws SQLException
+	public int getSafeTeleports(final int cap) throws SQLException
 	{
 		if(conn == null)
 		{
@@ -213,22 +213,14 @@ public class MysqlBot
 		set.next(); // Get the result set ready for reading
 		int safeTeleports = set.getInt("safeTeleports");
 
-		int givenTeleports = 0;
-		if(safeTeleports > 10)
+		if(safeTeleports > cap)
 		{
-			givenTeleports = 10;
-			safeTeleports -= 10;
+			return cap;
 		}
 		else
 		{
-			givenTeleports = safeTeleports;
-			safeTeleports = 0;
+			return safeTeleports;
 		}
-
-		set.updateInt("safeTeleports", safeTeleports);
-		set.updateRow();
-
-		return givenTeleports;
 	}
 
 	/**
@@ -250,8 +242,8 @@ public class MysqlBot
 		ResultSet set = stmt.executeQuery(query);
 		set.next(); // Get the result set ready for reading
 
-		int safeTeleports = set.getInt("safeTeleports");
-		set.updateInt("safeTeleports", safeTeleports + amount);
+		int safeTeleports = set.getInt("safeTeleports") + amount;
+		set.updateInt("safeTeleports", safeTeleports);
 		set.updateRow();
 	}
 }
