@@ -24,12 +24,42 @@
 
   <br/>
 
-  <table>
-   <tr>
-   <td>New High Scores</td>
-   <td>News</td>
-   </tr>
-  </table>
+  <?php
+   include('databaseLogin.php');
+
+    //connect to MySQL
+    $connect = mysql_connect($db_host, $db_user, $db_pwd);
+    if(!$connect) {
+     die("Could not make a connection to MySQL:\n<br/>\n".mysql_error());
+    }
+
+    //select the database to work with
+    $db_selected = mysql_select_db($database, $connect);
+    if(!$db_selected) {
+     die("Unable to select database:\n<br/>\n".mysql_error());
+    }
+
+   $query = sprintf("SELECT username, score, date FROM highScores ORDER BY date DESC");
+   $result = mysql_query($query);
+   if($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+    // Display different if the score was made today.
+    $today = date('d', date(U)) == date('d', $row['date']);
+    // Display different if the score was made by the current user.
+    echo "<strong>\n";
+    echo ($row['username'] == $_SESSION['username']) ? "You" : $row['username'];
+    echo $today ? " just" : "";
+    echo " scored a ".$row['score'];
+    echo $today ? "" : " on ".date('F j, Y');
+    echo "\n<br/>\n";
+    echo "Can you beat it?\n<br/>\n";
+    echo "</strong>\n";
+   }
+   else {
+    echo "Failure to access database";
+   }
+
+   mysql_close($connect);
+  ?>
 
  </body>
 </html>

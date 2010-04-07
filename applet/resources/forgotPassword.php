@@ -9,23 +9,37 @@
 
  <body>
   <h1>Email lost password</h1>
- <?php
-   if($_POST) {
-    include ('databaseLogin.php');
-	$email = $_POST['email'];
- 
-    //make sure the user and the password match.
-    $query = sprintf("SELECT username, email FROM robots WHERE email='%s'",
-        mysql_real_escape_string($email));
-    $exists = mysql_query($query);
-    if(mysql_affected_rows() == 0) {
-     echo "No account registered with $email\n<br/>\n";
-    }
-    else {
-     echo "Mail new password to $email\n";
-    }
 
-    mysql_close($connect);
+   <?php
+    if($_POST) {
+     include ('databaseLogin.php');
+
+     //connect to MySQL
+     $connect = mysql_connect($db_host, $db_user, $db_pwd);
+     if(!$connect) {
+      die("Could not make a connection to MySQL:\n<br/>\n".mysql_error());
+     }
+
+     //select the database to work with
+     $db_selected = mysql_select_db($database, $connect);
+     if(!$db_selected) {
+      die("Unable to select database:\n<br/>\n".mysql_error());
+     }
+
+	 $email = $_POST['email'];
+ 
+     //make sure the user and the password match.
+     $query = sprintf("SELECT username, email FROM robots WHERE email='%s'",
+         mysql_real_escape_string($email));
+     $exists = mysql_query($query);
+     if(mysql_affected_rows() == 0) {
+      echo "No account registered with $email\n<br/>\n";
+     }
+     else {
+      echo "Mail new password to $email\n";
+     }
+
+     mysql_close($connect);
    }
   ?>
 

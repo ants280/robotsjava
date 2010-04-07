@@ -1,6 +1,4 @@
 <?php include('session.php'); 
- include ('databaseLogin.php');
- $username = $_SESSION['username'];
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -32,6 +30,21 @@
   <h1>Profile</h1>
 
   <?php
+   include ('databaseLogin.php');
+
+     //connect to MySQL
+    $connect = mysql_connect($db_host, $db_user, $db_pwd);
+    if(!$connect) {
+     die("Could not make a connection to MySQL:\n<br/>\n".mysql_error());
+    }
+
+   //select the database to work with
+   $db_selected = mysql_select_db($database, $connect);
+   if(!$db_selected) {
+    die("Unable to select database:\n<br/>\n".mysql_error());
+   }
+
+   $username = $_SESSION['username'];
 
    // Sets user info
    $query = sprintf("SELECT username, firstname, lastname, email, safeTeleports FROM robots WHERE username='%s'",
