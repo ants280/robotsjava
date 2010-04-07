@@ -14,6 +14,13 @@
  
   <h1>Hello, <?php echo $_SESSION['username']; ?>.</h1>
 
+  <img
+   src="http://www.newmanagement.com/tips/png/kcon_robot.png"
+   title="http://www.newmanagement.com/tips/png/kcon_robot.png"
+   width="15%"
+   height="15%"
+  />
+
   <table>
    <tr><td><a href="robots.php">Game      </a></td></tr>
    <tr><td><a href="highScores.php">High Scores</a></td></tr>
@@ -43,7 +50,7 @@
    $result = mysql_query($query);
    if($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
     // Display different if the score was made today.
-    $today = date('d', date(U)) == date('d', $row['date']);
+    $today = date('d', date('U')) == date('d', $row['date']);
     // Display different if the score was made by the current user.
     echo "<strong>\n";
     echo ($row['username'] == $_SESSION['username']) ? "You" : $row['username'];

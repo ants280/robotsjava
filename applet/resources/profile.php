@@ -76,7 +76,7 @@
     $total = 0;
 	$gamesPlayed = 0;
 
-    $weekAgo = date(U)-7*24*60*60;
+    $weekAgo = date('U')-7*24*60*60;
     $weekGamesPlayed = 0;
     $weekTotal = 0;
 
@@ -111,7 +111,7 @@
       <tr><td>Lastname:  </td><td><?php echo $lastname;  ?></td></tr>
       <tr><td>Email:     </td><td><?php echo $email;     ?></td></tr>
        <tr/>
-       <tr><td><a href="editProfile.php">Edit Profile</a></td><td/></tr>
+       <tr><td><strong><a href="editProfile.php">Edit Profile</a></strong></td><td/></tr>
       </table>
     </td>
     <td>
