@@ -64,9 +64,8 @@
     $update_email     = !empty($new_email1)    && !empty($new_email2);
     $update_password  = !empty($new_password1) && !empty($new_password2);
 
+    $errors = array();
     if($update_firstname || $update_lastname || $update_email || $update_password) {
-     $errors = array();
-
      $query = sprintf("SELECT password FROM robots WHERE username='%s'",
          mysql_real_escape_string($username));
 
@@ -90,7 +89,7 @@
       if(strlen($new_password1) < 8) {
        array_push($errors, "Please choose a password that is 8 letters long.");
       }
-      elseif(preg_match("/\s+/", $new_password1)) {
+      elseif(preg_match("/\s/", $new_password1)) {
        array_push($errors, "No whitespace allowed in password.");
       }
      }
@@ -100,7 +99,7 @@
       if($new_email1 != $new_email2) {
        array_push($errors, "New emails are not the same.");
       }
-      elseif(preg_match("/\s+/", $new_email1)) {
+      elseif(preg_match("/\s/", $new_email1)) {
        array_push($errors, "Only 1 email allowed.");
       }
       elseif(!preg_match("/^.*@\w+(.)\w+$/", $new_email1)) {

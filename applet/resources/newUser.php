@@ -58,7 +58,7 @@
     if(strlen($password1) < 8) {
      array_push($errors, "Please choose a password that is 8 letters long.");
     }
-    elseif(preg_match("/\s+/", $password1)) {
+    elseif(preg_match("/\s/", $password1)) {
      array_push($errors, "No whitespace allowed in password.");
     }
 
@@ -66,7 +66,7 @@
     if($email1 != $email2) {
      array_push($errors, "Emails are not the same.");
     }
-    elseif(preg_match("/\s+/", $email1)) {
+    elseif(preg_match("/\s/", $email1)) {
      array_push($errors, "Only 1 email allowed.");
     }
     elseif(!preg_match("/^.*@\w+(.)\w+$/", $email1)) {
@@ -76,31 +76,46 @@
     /* --- END CHECK TO MAKE SURE INFO IS OK --- */
 
     if(empty($errors)) {
-     $query = sprintf("INSERT INTO robots (username, password, email, firstname, lastname) VALUES('%s', '%s', '%s', '%s', '%s')",
-         mysql_real_escape_string($username),
-         md5($password1), //hashes the password
-         mysql_real_escape_string($email1),
-         mysql_real_escape_string($firstname),
-         mysql_real_escape_string($lastname));
+     // Mail new user info to $email1
+     $subject = "Robots password reset";
+     $message = "Hello world!";
+     // To send HTML mail, the Content-type header must be set
+     $headers  = 'MIME-Version: 1.0' . "\r\n";
+     $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+     // Additional headers
+     $headers .= 'To: <'.$email.'>' . "\r\n";
+     $headers .= 'From: Robots Java Game <robots.java@gmail.com>' . "\r\n";
+     if(mail($email1, $subject, $message, $headers)) {
+      //Create account if email was successfully sent.
+      $query = sprintf("INSERT INTO robots (username, password, email, firstname, lastname) VALUES('%s', '%s', '%s', '%s', '%s')",
+          mysql_real_escape_string($username),
+          md5($password1), //hashes the password
+          mysql_real_escape_string($email1),
+          mysql_real_escape_string($firstname),
+          mysql_real_escape_string($lastname));
 
-     $inserted = mysql_query($query);
-     if($inserted) {
-      //mail user info to email
-      echo "User added sucessfully, redirecting to the game.\n";
+      $inserted = mysql_query($query);
+      if($inserted) {
+       //mail user info to email
+       echo "User added sucessfully, redirecting to the game.\n";
 
-      //'Submits' login information to login.php
-      echo '<form action="login.php" method="post" name="login">';
-      echo ' <input type="hidden" name="username" value="'.$username.'" />';
-      echo ' <input type="hidden" name="password" value="'.$password1.'"/>';
-      echo '</form>';
-      echo '<script type="text/javascript">';
-      echo ' document.login.submit();';
-      echo '</script>';
+       //'Submits' login information to login.php
+       echo '<form action="login.php" method="post" name="login">';
+       echo ' <input type="hidden" name="username" value="'.$username.'" />';
+       echo ' <input type="hidden" name="password" value="'.$password1.'"/>';
+       echo '</form>';
+       echo '<script type="text/javascript">';
+       echo ' document.login.submit();';
+       echo '</script>';
+      }
+      else {
+       echo "ERROR: Unable to add user to system.\n";
+      }
      }
      else {
-      echo "ERROR: Unable to add user to system.\n";
+      echo "ERROR: Could not send eamil to $email1\n<br/>\n";
      }
-    }
+	}
     else {
      echo "ERRORS EXIST:";
      foreach ($errors as $error) {
@@ -126,6 +141,10 @@
     <tr><td/><td/><td><button type="submit" name="submit">Create</button></td></tr>
    </table>
   </form>
+
+  <br/>
+
+  <a href="login.php">&lt;&lt;Back</a>
 
  </body>
 </html>

@@ -33,10 +33,21 @@
          mysql_real_escape_string($email));
      $exists = mysql_query($query);
      if(mysql_affected_rows() == 0) {
-      echo "No account registered with $email\n<br/>\n";
+      echo "No account registered with ".$email."\n<br/>\n";
      }
      else {
-      echo "Mail new password to $email\n";
+	  $subject  = "Robots password reset";
+      $message  = "Tough Luck";
+      $headers  = 'To: Human <'.$email.'>' . "\r\n";
+      $headers .= 'From: Robots Java Game <robots.java@gmail.com>' . "\r\n";
+
+      if(mail($email, $subject, $message, $headers)) {
+//if(mail('jacob.patterson@gmail.com', 'subject', 'message')) {
+       echo "Password recovery instructions sent to $email\n<br/>\n";
+      }
+      else {
+       echo "Could not send email to ".$email."\n<br/>\n";
+      }
      }
 
      mysql_close($connect);
@@ -49,6 +60,10 @@
      <tr><td/><td><button type="submit" name="submit">Email</button></td></tr>
    </table>
   </form>
+   
+  <br/>
+
+  <a href="login.php">&lt;&lt;Back</a>
 
  </body>
 </html>
