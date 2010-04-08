@@ -16,11 +16,11 @@ public class Gui extends JApplet implements KeyListener, ActionListener
 	/** 
 	 * The game being played.
 	 */
-	private Game game;	
+	private Game game;
 	/**
 	 * The system that actual triggers game moves for the game.
 	 */
-	private Timer timer;			
+	private Timer timer;
 	/**
 	 * The move being made.
 	 */
@@ -124,7 +124,7 @@ public class Gui extends JApplet implements KeyListener, ActionListener
 			{
 				timer.stop();
 			}
-	
+
 			// Level was just increased.
 			if(game.numBots() == 0 && game.getHuman().isAlive())
 			{

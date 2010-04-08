@@ -23,7 +23,7 @@ public class Location
 	 * The row of the Location.
 	 */
 	protected int m_row;
-	
+
 	/**
 	 * The column of the Location.
 	 */
@@ -45,7 +45,7 @@ public class Location
 	 * @deprecated Use for debugging purposes only.
 	 */
 	public String toString() { return this.getClass().getName() + " at " + m_row + ", " + m_col; }
-	
+
 	/**
 	 * Updates the row and column of the Location in the specified Direction.
 	 *
@@ -57,20 +57,20 @@ public class Location
 		switch(dir)
 		{
 		
-			case SW : m_row++; m_col--;	break;
-			case S : m_row++;			break;
-			case SE : m_row++; m_col++;	break;
-			case W : m_col--;			break;
-			case SAME: case WAIT:	break;
-			case E : m_col++;			break;
-			case NW : m_row--; m_col--;	break;
-			case N : m_row--;			break;
-			case NE : m_row--; m_col++;	break;
+			case SW : m_row++; m_col--; break;
+			case S : m_row++;           break;
+			case SE : m_row++; m_col++; break;
+			case W : m_col--;           break;
+			case SAME: case WAIT:       break;
+			case E : m_col++;           break;
+			case NW : m_row--; m_col--; break;
+			case N : m_row--;           break;
+			case NE : m_row--; m_col++; break;
 			default : break; // SAFE or RANDOM
 		}
 		return this;
 	}
-	
+
 	/**
 	 * Updates the row and column of the Location
 	 *

@@ -27,6 +27,7 @@ public class Wreck extends Location
 	{
 		splat = !splat;
 	}
+
 	/**
 	 * For telling the Player that it is an enemy.
 	 * 
@@ -51,6 +52,7 @@ public class Wreck extends Location
 	{
 		super(row, col);
 	}
+
 	/**
 	 * Constructor for a Wreck.
 	 *

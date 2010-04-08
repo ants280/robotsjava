@@ -1,54 +1,52 @@
 <project name="Robots" basedir="." default="main">
 
-    <property name="src.dir"       value="src"/>
-    <property name="build.dir"     value="build"/>
-    <property name="lib.dir"       value="lib"/>
-    <property name="classes.dir"   value="${build.dir}/classes"/>
-    <property name="images.dir"    value="${src.dir}/Images"/>
-    <property name="jar.dir"       value="${build.dir}/jar"/>
-    <property name="doc.dir"       value="doc"/>
-    <property name="resources.dir" value="resources"/>
+ <property name="src.dir"       value="src"/>
+ <property name="doc.dir"       value="doc"/>
+ <property name="build.dir"     value="build"/>
+ <property name="resources.dir" value="resources"/>
+ <property name="classes.dir"   value="${build.dir}/classes"/>
+ <property name="jar.dir"       value="${build.dir}/jar"/>
 
-    <target name="doc">
-        <mkdir dir="${doc.dir}"/>
-        <javadoc destdir="${doc.dir}">
-            <fileset dir ="${src.dir}"/>
-            <link href="http://java.sun.com/javase/6/docs/api"/>			
-        </javadoc>
-    </target>
+ <target name="doc">
+  <mkdir dir="${doc.dir}"/>
+  <javadoc destdir="${doc.dir}">
+   <fileset dir ="${src.dir}"/>
+   <link href="http://java.sun.com/javase/6/docs/api"/>			
+  </javadoc>
+ </target>
 
-    <target name="clean">
-        <delete dir="${build.dir}"/>
-        <delete dir="${doc.dir}"/>
-    </target>
+ <target name="clean">
+  <delete dir="${build.dir}"/>
+  <delete dir="${doc.dir}"/>
+ </target>
 
-    <target name="compile">
-        <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
-    </target>
+ <target name="compile">
+  <mkdir dir="${classes.dir}"/>
+  <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+ </target>
 
-    <target name="jar" depends="compile">
-        <mkdir dir="${jar.dir}"/>
-        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
-            <fileset dir="${src.dir}"/> <!-- Copies source and images -->
-                <manifest>
-                    <attribute name="By" value="Jacob Patterson"/>
-                </manifest>
-        </jar>
-    </target>
+ <target name="jar" depends="compile">
+  <mkdir dir="${jar.dir}"/>
+  <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+   <fileset dir="${src.dir}"/> <!-- Copies source and images -->
+    <manifest>
+     <attribute name="By" value="Jacob Patterson"/>
+    </manifest>
+  </jar>
+ </target>
 
-    <target name="copy">
-        <copy todir="${jar.dir}">
-            <fileset dir="${resources.dir}"/>
-        </copy>
-    </target>
+ <target name="copy">
+  <copy todir="${jar.dir}">
+   <fileset dir="${resources.dir}"/>
+  </copy>
+ </target>
 
-    <target name="run" depends="jar,copy">
-        <exec executable="firefox">
-            <arg value="http://localhost/robots/login.php"/>
-        </exec>
-    </target>
+ <target name="run" depends="jar,copy">
+  <exec executable="firefox">
+   <arg value="http://localhost/robots/login.php"/>
+  </exec>
+ </target>
 
-    <target name="main" depends="clean,jar,copy"/>
+ <target name="main" depends="clean,jar,copy"/>
 
 </project>

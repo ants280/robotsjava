@@ -205,7 +205,7 @@ public class Game extends Panel
 		g.setColor(Color.LIGHT_GRAY);
 
 		//Draws the board.
-  		for(int row = 0; row < ROWS; row++)
+		for(int row = 0; row < ROWS; row++)
 		{
 			for(int col = 0; col < COLS; col++)
 			{
@@ -213,7 +213,7 @@ public class Game extends Panel
 				g.drawLine(0, jpegSize * row, (jpegSize * col) + jpegSize, (jpegSize * row) + 0);
 				g.drawImage(this.getImage(row, col), jpegSize * col, jpegSize * row, null);
 			}	
-    	}
+		}
 
 		//Draws the edges of the board.
 		g.drawLine(0, 0, 0, jpegSize * ROWS);
@@ -669,7 +669,7 @@ public class Game extends Panel
 	 */
 	private boolean isValid(int row, int col)
 	{
- 		return row >= 0 && row < ROWS && col >= 0 && col < COLS;
+		return row >= 0 && row < ROWS && col >= 0 && col < COLS;
 	}
 
 	 /**
@@ -680,7 +680,6 @@ public class Game extends Panel
 	 */
 	private boolean isValid(Location loc)
 	{
- 		return this.isValid(loc.getRow(), loc.getCol());
+		return this.isValid(loc.getRow(), loc.getCol());
 	}
-	
 }

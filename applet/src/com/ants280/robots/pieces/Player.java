@@ -10,7 +10,7 @@ public class Player extends Location
 	 * @return False.
 	 */
 	public boolean isEnemy() { return false; }
-	
+
 	/**
 	 * Prints out the Player's textual image.  The image varies depending on if the player is alive or not.
 	 * 
@@ -20,7 +20,7 @@ public class Player extends Location
 	{
 		return alive ? '#' : 'X';
 	}
-	
+
 	/**
 	 * Tells if the player is alive or not.
 	 */
@@ -28,12 +28,12 @@ public class Player extends Location
 
 	/**
 	 * Instructs the player to die. Usually ends the game.
-	 */	
+	 */
 	public void die()
 	{
 		alive = false;
 	}
-	
+
 	/**
 	 * Tells if the Player is alive.
 	 *
@@ -43,7 +43,7 @@ public class Player extends Location
 	{
 		return alive;
 	}
- 	
+
 	/**
 	 * Changes the Player's Location.
 	 *
@@ -65,7 +65,7 @@ public class Player extends Location
 	public Player(int row, int col)
 	{
 		super(row, col);
-		
+
 		alive = true;
 	}
 
