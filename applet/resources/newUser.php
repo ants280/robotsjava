@@ -4,6 +4,7 @@
  <head>
   <title>Create new User account.</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <link rel="shortcut icon" href="robot.ico"/>
   <link rel="stylesheet" type="text/css"  href="master.css"/>
   <link rel="stylesheet" type="text/css"  href="form.css"/>
  </head>
@@ -46,10 +47,9 @@
     if(mysql_affected_rows() != 0) {
      array_push($errors, "Username already exists.");
     }
-	elseif(preg_match("/\s+/", $username))
-    {
+    elseif(preg_match("/\s+/", $username)) {
      array_push($errors, "No whitespace allowed in username.");
-	}
+    }
 
     //make sure the passwords are the same.
     if($password1 != $password2) {

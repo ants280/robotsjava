@@ -8,6 +8,7 @@
  <head>
   <title>Edit profile.</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <link rel="shortcut icon" href="robot.ico"/>
   <link rel="stylesheet" type="text/css" href="master.css"/>
   <link rel="stylesheet" type="text/css" href="form.css"/>
  </head>
@@ -18,8 +19,8 @@
     <tr>
      <td>Hello, <?php echo $_SESSION['username']; ?>.</td>
      <td><a href="main.php">Main             </a>    </td>
-	 <td><a href="robots.php">Game      </a>    </td>
-	 <td><a href="highScores.php">High Scores</a>    </td>
+      <td><a href="robots.php">Game      </a>    </td>
+      <td><a href="highScores.php">High Scores</a>    </td>
      <td><a href="profile.php">View Profile  </a>    </td>
      <td><a href="donate.php">Donate!        </a>    </td>
      <td><a href="logout.php">Logout         </a>    </td>

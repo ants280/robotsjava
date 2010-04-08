@@ -7,6 +7,7 @@
  <head>
   <title>Profile</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <link rel="shortcut icon" href="robot.ico"/>
   <link rel="stylesheet" type="text/css" href="master.css"/>
  </head>
 
@@ -74,14 +75,14 @@
     // Indicates that the player has been playing for over a week
     $oldPlayer = false;
     $total = 0;
-	$gamesPlayed = 0;
+    $gamesPlayed = 0;
 
     $weekAgo = date('U')-7*24*60*60;
     $weekGamesPlayed = 0;
     $weekTotal = 0;
 
     while($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-	 $gamesPlayed++;
+     $gamesPlayed++;
      $total += $row['score'];
 
      if($row['date'] > $weekAgo) {
@@ -110,13 +111,12 @@
       <tr><td>FirstName: </td><td><?php echo $firstname; ?></td></tr>
       <tr><td>Lastname:  </td><td><?php echo $lastname;  ?></td></tr>
       <tr><td>Email:     </td><td><?php echo $email;     ?></td></tr>
-       <tr/>
-       <tr><td><strong><a href="editProfile.php">Edit Profile</a></strong></td><td/></tr>
-      </table>
+      <tr><td><strong><a href="editProfile.php">Edit Profile</a></strong></td><td/></tr>
+     </table>
     </td>
     <td>
-	 <table>
-	  <?php
+     <table>
+      <?php
        if($oldPlayer) {
         echo "<tr><td>This week: </td></tr>\n";
         echo "<tr><td>Games played: </td><td><?php echo $weekGamesPlayed;  ?></td></tr>\n";

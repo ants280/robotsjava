@@ -4,6 +4,7 @@
  <head>
   <title>Login to Robots</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <link rel="shortcut icon" href="robot.ico"/>
   <link rel="stylesheet" type="text/css"  href="master.css"/>
  </head>
 
@@ -26,7 +27,7 @@
       die("Unable to select database:\n<br/>\n".mysql_error());
      }
 
-	 $email = $_POST['email'];
+     $email = $_POST['email'];
  
      //make sure the user and the password match.
      $query = sprintf("SELECT username, email FROM robots WHERE email='%s'",
@@ -36,7 +37,7 @@
       echo "No account registered with ".$email."\n<br/>\n";
      }
      else {
-	  $subject  = "Robots password reset";
+      $subject  = "Robots password reset";
       $message  = "Tough Luck";
       $headers  = 'To: Human <'.$email.'>' . "\r\n";
       $headers .= 'From: Robots Java Game <robots.java@gmail.com>' . "\r\n";
