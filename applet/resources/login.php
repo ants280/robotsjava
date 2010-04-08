@@ -7,7 +7,7 @@
   <title>Login to Robots</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <link rel="shortcut icon" href="robot.ico"/>
-  <link rel="stylesheet" type="text/css"  href="master.css"/>
+  <link rel="stylesheet" type="text/css" href="master.css"/>
  </head>
 
  <body>
@@ -56,7 +56,7 @@
   <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post"> 
    <table>
     <tr><td><label for="username">Username:</label></td> <td><input type="text" name="username" maxlength="25"/></td></tr>
-<tr><td><label for="password">Password:</label></td> <td><input type="password" name="password" maxlength="25"/></td></tr>
+    <tr><td><label for="password">Password:</label></td> <td><input type="password" name="password" maxlength="25"/></td></tr>
     <tr><td/><td><button type="submit" name="submit">Login</button></td></tr>
    </table>
   </form>

@@ -19,8 +19,8 @@
     <tr>
      <td>Hello, <?php echo $_SESSION['username']; ?>.</td>
      <td><a href="main.php">Main             </a>    </td>
-      <td><a href="robots.php">Game      </a>    </td>
-      <td><a href="highScores.php">High Scores</a>    </td>
+     <td><a href="robots.php">Game           </a>    </td>
+     <td><a href="highScores.php">High Scores</a>    </td>
      <td><a href="profile.php">View Profile  </a>    </td>
      <td><a href="donate.php">Donate!        </a>    </td>
      <td><a href="logout.php">Logout         </a>    </td>

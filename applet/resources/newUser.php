@@ -5,8 +5,8 @@
   <title>Create new User account.</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <link rel="shortcut icon" href="robot.ico"/>
-  <link rel="stylesheet" type="text/css"  href="master.css"/>
-  <link rel="stylesheet" type="text/css"  href="form.css"/>
+  <link rel="stylesheet" type="text/css" href="master.css"/>
+  <link rel="stylesheet" type="text/css" href="form.css"/>
  </head>
 
  <body>

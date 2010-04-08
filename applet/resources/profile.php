@@ -119,8 +119,8 @@
       <?php
        if($oldPlayer) {
         echo "<tr><td>This week: </td></tr>\n";
-        echo "<tr><td>Games played: </td><td><?php echo $weekGamesPlayed;  ?></td></tr>\n";
-        echo "<tr><td>Average score:</td><td><?php echo $weekAverageScore; ?></td></tr>\n";
+        echo "<tr><td>Games played: </td><td>".$weekGamesPlayed. "</td></tr>\n";
+        echo "<tr><td>Average score:</td><td>".$weekAverageScore."</td></tr>\n";
         echo "<tr><td>Ever: </td></tr>\n";
        }
       ?>
