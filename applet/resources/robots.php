@@ -61,7 +61,7 @@
 
   <br/>
 
-  <applet code="com.ants280.robots.Gui" archive="Robots.jar" height="610" width="788">
+  <applet code="com.ants280.robots.Gui" archive="Robots.jar" height="630" width="801">
    <param name="username" value='<?php echo $_SESSION['username']; ?>'/>
    <strong>ERROR: NO JAVA PLUGIN DETECTED!</strong>
    <br/>

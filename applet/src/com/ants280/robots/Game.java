@@ -215,9 +215,7 @@ public class Game extends Panel
 			}	
 		}
 
-		//Draws the edges of the board.
-		g.drawLine(0, 0, 0, jpegSize * ROWS);
-		g.drawLine(0, 0, jpegSize * COLS, 0);
+		//Draws the edges of the board (S & E).
 		g.drawLine(0, jpegSize * ROWS, jpegSize * COLS, jpegSize * ROWS);
 		g.drawLine(jpegSize * COLS, 0, jpegSize * COLS, jpegSize * ROWS);
 		
