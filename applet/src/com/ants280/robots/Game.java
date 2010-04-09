@@ -40,7 +40,7 @@ public class Game extends Panel
 	private MysqlBot mysqlBot;
 
 	/**
-	 * Indicates if the score should be submitted to the database once the player dies.  Set to fale if the database could not be connected to.
+	 * Indicates if the score should be submitted to the database once the player dies.  Set to false if the database could not be connected to.
 	 */
 	 private boolean submitScore;
 
@@ -50,7 +50,7 @@ public class Game extends Panel
 	 private final int MAX_SAFETELEPORTS = 10;
 
 	/**
-	 * Indicates if the game is in a continous loop until all the robots are dead or the Player is dead.
+	 * Indicates if the game is in a continuous loop until all the robots are dead or the Player is dead.
 	 */
 	private boolean waitMode;
 

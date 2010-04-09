@@ -23,7 +23,7 @@ does not mean a move is necessarily safe.  Robots may still run into you
 if you are close.  If a Robot is on the other side of the Wreck, you
 will "splat!" it by pushing the Wreck, which is always fun to do.
 	This game is not original.  It is based on the game off the BSD 
-operationg system and GNOME Robots
+operating system and GNOME Robots
 (<http://www.openbsd.org/cgi-bin/man.cgi?query=robots&format=ascii>
 and <http://live.gnome.org/Robots>)  This game is free under the GNU
 GPL.  See GPL.txt.

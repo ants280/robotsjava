@@ -119,7 +119,7 @@ public class Gui extends JApplet implements KeyListener, ActionListener
 			game.makeMove(move);
 			game.repaint();
 
-			// Determines if game should stop moving.  Don't stop UNLESS the Player is WAITing AND the game's hunan is still alive AND some robots are still alive.
+			// Determines if game should stop moving.  Don't stop UNLESS the Player is WAITing AND the game's human is still alive AND some robots are still alive.
 			if( !(move == Direction.WAIT && game.getHuman().isAlive() && game.numBots() != 0) )
 			{
 				timer.stop();
@@ -140,7 +140,7 @@ public class Gui extends JApplet implements KeyListener, ActionListener
 		{
 			game.increaseLevel();
 
-			// Lag complete.  Set delay between movesto 0.  Stop timer.
+			// Lag complete.  Set delay between moves to 0.  Stop timer.
 			timer.setInitialDelay(0);
 			timer.stop();
 		}

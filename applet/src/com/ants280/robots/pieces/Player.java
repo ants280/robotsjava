@@ -1,7 +1,7 @@
 package com.ants280.robots.pieces;
 
 /**
- * The game piece the human moves.  A Player is the only piece the human moves to "trick the robots into colliding with themselves/running into a wreck.
+ * The game piece the human moves.  A Player is the only piece the human moves to "trick" the robots into colliding with themselves/running into a wreck.
  */
 public class Player extends Location
 {

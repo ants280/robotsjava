@@ -1,7 +1,6 @@
 package com.ants280.robots.mysql;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -163,7 +162,7 @@ public class MysqlBot
 	/**
 	 * Finds out if the given score should be a high score.  Adds all the scores in the result set to a priority queue.  Adds the inverse of the score to the PriorityQueue because the queue is a min heap, and the inverse of a high number will be really low.
 	 *
-	 * @param score The score to see if is a high score.  Is a double so it can be converted to it's iverse value easily.
+	 * @param score The score to see if is a high score.  Is a double so it can be converted to it's inverse value easily.
 	 * @param set The ResultSet to see if the score should be a part of.
 	 * @return Whether or not the score should be a high score in the given ResultSet.
 	 * @throws SQLException If a database access error occurs.
@@ -195,14 +194,14 @@ public class MysqlBot
 	 * Gets the amount of safe teleports the Player of the robots game has earned.
 	 *
 	 * @param cap The maximum number of safe teleports to remove from the database and return.
-	 * @return The numbe of safe teleports for 'username'.
+	 * @return The number of safe teleports for 'username'.
 	 * @throws SQLException If the database could not be connected to.  This should cause the game to not submit future high scores.
 	 */
 	public int getSafeTeleports(final int cap) throws SQLException
 	{
 		if(conn == null)
 		{
-			// Try to connect to the databese.
+			// Try to connect to the database.
 			this.connectToDatabase();
 		}
 

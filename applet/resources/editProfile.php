@@ -120,7 +120,7 @@
           mysql_real_escape_string($new_firstname));
       $result = mysql_query($query);
       if($result) {
-       echo "First name sucessfully updated.\n<br>\n";
+       echo "First name successfully updated.\n<br>\n";
       }
       else {
        echo "Failed to update first name.\n<br>\n";
@@ -132,7 +132,7 @@
           mysql_real_escape_string($new_lastname));
       $result = mysql_query($query);
       if($result) {
-       echo"Last name sucessfully updated.\n<br>\n";
+       echo"Last name successfully updated.\n<br>\n";
       }
       else {
        echo "Failed to update last name.\n<br>\n";
@@ -145,7 +145,7 @@
       $result = mysql_query($query);
       if($result) {
        //TODO: send confirm email to new email?
-       echo"Email sucessfully updated.\n<br>\n";
+       echo"Email successfully updated.\n<br>\n";
       }
       else {
        echo "Failed to update email.\n<br>\n";
@@ -157,7 +157,7 @@
           md5($new_password1));
       $result = mysql_query($query);
       if($result) {
-       echo"Password sucessfully updated.\n<br>\n";
+       echo"Password successfully updated.\n<br>\n";
       }
       else {
        echo "Failed to update password.\n<br>\n";

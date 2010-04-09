@@ -31,7 +31,7 @@
 
   <strong>
    <p>Remember that the only reason the Robots Game is here is because of donations!</p>
-   <p>Philanthropists also earn an extra safe teleport fo each $10 they donate!</p>
+   <p>Philanthropists also earn an extra safe teleport for each $10 they donate!</p>
   </strong>
 
   <?php
@@ -80,7 +80,7 @@
           mysql_real_escape_string($username));
      $old_amount_result = mysql_query($old_amount_query);
      if($old_amount_row = mysql_fetch_array($old_amount_result, MYSQL_ASSOC)) {
-      // Increeases the amount donated.
+      // Increases the amount donated.
       $update_query = sprintf("UPDATE robots SET amountDonated=amountDonated+%s WHERE username='$username'",
           mysql_real_escape_string($amount)); //Just to be safe.
       $update_result = mysql_query($update_query);

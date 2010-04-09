@@ -60,7 +60,7 @@
     echo "<td>User:</td><td>Score:</td><td>Date:</td>";
     echo "</tr>\n";
 
-    $global_query = sprintf("SELECT username, score, date FROM highScores                            ORDER BY score DESC");
+    $global_query = sprintf("SELECT username, score, date FROM highScores                     ORDER BY score DESC");
     $user_query   = sprintf("SELECT username, score, date FROM highScores WHERE username='%s' ORDER BY score DESC",
         mysql_real_escape_string($username));
 

@@ -109,7 +109,7 @@
      <table>
       <tr><td>Username   </td><td><?php echo $username;  ?></td></tr>
       <tr><td>FirstName: </td><td><?php echo $firstname; ?></td></tr>
-      <tr><td>Lastname:  </td><td><?php echo $lastname;  ?></td></tr>
+      <tr><td>LastName:  </td><td><?php echo $lastname;  ?></td></tr>
       <tr><td>Email:     </td><td><?php echo $email;     ?></td></tr>
       <tr><td><strong><a href="editProfile.php">Edit Profile</a></strong></td><td/></tr>
      </table>
