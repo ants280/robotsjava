@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
  <head>
-  <title>Profile</title>
+  <title>Robots -- Main</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <link rel="shortcut icon" href="robot.ico"/>
   <link rel="stylesheet" type="text/css" href="master.css"/>
@@ -57,7 +57,7 @@
     echo ($row['username'] == $_SESSION['username']) ? "You" : $row['username'];
     echo $today ? " just" : "";
     echo " scored a ".$row['score'];
-    echo $today ? "" : " on ".date('F j, Y');
+    echo $today ? "" : " on ".date('F j, Y', $row['date']);
     echo "\n<br/>\n";
     echo "Can you beat it?\n<br/>\n";
     echo "</strong>\n";
