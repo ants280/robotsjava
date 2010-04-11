@@ -59,11 +59,11 @@
     echo " scored a ".$row['score'];
     echo $today ? "" : " on ".date('F j, Y', $row['date']);
     echo "\n<br/>\n";
-    echo "Can you beat it?\n<br/>\n";
+    echo "Can you beat it?\n";
     echo "</strong>\n";
    }
    else {
-    echo "Failure to access database";
+    echo "No one has played yet.  Get out there and get on top!\n";
    }
 
    mysql_close($connect);

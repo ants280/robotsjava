@@ -12,6 +12,7 @@
 
  <body>
   <?php
+   session_unregister('username');
    session_destroy();
    echo "<strong>You have been logged out</strong>\n<br/>\n";
    echo '<meta http-equiv="refresh" content="1, url=login.php"/>';

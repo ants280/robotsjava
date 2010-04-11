@@ -40,11 +40,9 @@
      else {
       $subject  = "Robots password reset";
       $message  = "Tough Luck";
-      $headers  = 'To: Human <'.$email.'>' . "\r\n";
-      $headers .= 'From: Robots Java Game <robots.java@gmail.com>' . "\r\n";
+      $headers = 'From: Robots Java Game <robots.java@gmail.com>' . "\r\n";
 
       if(mail($email, $subject, $message, $headers)) {
-//if(mail('jacob.patterson@gmail.com', 'subject', 'message')) {
        echo "Password recovery instructions sent to $email\n<br/>\n";
       }
       else {
