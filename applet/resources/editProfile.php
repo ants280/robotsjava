@@ -106,6 +106,14 @@
       elseif(!preg_match("/^.*@\w+(.)\w+$/", $new_email1)) {
        array_push($errors, "Please enter a valid email!");
       }
+      else {
+       $query = sprintf("SELECT username FROM robots WHERE username='%s'",
+           mysql_real_escape_string($new_email1));
+       $exists = mysql_query($query);
+       if(mysql_affected_rows() != 0) {
+        array_push($errors, "Username already exists.");
+       }
+      }
      }
     }
 	else {

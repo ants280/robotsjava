@@ -30,11 +30,12 @@
 
     if(isset($_SESSION['email'])) {
      $email = $_SESSION['email'];
-     $query = sprintf("SELECT question FROM robots WHERE email='%s'",
+     $query = sprintf("SELECT question, username FROM robots WHERE email='%s'",
          mysql_real_escape_string($email));
      $result = mysql_query($query);
      if($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
       $question = $row['question'];
+      $username = $row['username'];
 	 }
 	 else {
       die("Error! Cannot retrieve information from the database!\n<br/>\n");
@@ -64,7 +65,7 @@
      if($recovery_type == 'question') {
       $answer = $_POST['answer'];
       //make sure the user and the password match.
-      $query = sprintf("SELECT answer, email FROM robots WHERE answer='%s' AND email='%s'",
+      $query = sprintf("SELECT username, answer, email FROM robots WHERE answer='%s' AND email='%s'",
           mysql_real_escape_string(strtoupper($answer)),
           mysql_real_escape_string($email));
       $exists = mysql_query($query);
@@ -75,8 +76,24 @@
      }
 
      if($mail) { 
+      //Generate new password.
+      $new_password = "";
+      for ($i=0; $i<8; $i++) {
+       $new_password .= rand(0, 36) < 26 ? chr(rand(65,90)) : chr(rand(48,57));
+      }
+      //Add new password to the database.
+      $query = sprintf("UPDATE robots SET password='%s' WHERE username='$username'",
+          md5($new_password));
+      $result = mysql_query($query);
+      if(!$result) {
+       die("Failed to update password.\n<br>\n");
+      }
+
       $subject = "Robots password reset";
-      $message = "Tough Luck -- Remember it!";
+      $message = "Your new password is '".$new_password."'\n".
+                 "And your username is '".$username."', in case you forgot it too.\n".
+                 "Go to http://lucky.cs.montana.edu tu use it.\n".
+                 "It is advised to change it to something else.";
       $headers = 'From: Robots Java Game <robots.java@gmail.com>' . "\r\n";
 
       if(mail($email, $subject, $message, $headers)) {

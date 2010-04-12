@@ -64,6 +64,14 @@
      array_push($errors, "No whitespace allowed in password.");
     }
 
+    //Make sure the question/answer are not left empty.
+    if(empty($question)) {
+     array_push($errors, "Please add a security question.");
+    }
+    if(empty($answer)) {
+     array_push($errors, "Please add an answer for the security question.");
+    }
+
     //make sure the emails are the same.
     if($email1 != $email2) {
      array_push($errors, "Emails are not the same.");
@@ -73,6 +81,14 @@
     }
     elseif(!preg_match("/^.*@\w+(.)\w+$/", $email1)) {
      array_push($errors, "Please enter a valid email!");
+    }
+    else {
+     $query = sprintf("SELECT email FROM robots WHERE email='%s'",
+         mysql_real_escape_string($email1));
+     $exists = mysql_query($query);
+     if(mysql_affected_rows() != 0) {
+      array_push($errors, "Email already exists.");
+     }
     }
 
     /* --- END CHECK TO MAKE SURE INFO IS OK --- */
