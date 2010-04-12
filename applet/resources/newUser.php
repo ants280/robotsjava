@@ -32,6 +32,8 @@
     $username  = $_POST['username'];
     $password1 = $_POST['password1'];
     $password2 = $_POST['password2'];
+    $question  = $_POST['question'];
+    $answer    = $_POST['answer'];
     $firstname = $_POST['firstname'];
     $lastname  = $_POST['lastname'];
     $email1    = $_POST['email1'];
@@ -77,19 +79,21 @@
 
     if(empty($errors)) {
      // Mail new user info to $email1
-     $subject = "Robots password reset";
-     $message = "Hello world!";
-     // To send HTML mail, the Content-type header must be set
-     $headers  = 'MIME-Version: 1.0' . "\r\n";
-     $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+     $subject = "Welcome to Robots Game!";
+     $message = "Welcome to Robots Game!\n".
+                "Please play at http://lucky.cs.montana.edu/~patterson\n".
+                "Your username is \"".$username."\"\n".
+                "Like the game?  Donations are always nice!";
      // Additional headers
-     $headers .= 'To: <'.$email.'>' . "\r\n";
-     $headers .= 'From: Robots Java Game <robots.java@gmail.com>' . "\r\n";
-     if(mail($email1, $subject, $message, $headers)) {
+     $headers = 'From: Robots Java Game <robots.java@gmail.com>';
+     //if(mail($email1, $subject, $message, $headers)) {
+     if(true) {
       //Create account if email was successfully sent.
-      $query = sprintf("INSERT INTO robots (username, password, email, firstname, lastname) VALUES('%s', '%s', '%s', '%s', '%s')",
+      $query = sprintf("INSERT INTO robots (username, password, question, answer, email, firstname, lastname) VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s')",
           mysql_real_escape_string($username),
           md5($password1), //hashes the password
+          mysql_real_escape_string($question),
+          mysql_real_escape_string(strtoupper($answer)),
           mysql_real_escape_string($email1),
           mysql_real_escape_string($firstname),
           mysql_real_escape_string($lastname));
@@ -109,11 +113,11 @@
        echo '</script>';
       }
       else {
-       echo "ERROR: Unable to add user to system.\n";
+       echo "ERROR: Unable to add user to system.\n<br/>\n";
       }
      }
      else {
-      echo "ERROR: Could not send eamil to $email1\n<br/>\n";
+      echo "ERROR: Could not send email to $email1\n<br/>\n";
      }
 	}
     else {
@@ -129,15 +133,17 @@
 
   <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post">
    <table>
-    <tr><td><div class="footnote">*</div></td> <td><label for="username" >Username:       </label></td> <td><input type="text"     name="username"   maxlength="25" /></td></tr>
-    <tr><td><div class="footnote">*</div></td> <td><label for="password1">Password:       </label></td> <td><input type="password" name="password1"  maxlength="25" /></td></tr>
-    <tr><td><div class="footnote">*</div></td> <td><label for="password2">Retype Password:</label></td> <td><input type="password" name="password2"  maxlength="25" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label for="username" >Username:         </label></td> <td><input type="text"     name="username"   maxlength="25" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label for="password1">Password:         </label></td> <td><input type="password" name="password1"  maxlength="25" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label for="password2">Retype Password:  </label></td> <td><input type="password" name="password2"  maxlength="25" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label for="question" >Security Question:</label></td> <td><input type="text"     name="question"   maxlength="50" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label for="answer"   >Answer:     </label></td> <td><input type="text"     name="answer"     maxlength="25" /></td></tr>
     <tr></tr>
-    <tr><td/>                                  <td><label for="firstname">First Name:     </label></td> <td><input type="text"     name="firstname"  maxlength="25" /></td></tr>
-    <tr><td/>                                  <td><label for="lastname" >Last  Name:     </label></td> <td><input type="text"     name="lastname"   maxlength="25" /></td></tr>
-    <tr><td><div class="footnote">*</div></td> <td><label for="email1"   >Email:          </label></td> <td><input type="text"     name="email1"     maxlength="128"/></td></tr>
-    <tr><td><div class="footnote">*</div></td> <td><label for="email2"   >Retype Email:   </label></td> <td><input type="text"     name="email2"     maxlength="128"/></td></tr>
-    <tr><td/><td><small><div class="footnote">* required field</div></small></td> <td/></tr>
+    <tr><td/>                                  <td><label for="firstname">First Name:       </label></td> <td><input type="text"     name="firstname"  maxlength="25" /></td></tr>
+    <tr><td/>                                  <td><label for="lastname" >Last  Name:       </label></td> <td><input type="text"     name="lastname"   maxlength="25" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label for="email1"   >Email:            </label></td> <td><input type="text"     name="email1"     maxlength="128"/></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label for="email2"   >Retype Email:     </label></td> <td><input type="text"     name="email2"     maxlength="128"/></td></tr>
+    <tr><td/><td><small><div class="footnote">* required field</div></small></td></tr>
     <tr><td/><td/><td><button type="submit" name="submit">Create</button></td></tr>
    </table>
   </form>

@@ -29,6 +29,8 @@
       username CHAR(25),
       PRIMARY KEY(username),
       password CHAR(32), firstname CHAR(25),
+      question CHAR(50),
+      answer CHAR(25),
       lastname CHAR(25), email CHAR(128),
       amountDonated FLOAT UNSIGNED NOT NULL,
       safeTeleports INT UNSIGNED NOT NULL)
@@ -52,7 +54,7 @@
      </sql>
     </target>
 
-    <target name="drop-robots">
+    <target name="drop-robots" depends="drop-highScores">
      <sql
       driver="${sql.driver}"
       url="${sql.url}"
