@@ -15,7 +15,7 @@
     if(obj.value == "username")
     {
      document.forms[0].username.focus();
-     document.forms[0].username.readOnly = false;
+     document.forms[0].username.disabled = false;
      document.forms[0].answer.blur();
      document.forms[0].answer.disabled = true;
     }
@@ -26,6 +26,10 @@
      document.forms[0].answer.focus();
      document.forms[0].answer.disabled = false;
     }
+<!--
+top.window.moveTo(0,0);
+top.window.resizeTo(screen.availWidth,screen.availHeight);
+//-->
    }
   </script>
  </head>
@@ -128,7 +132,7 @@
     mysql_close($connect);
    ?>
 
-  <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post"> 
+  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"> 
    <input type="hidden" name="email" value="<?php $_POST['email']; ?>"/>
    <table>
      <tr><td>Pick one:</td>   </td><td><input type="radio" name="recovery_type" value="username" onClick="enable(this)" checked>Username</td></tr>

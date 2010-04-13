@@ -102,8 +102,7 @@
                 "Like the game?  Donations are always nice!";
      // Additional headers
      $headers = 'From: Robots Java Game <robots.java@gmail.com>';
-     //if(mail($email1, $subject, $message, $headers)) {
-     if(true) {
+     if(mail($email1, $subject, $message, $headers)) {
       //Create account if email was successfully sent.
       $query = sprintf("INSERT INTO robots (username, password, question, answer, email, firstname, lastname) VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s')",
           mysql_real_escape_string($username),
@@ -147,18 +146,18 @@
    }
   ?>
 
-  <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post">
+  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
    <table>
-    <tr><td><div class="footnote">*</div></td> <td><label for="username" >Username:         </label></td> <td><input type="text"     name="username"   maxlength="25" /></td></tr>
-    <tr><td><div class="footnote">*</div></td> <td><label for="password1">Password:         </label></td> <td><input type="password" name="password1"  maxlength="25" /></td></tr>
-    <tr><td><div class="footnote">*</div></td> <td><label for="password2">Retype Password:  </label></td> <td><input type="password" name="password2"  maxlength="25" /></td></tr>
-    <tr><td><div class="footnote">*</div></td> <td><label for="question" >Security Question:</label></td> <td><input type="text"     name="question"   maxlength="50" /></td></tr>
-    <tr><td><div class="footnote">*</div></td> <td><label for="answer"   >Answer:     </label></td> <td><input type="text"     name="answer"     maxlength="25" /></td></tr>
-    <tr></tr>
-    <tr><td/>                                  <td><label for="firstname">First Name:       </label></td> <td><input type="text"     name="firstname"  maxlength="25" /></td></tr>
-    <tr><td/>                                  <td><label for="lastname" >Last  Name:       </label></td> <td><input type="text"     name="lastname"   maxlength="25" /></td></tr>
-    <tr><td><div class="footnote">*</div></td> <td><label for="email1"   >Email:            </label></td> <td><input type="text"     name="email1"     maxlength="128"/></td></tr>
-    <tr><td><div class="footnote">*</div></td> <td><label for="email2"   >Retype Email:     </label></td> <td><input type="text"     name="email2"     maxlength="128"/></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label>Username:         </label></td> <td><input type="text"     name="username"   maxlength="25" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label>Password:         </label></td> <td><input type="password" name="password1"  maxlength="25" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label>Retype Password:  </label></td> <td><input type="password" name="password2"  maxlength="25" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label>Security Question:</label></td> <td><input type="text"     name="question"   maxlength="50" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label>Answer:           </label></td> <td><input type="text"     name="answer"     maxlength="25" /></td></tr>
+    <tr/>
+    <tr><td/>                                  <td><label>First Name:       </label></td> <td><input type="text"     name="firstname"  maxlength="25" /></td></tr>
+    <tr><td/>                                  <td><label>Last  Name:       </label></td> <td><input type="text"     name="lastname"   maxlength="25" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label>Email:            </label></td> <td><input type="text"     name="email1"     maxlength="128"/></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label>Retype Email:     </label></td> <td><input type="text"     name="email2"     maxlength="128"/></td></tr>
     <tr><td/><td><small><div class="footnote">* required field</div></small></td></tr>
     <tr><td/><td/><td><button type="submit" name="submit">Create</button></td></tr>
    </table>
@@ -166,7 +165,7 @@
 
   <br/>
 
-  <a href="login.php">&lt;&lt;Back</a>
+  <a href="login.php">Back>></a>
 
  </body>
 </html>
