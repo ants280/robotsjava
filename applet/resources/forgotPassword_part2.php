@@ -8,6 +8,26 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
   <link rel="shortcut icon" href="robot.ico"/>
   <link rel="stylesheet" type="text/css" href="master.css"/>
+  <script language="javascript">
+   // This function enables / disables textboxes.
+   function enable(obj)
+   {
+    if(obj.value == "username")
+    {
+     document.forms[0].username.focus();
+     document.forms[0].username.readOnly = false;
+     document.forms[0].answer.blur();
+     document.forms[0].answer.disabled = true;
+    }
+    if(obj.value == "question")
+    {
+     document.forms[0].username.blur();
+     document.forms[0].username.disabled = true;
+     document.forms[0].answer.focus();
+     document.forms[0].answer.disabled = false;
+    }
+   }
+  </script>
  </head>
 
  <body>
@@ -111,8 +131,8 @@
   <form action=<?php echo $_SERVER['PHP_SELF']; ?> method="post"> 
    <input type="hidden" name="email" value="<?php $_POST['email']; ?>"/>
    <table>
-     <tr><td>Pick one:</td>   </td><td><input type="radio" name="recovery_type" value="username" checked>Username</td></tr>
-     <tr><td/>                     <td><input type="radio" name="recovery_type" value="question"        >Question</td></tr>
+     <tr><td>Pick one:</td>   </td><td><input type="radio" name="recovery_type" value="username" onClick="enable(this)" checked>Username</td></tr>
+     <tr><td/>                     <td><input type="radio" name="recovery_type" value="question" onClick="enable(this)"        >Question</td></tr>
      <tr><td><label for="username">Username:</label> </td><td><input type="text" name="username" maxlength="25"/></td></tr>
      <tr><td>                      Security Question:</td><td><?php echo $question; ?>                           </td></tr>
      <tr><td><label for="answer"  >Answer:  </label> </td><td><input type="text" name="answer"   maxlength="25"/></td></tr>
