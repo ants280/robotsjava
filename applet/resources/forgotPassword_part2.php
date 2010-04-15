@@ -26,10 +26,6 @@
      document.forms[0].answer.focus();
      document.forms[0].answer.disabled = false;
     }
-<!--
-top.window.moveTo(0,0);
-top.window.resizeTo(screen.availWidth,screen.availHeight);
-//-->
    }
   </script>
  </head>

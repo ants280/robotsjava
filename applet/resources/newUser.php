@@ -148,16 +148,16 @@
 
   <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
    <table>
-    <tr><td><div class="footnote">*</div></td> <td><label>Username:         </label></td> <td><input type="text"     name="username"   maxlength="25" /></td></tr>
-    <tr><td><div class="footnote">*</div></td> <td><label>Password:         </label></td> <td><input type="password" name="password1"  maxlength="25" /></td></tr>
-    <tr><td><div class="footnote">*</div></td> <td><label>Retype Password:  </label></td> <td><input type="password" name="password2"  maxlength="25" /></td></tr>
-    <tr><td><div class="footnote">*</div></td> <td><label>Security Question:</label></td> <td><input type="text"     name="question"   maxlength="50" /></td></tr>
-    <tr><td><div class="footnote">*</div></td> <td><label>Answer:           </label></td> <td><input type="text"     name="answer"     maxlength="25" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label>Username:         </label></td> <td><input type="text"     name="username"  maxlength="25" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label>Password:         </label></td> <td><input type="password" name="password1" maxlength="25" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label>Retype Password:  </label></td> <td><input type="password" name="password2" maxlength="25" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label>Security Question:</label></td> <td><input type="text"     name="question"  maxlength="50" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label>Answer:           </label></td> <td><input type="text"     name="answer"    maxlength="25" /></td></tr>
     <tr/>
-    <tr><td/>                                  <td><label>First Name:       </label></td> <td><input type="text"     name="firstname"  maxlength="25" /></td></tr>
-    <tr><td/>                                  <td><label>Last  Name:       </label></td> <td><input type="text"     name="lastname"   maxlength="25" /></td></tr>
-    <tr><td><div class="footnote">*</div></td> <td><label>Email:            </label></td> <td><input type="text"     name="email1"     maxlength="128"/></td></tr>
-    <tr><td><div class="footnote">*</div></td> <td><label>Retype Email:     </label></td> <td><input type="text"     name="email2"     maxlength="128"/></td></tr>
+    <tr><td/>                                  <td><label>First Name:       </label></td> <td><input type="text"     name="firstname" maxlength="25" /></td></tr>
+    <tr><td/>                                  <td><label>Last  Name:       </label></td> <td><input type="text"     name="lastname"  maxlength="25" /></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label>Email:            </label></td> <td><input type="text"     name="email1"    maxlength="128"/></td></tr>
+    <tr><td><div class="footnote">*</div></td> <td><label>Retype Email:     </label></td> <td><input type="text"     name="email2"    maxlength="128"/></td></tr>
     <tr><td/><td><small><div class="footnote">* required field</div></small></td></tr>
     <tr><td/><td/><td><button type="submit" name="submit">Create</button></td></tr>
    </table>
