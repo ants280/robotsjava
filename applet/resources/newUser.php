@@ -102,7 +102,8 @@
                 "Like the game?  Donations are always nice!";
      // Additional headers
      $headers = 'From: Robots Java Game <robots.java@gmail.com>';
-     if(mail($email1, $subject, $message, $headers)) {
+     //if(mail($email1, $subject, $message, $headers)) {
+     if(true) {
       //Create account if email was successfully sent.
       $query = sprintf("INSERT INTO robots (username, password, question, answer, email, firstname, lastname) VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s')",
           mysql_real_escape_string($username),

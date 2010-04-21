@@ -302,6 +302,7 @@ public class Game extends Panel
 				((Wreck)board[row][col]).triggerSplat();
 				return splatImage;
 			}
+			else
 			{
 				return wreckImage;
 			}
@@ -435,17 +436,14 @@ public class Game extends Panel
 	{
 		int row, col;
 		this.setNumBots(level * 5);
-		for(int n = 0; n < numBots; n++)
+		for(int n = 0; n < numBots; )
 		{
 			row = generator.nextInt(ROWS);
 			col = generator.nextInt(COLS);
-			if(board[row][col] instanceof Robot)
-			{
-				n--;
-			}
-			else
+			if(!(board[row][col] instanceof Robot))
 			{
 				board[row][col] = addEnemy(row, col, n);
+				n++;
 			}
 		}
 	}

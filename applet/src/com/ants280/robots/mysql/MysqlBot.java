@@ -70,7 +70,7 @@ public class MysqlBot
 	 */
 	private void connectToDatabase() throws SQLException
 	{
-		conn  = DriverManager.getConnection(db_url, db_user, db_password);
+		conn = DriverManager.getConnection(db_url, db_user, db_password);
 	}
 
 	/**

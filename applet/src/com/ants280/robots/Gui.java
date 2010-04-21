@@ -67,7 +67,6 @@ public class Gui extends JApplet implements KeyListener, ActionListener
 	 * 9 - NE.<p>
 	 * + - Teleports Randomly.<p>
 	 * ENTER - Moves the robots toward you (in the 'SAME' position) until either you or all of them die. 
-	 *
 	 * @param key The event triggered when a key is pressed
 	 */
 	public void keyTyped(KeyEvent key)
