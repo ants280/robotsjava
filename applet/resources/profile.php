@@ -17,7 +17,7 @@
     <tr>
      <td>Hello, <?php echo $_SESSION['username']; ?>.</td>
      <td><a href="main.php">Main             </a>    </td>
-     <td><a href="robots.php">Game      </a>    </td>
+     <td><a href="robots.php">Game           </a>    </td>
      <td><a href="highScores.php">High Scores</a>    </td>
      <td>View Profile                                </td>
      <td><a href="donate.php">Donate!        </a>    </td>
@@ -116,14 +116,14 @@
     </td>
     <td>
      <table>
-      <?php
+<?php
        if($oldPlayer) {
         echo "<tr><td>This week: </td></tr>\n";
         echo "<tr><td>Games played: </td><td>".$weekGamesPlayed. "</td></tr>\n";
         echo "<tr><td>Average score:</td><td>".$weekAverageScore."</td></tr>\n";
         echo "<tr><td>Ever: </td></tr>\n";
        }
-      ?>
+?>
       <tr><td>Games played: </td><td><?php echo $gamesPlayed;  ?></td></tr>
       <tr><td>Average score:</td><td><?php echo $averageScore; ?></td></tr>
       <tr><td>Total Safe Teleports:</td><td><?php echo $safeTeleports; ?></td></tr>
