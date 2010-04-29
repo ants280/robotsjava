@@ -25,7 +25,7 @@
       userid="${sql.user}"
       password="${sql.pass}"
      >
-      CREATE TABLE robots (
+      CREATE TABLE IF NOT EXISTS robots (
       username CHAR(25),
       PRIMARY KEY(username),
       password CHAR(32), firstname CHAR(25),
@@ -45,7 +45,7 @@
       userid="${sql.user}"
       password="${sql.pass}"
      >
-      CREATE TABLE highScores (
+      CREATE TABLE IF NOT EXISTS highScores (
        username CHAR(25),
        FOREIGN KEY(username) REFERENCES robots(username) ON DELETE CASCADE,
        score INT,
@@ -61,7 +61,7 @@
       userid="${sql.user}"
       password="${sql.pass}"
      >
-      DROP TABLE robots;
+      DROP TABLE IF EXISTS robots;
      </sql>
     </target>
 
@@ -72,7 +72,7 @@
       userid="${sql.user}"
       password="${sql.pass}"
      >
-      DROP TABLE highScores;
+      DROP TABLE IF EXISTS highScores;
      </sql>
     </target>
 
