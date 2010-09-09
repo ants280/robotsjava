@@ -1,6 +1,5 @@
 <project name="database-setup" basedir="." default="targets">
 
-    <property name="sql.dir" value="sql"/>
     <property name="sql.driver" value="com.mysql.jdbc.Driver"/>
     <property name="sql.url" value="jdbc:mysql://localhost:3306/patterson"/>
     <property name="sql.user" value="patterson"/>
@@ -13,6 +12,7 @@
      <echo message="create-highScores"/>
      <echo message="drop-robots"/>
      <echo message="drop-highScores"/>
+     <echo message="dump"/>
     </target>
 
     <target name="create-all" depends="create-robots,create-highScores"/>
@@ -74,6 +74,15 @@
      >
       DROP TABLE IF EXISTS highScores;
      </sql>
+    </target>
+
+    <target name="dump">
+     <exec executable="mysqldump">
+      <arg value="--user=${sql.user}"/>
+      <arg value="--password=${sql.password}"/>
+      <arg value="--all-databases"/>
+      <arg value="> backup.sql"/>
+     </exec>
     </target>
 
 </project>

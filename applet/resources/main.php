@@ -55,9 +55,9 @@
     // Display different if the score was made by the current user.
     echo "<strong>\n";
     echo ($row['username'] == $_SESSION['username']) ? "You" : $row['username'];
-    echo $today ? " just" : "";
+    if($today) { echo " just"; }
     echo " scored a ".$row['score'];
-    echo $today ? "" : " on ".date('F j, Y', $row['date']);
+    if(!$today) { echo " on ".date('F j, Y', $row['date']); }
     echo "\n<br/>\n";
     echo "Can you beat it?\n";
     echo "</strong>\n";

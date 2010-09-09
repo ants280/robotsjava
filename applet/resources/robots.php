@@ -61,11 +61,12 @@
 
   <br/>
 
-  <applet code="com.ants280.robots.Gui" archive="Robots.jar" height="630" width="801">
+  <applet code="com.ants280.robots.Gui" archive="Robots.jar" height="700" width="901">
    <param name="username" value='<?php echo $_SESSION['username']; ?>'/>
    <strong>ERROR: NO JAVA PLUGIN DETECTED!</strong>
    <br/>
    Click <a href="http://www.java.com/getjava/">here</a> to get java! (required to run game)
+   <br/>
   </applet>
 
   <br/>
