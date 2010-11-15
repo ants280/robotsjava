@@ -14,13 +14,14 @@
    //window.resizeTo(screen.width, screen.height);
    function open_win(file) {
     var name = file.split(".", 1);
-    window.open(file, name, "width=550,height=450,menubar=no,toolbar=no,scrollbars=yes,location=no,status=no");
+    window.open(file, name, "width=501,height=410,menubar=no,toolbar=no,scrollbars=yes,location=no,status=no");
    }
   </script>
   <style>
    html
    {
     background-image:url("game_background.png");
+    /* background-image:url("game_background_8.png"); */
     background-repeat:repeat;
    }
    h1
